@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="0448558606394d4ebbcf67ce0450d68f" Name="Diagram1">
+        <EntityTypeShape EntityType="videoclubModel.actores_peliculas" Width="1.5" PointX="7.5" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="videoclubModel.alquileres" Width="1.5" PointX="3" PointY="15" IsExpanded="true" />
+        <EntityTypeShape EntityType="videoclubModel.cliente" Width="1.5" PointX="0.75" PointY="12.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="videoclubModel.empleado" Width="1.5" PointX="3.75" PointY="18.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="videoclubModel.formatos" Width="1.5" PointX="5.25" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="videoclubModel.formatos_peliculas" Width="1.5" PointX="7.5" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="videoclubModel.generos" Width="1.5" PointX="0.75" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="videoclubModel.idiomas" Width="1.5" PointX="0.75" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="videoclubModel.peliculas" Width="1.5" PointX="5.25" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="videoclubModel.permisos" Width="1.5" PointX="1.5" PointY="32.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="videoclubModel.permisos_roles" Width="1.5" PointX="3.75" PointY="24.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="videoclubModel.plataformas" Width="1.5" PointX="5.25" PointY="21.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="videoclubModel.plataformas_videojuegos" Width="1.5" PointX="7.5" PointY="14.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="videoclubModel.productos" Width="1.5" PointX="3" PointY="6.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="videoclubModel.productos_alquiler" Width="1.5" PointX="5.25" PointY="9.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="videoclubModel.reservas" Width="1.5" PointX="0.75" PointY="26.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="videoclubModel.roles" Width="1.5" PointX="1.5" PointY="23.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="videoclubModel.tipo_alquiler" Width="1.5" PointX="0.75" PointY="29" IsExpanded="true" />
+        <EntityTypeShape EntityType="videoclubModel.usuarios" Width="1.5" PointX="1.5" PointY="18.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="videoclubModel.ventas" Width="1.5" PointX="6" PointY="18.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="videoclubModel.ventas_productos" Width="1.5" PointX="8.25" PointY="9.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="videoclubModel.videojuegos" Width="1.5" PointX="5.25" PointY="14.625" IsExpanded="true" />
+        <AssociationConnector Association="videoclubModel.id_peliculas_actores" ManuallyRouted="false" />
+        <AssociationConnector Association="videoclubModel.id_aluiler_prodcutos" ManuallyRouted="false" />
+        <AssociationConnector Association="videoclubModel.id_cliente_alquiler" ManuallyRouted="false" />
+        <AssociationConnector Association="videoclubModel.id_reserva_alquiler" ManuallyRouted="false" />
+        <AssociationConnector Association="videoclubModel.id_tipo_alquiler_alquiler" ManuallyRouted="false" />
+        <AssociationConnector Association="videoclubModel.id_cliente_venta" ManuallyRouted="false" />
+        <AssociationConnector Association="videoclubModel.idCliente_usuario" ManuallyRouted="false" />
+        <AssociationConnector Association="videoclubModel.idEmpleado_usuario" ManuallyRouted="false" />
+        <AssociationConnector Association="videoclubModel.id_formato_pelicula" ManuallyRouted="false" />
+        <AssociationConnector Association="videoclubModel.id_pelicula_formato" ManuallyRouted="false" />
+        <AssociationConnector Association="videoclubModel.id_genero_producto" ManuallyRouted="false" />
+        <AssociationConnector Association="videoclubModel.id_idioma_producto" ManuallyRouted="false" />
+        <AssociationConnector Association="videoclubModel.id_idiomaDoblado_producto" ManuallyRouted="false" />
+        <AssociationConnector Association="videoclubModel.idPelicula_producto" ManuallyRouted="false" />
+        <AssociationConnector Association="videoclubModel.id_permiso_rol" ManuallyRouted="false" />
+        <AssociationConnector Association="videoclubModel.id_rol_permiso" ManuallyRouted="false" />
+        <AssociationConnector Association="videoclubModel.id_plataforma_videojuego" ManuallyRouted="false" />
+        <AssociationConnector Association="videoclubModel.id_videojuego_plataforma" ManuallyRouted="false" />
+        <AssociationConnector Association="videoclubModel.id_producto_alquiler" ManuallyRouted="false" />
+        <AssociationConnector Association="videoclubModel.id_producto_venta" ManuallyRouted="false" />
+        <AssociationConnector Association="videoclubModel.idVideojuego_producto" ManuallyRouted="false" />
+        <AssociationConnector Association="videoclubModel.id_reserva_venta" ManuallyRouted="false" />
+        <AssociationConnector Association="videoclubModel.id_rol_user" ManuallyRouted="false" />
+        <AssociationConnector Association="videoclubModel.id_venta_ventaproductos" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
