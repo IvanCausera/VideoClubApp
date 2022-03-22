@@ -48,6 +48,9 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Fluent, Version=9.0.0.0, Culture=neutral, PublicKeyToken=3e436e32a8c5546f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Fluent.Ribbon.9.0.4\lib\net462\Fluent.dll</HintPath>
+    </Reference>
     <Reference Include="Google.Protobuf, Version=3.5.1.0, Culture=neutral, PublicKeyToken=a7d26565bac4d604, processorArchitecture=MSIL">
       <HintPath>..\packages\Google.Protobuf.3.5.1\lib\net45\Google.Protobuf.dll</HintPath>
     </Reference>
@@ -105,15 +108,22 @@
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
+    <Reference Include="UIAutomationProvider" />
+    <Reference Include="UIAutomationTypes" />
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Frontend\Dialogos\Login.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -203,6 +213,12 @@
     <Compile Include="Backend\Modelo\videojuegos.cs">
       <DependentUpon>videoclubEDM.tt</DependentUpon>
     </Compile>
+    <Compile Include="Backend\Servicios\IServicioGenerico.cs" />
+    <Compile Include="Backend\Servicios\ServicioGenerico.cs" />
+    <Compile Include="Backend\Servicios\ServicioUsuario.cs" />
+    <Compile Include="Frontend\Dialogos\Login.xaml.cs">
+      <DependentUpon>Login.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -259,9 +275,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Backend\Servicios\" />
     <Folder Include="Frontend\ControlesUsuario\" />
-    <Folder Include="Frontend\Dialogos\" />
     <Folder Include="Informes\" />
     <Folder Include="MVVM\" />
     <Folder Include="Recursos\Estilos\" />
