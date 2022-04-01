@@ -17,7 +17,7 @@ using System.Windows.Shapes;
 using videoclub_project.Backend.Servicios;
 using videoclub_project;
 
-namespace di.proyecto.clase.ribbon.Frontend.Dialogos {
+namespace videoclub_project.Frontend.Dialogos {
     /// <summary>
     /// Interaction logic for Login.xaml
     /// </summary>
@@ -40,8 +40,8 @@ namespace di.proyecto.clase.ribbon.Frontend.Dialogos {
                 MessageBox.Show("Es necesario establecer el usuario y la contraseña",
                 "FALTAN CAMPOS", MessageBoxButton.OK, MessageBoxImage.Error);
             } else if (usuServ.login(txtUserName.Text, passPassword.Password)) {
-                MainWindow ventanaPrincipal = new MainWindow(vidEnt, usuServ.usuLogin);
-                ventanaPrincipal.Show();
+                AdminWindow adminWindow = new AdminWindow(vidEnt, usuServ.usuLogin);
+                adminWindow.Show();
                 this.Close();
             } else {
                 MessageBox.Show("Usuario o contraseña incorrectos",

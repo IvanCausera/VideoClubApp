@@ -120,6 +120,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Frontend\Dialogos\AdminWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Frontend\Dialogos\dMVVMAddUser.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Frontend\Dialogos\Login.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -216,6 +224,12 @@
     <Compile Include="Backend\Servicios\IServicioGenerico.cs" />
     <Compile Include="Backend\Servicios\ServicioGenerico.cs" />
     <Compile Include="Backend\Servicios\ServicioUsuario.cs" />
+    <Compile Include="Frontend\Dialogos\AdminWindow.xaml.cs">
+      <DependentUpon>AdminWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Frontend\Dialogos\dMVVMAddUser.xaml.cs">
+      <DependentUpon>dMVVMAddUser.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Frontend\Dialogos\Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
     </Compile>
@@ -225,6 +239,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MVVM\MVBase.cs" />
+    <Compile Include="MVVM\MVBaseCRUD.cs" />
+    <Compile Include="MVVM\MVUser.cs" />
+    <Compile Include="MVVM\PropertyChangedDataError.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -277,7 +295,6 @@
   <ItemGroup>
     <Folder Include="Frontend\ControlesUsuario\" />
     <Folder Include="Informes\" />
-    <Folder Include="MVVM\" />
     <Folder Include="Recursos\Estilos\" />
     <Folder Include="Recursos\Iconos\" />
   </ItemGroup>

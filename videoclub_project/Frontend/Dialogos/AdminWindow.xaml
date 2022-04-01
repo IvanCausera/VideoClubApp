@@ -1,0 +1,172 @@
+﻿<mah:MetroWindow x:Class="videoclub_project.Frontend.Dialogos.AdminWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:mat="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:fluent="urn:fluent-ribbon"
+        xmlns:local="clr-namespace:videoclub_project.Frontend.Dialogos"
+        mc:Ignorable="d"
+        Title="Administración Videoclub" Height="550" Width="1000">
+    <mah:MetroWindow.RightWindowCommands>
+        <mah:WindowCommands>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Usuario: " VerticalAlignment="Center"/>
+                <TextBlock x:Name="tbUserLogin" VerticalAlignment="Center"/>
+            </StackPanel>
+        </mah:WindowCommands>
+    </mah:MetroWindow.RightWindowCommands>
+    <DockPanel>
+        <fluent:Ribbon DockPanel.Dock="Top">
+            <!--Ribbon Item Administracion-->
+            <fluent:RibbonTabItem Header="ADMINISTRACIÓN">
+                <!--Group Gestion Usuarios-->
+                <fluent:RibbonGroupBox Header="Gestión Usuarios">
+                    <fluent:Button Header="Nuevo" x:Name="rbtnAddUsuario" Click="rbtnAddUsuario_Click">
+                        <fluent:Button.LargeIcon>
+                            <mat:PackIcon Kind="UserPlus" Height="30" Width="30" Foreground="#34495e"/>
+                        </fluent:Button.LargeIcon>
+                    </fluent:Button>
+
+                    <fluent:Button Header="Eliminar" Foreground="#ff4500">
+                        <fluent:Button.LargeIcon>
+                            <mat:PackIcon Kind="UserRemove" Height="30" Width="30" Foreground="#ff4500"/>
+                        </fluent:Button.LargeIcon>
+                    </fluent:Button>
+
+                    <fluent:Button Header="Listado" x:Name="rbtnListaUsuario">
+                        <fluent:Button.LargeIcon>
+                            <mat:PackIcon Kind="UserMultiple" Height="30" Width="30" Foreground="Gray"/>
+                        </fluent:Button.LargeIcon>
+                    </fluent:Button>
+
+                    <fluent:Button Header="Arbol Roles" x:Name="rbtnArbolUsuario">
+                        <fluent:Button.LargeIcon>
+                            <mat:PackIcon Kind="Group" Height="30" Width="30" Foreground="Gray"/>
+                        </fluent:Button.LargeIcon>
+                    </fluent:Button>
+                </fluent:RibbonGroupBox>
+                <!--Group Informes-->
+                <fluent:RibbonGroupBox Header="Informes">
+                    <fluent:Button Header="Usuarios">
+                        <fluent:Button.LargeIcon>
+                            <mat:PackIcon Kind="FileChart" Height="30" Width="30" Foreground="Gray"/>
+                        </fluent:Button.LargeIcon>
+                    </fluent:Button>
+                </fluent:RibbonGroupBox>
+            </fluent:RibbonTabItem>
+
+            <!--Ribbon Item Productos-->
+            <fluent:RibbonTabItem Header="PRODUCTOS">
+                <!--Group Gestion Productos-->
+                <fluent:RibbonGroupBox Header="Gestión Productos">
+                    <fluent:Button Header="Nuevo" x:Name="rbtnAddProducto">
+                        <fluent:Button.LargeIcon>
+                            <mat:PackIcon Kind="PuzzlePlus" Height="30" Width="30" Foreground="#34495e"/>
+                        </fluent:Button.LargeIcon>
+                    </fluent:Button>
+
+                    <fluent:Button Header="Eliminar" Foreground="#ff4500">
+                        <fluent:Button.LargeIcon>
+                            <mat:PackIcon Kind="PuzzleRemove" Height="30" Width="30" Foreground="#ff4500"/>
+                        </fluent:Button.LargeIcon>
+                    </fluent:Button>
+
+                    <fluent:Button Header="Listado" x:Name="rbtnListaProductos">
+                        <fluent:Button.LargeIcon>
+                            <mat:PackIcon Kind="Cards" Height="30" Width="30" Foreground="Gray"/>
+                        </fluent:Button.LargeIcon>
+                    </fluent:Button>
+
+                    <fluent:Button Header="Arbol Productos" x:Name="rbtnArbolProductos">
+                        <fluent:Button.LargeIcon>
+                            <mat:PackIcon Kind="Group" Height="30" Width="30" Foreground="Gray"/>
+                        </fluent:Button.LargeIcon>
+                    </fluent:Button>
+                </fluent:RibbonGroupBox>
+                <!--Group Informes-->
+                <fluent:RibbonGroupBox Header="Informes">
+                    <fluent:Button Header="Productos">
+                        <fluent:Button.LargeIcon>
+                            <mat:PackIcon Kind="FileChart" Height="30" Width="30" Foreground="Gray"/>
+                        </fluent:Button.LargeIcon>
+                    </fluent:Button>
+                </fluent:RibbonGroupBox>
+            </fluent:RibbonTabItem>
+
+            <!--Ribbon Item Ventas-->
+            <fluent:RibbonTabItem Header="VENTAS">
+                <!--Group Gestion Ventas-->
+                <fluent:RibbonGroupBox Header="Gestión Ventas">
+                    <fluent:Button Header="Nuevo" x:Name="rbtnAddVenta">
+                        <fluent:Button.LargeIcon>
+                            <mat:PackIcon Kind="BasketPlus" Height="30" Width="30" Foreground="#34495e"/>
+                        </fluent:Button.LargeIcon>
+                    </fluent:Button>
+
+                    <fluent:Button Header="Eliminar" Foreground="#ff4500">
+                        <fluent:Button.LargeIcon>
+                            <mat:PackIcon Kind="BasketRemove" Height="30" Width="30" Foreground="#ff4500"/>
+                        </fluent:Button.LargeIcon>
+                    </fluent:Button>
+
+                    <fluent:Button Header="Listado" x:Name="rbtnListaVentas">
+                        <fluent:Button.LargeIcon>
+                            <mat:PackIcon Kind="ShoppingSearch" Height="30" Width="30" Foreground="Gray"/>
+                        </fluent:Button.LargeIcon>
+                    </fluent:Button>
+                </fluent:RibbonGroupBox>
+                
+                <!--Group Gestion Alquileres-->
+                <fluent:RibbonGroupBox Header="Gestión Alquileres">
+                    <fluent:Button Header="Nuevo" x:Name="rbtnAddAlquiler">
+                        <fluent:Button.LargeIcon>
+                            <mat:PackIcon Kind="FolderPlus" Height="30" Width="30" Foreground="#34495e"/>
+                        </fluent:Button.LargeIcon>
+                    </fluent:Button>
+
+                    <fluent:Button Header="Editar" Foreground="#ff4500">
+                        <fluent:Button.LargeIcon>
+                            <mat:PackIcon Kind="FolderPound" Height="30" Width="30" Foreground="#ff4500"/>
+                        </fluent:Button.LargeIcon>
+                    </fluent:Button>
+
+                    <fluent:Button Header="Listado" x:Name="rbtnListaAlquileres">
+                        <fluent:Button.LargeIcon>
+                            <mat:PackIcon Kind="FolderMultiple" Height="30" Width="30" Foreground="Gray"/>
+                        </fluent:Button.LargeIcon>
+                    </fluent:Button>
+                </fluent:RibbonGroupBox>
+
+                <!--Group Informes-->
+                <fluent:RibbonGroupBox Header="Informes">
+                    <fluent:Button Header="Ventas">
+                        <fluent:Button.LargeIcon>
+                            <mat:PackIcon Kind="FileChart" Height="30" Width="30" Foreground="Gray"/>
+                        </fluent:Button.LargeIcon>
+                    </fluent:Button>
+                    
+                    <fluent:Button Header="Alquileres">
+                        <fluent:Button.LargeIcon>
+                            <mat:PackIcon Kind="FileChart" Height="30" Width="30" Foreground="Gray"/>
+                        </fluent:Button.LargeIcon>
+                    </fluent:Button>
+                </fluent:RibbonGroupBox>
+
+                <!--Group STOCK-->
+                <fluent:RibbonGroupBox Header="STOCK">
+                    <fluent:Button>
+                        <fluent:Button.LargeIcon>
+                            <mat:PackIcon Kind="Stocking" Height="35" Width="35"/>
+                        </fluent:Button.LargeIcon>
+                    </fluent:Button>
+                </fluent:RibbonGroupBox>
+            </fluent:RibbonTabItem>
+
+        </fluent:Ribbon>
+        <Grid x:Name="mainGrid">
+            
+        </Grid>
+    </DockPanel>
+</mah:MetroWindow>
