@@ -61,7 +61,7 @@
             <fluent:RibbonTabItem Header="PRODUCTOS">
                 <!--Group Gestion Productos-->
                 <fluent:RibbonGroupBox Header="Gestión Productos">
-                    <fluent:Button Header="Nuevo" x:Name="rbtnAddProducto">
+                    <fluent:Button Header="Nuevo" x:Name="rbtnAddProducto" Click="rbtnAddProducto_Click">
                         <fluent:Button.LargeIcon>
                             <mat:PackIcon Kind="PuzzlePlus" Height="30" Width="30" Foreground="#34495e"/>
                         </fluent:Button.LargeIcon>

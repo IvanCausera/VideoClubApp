@@ -124,6 +124,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Frontend\Dialogos\dMVVMAddProduct.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Frontend\Dialogos\dMVVMAddUser.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -227,6 +231,9 @@
     <Compile Include="Frontend\Dialogos\AdminWindow.xaml.cs">
       <DependentUpon>AdminWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Frontend\Dialogos\dMVVMAddProduct.xaml.cs">
+      <DependentUpon>dMVVMAddProduct.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Frontend\Dialogos\dMVVMAddUser.xaml.cs">
       <DependentUpon>dMVVMAddUser.xaml</DependentUpon>
     </Compile>
@@ -241,6 +248,7 @@
   <ItemGroup>
     <Compile Include="MVVM\MVBase.cs" />
     <Compile Include="MVVM\MVBaseCRUD.cs" />
+    <Compile Include="MVVM\MVProduct.cs" />
     <Compile Include="MVVM\MVUser.cs" />
     <Compile Include="MVVM\PropertyChangedDataError.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">

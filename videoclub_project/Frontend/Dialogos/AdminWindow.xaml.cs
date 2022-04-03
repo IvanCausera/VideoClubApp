@@ -33,5 +33,10 @@ namespace videoclub_project.Frontend.Dialogos {
             dMVVMAddUser diag = new dMVVMAddUser(vidEnt);
             diag.ShowDialog();
         }
+
+        private void rbtnAddProducto_Click(object sender, RoutedEventArgs e) {
+            dMVVMAddProduct diag = new dMVVMAddProduct(vidEnt);
+            diag.ShowDialog();
+        }
     }
 }
