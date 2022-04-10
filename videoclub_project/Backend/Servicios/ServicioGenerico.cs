@@ -10,7 +10,7 @@ namespace videoclub_project.Backend.Servicios {
     /// <summary>
     /// Class that implements the data access interface.
     /// </summary>
-    class ServicioGenerico<T> : IServicioGenerico<T> where T : class {
+    public class ServicioGenerico<T> : IServicioGenerico<T> where T : class {
         /// <summary>
         /// Object that accesses the data access layer created by Entity Framework.
         /// </summary>

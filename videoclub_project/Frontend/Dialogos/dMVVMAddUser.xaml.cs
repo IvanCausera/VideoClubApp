@@ -1,4 +1,5 @@
 ﻿using MahApps.Metro.Controls;
+using MahApps.Metro.Controls.Dialogs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -42,7 +43,7 @@ namespace videoclub_project.Frontend.Dialogos {
         }
 
         private void comboRol_SelectionChanged(object sender, SelectionChangedEventArgs e) {
-            if(mUser.rolSelected.idRoles < 3) {
+            if(mUser.usuSelected.roles.idRoles < 3) {
                 txtSalario.Visibility = Visibility.Visible;
                 txtBanco.Visibility = Visibility.Visible;
 
@@ -53,6 +54,29 @@ namespace videoclub_project.Frontend.Dialogos {
 
                 txtNTarjeta.Visibility = Visibility.Visible;
             }
+        }
+
+        private async void btnGuardar_Click(object sender, RoutedEventArgs e) {
+            setDireccion();
+            setPassword();
+            bool result;
+            result = mUser.guardar();
+
+            if (result) {
+                await this.ShowMessageAsync("GESTIÓN USUARIOS",
+                                   "TODO CORRECTO!!! Objeto guardado correctamente");
+                DialogResult = true;
+            } else {
+                await this.ShowMessageAsync("GESTIÓN USUARIOS",
+                                   "ERROR!!! No se puede guardar el objeto");
+            }
+        }
+
+        private void setDireccion() {
+            mUser.usuSelected.direccion = txtDomicilio.Text + "-" + txtPoblacion.Text + "-" + txtCP.Text;
+        }
+        private void setPassword() {
+            mUser.usuSelected.password = passPassword.Password;
         }
     }
 }

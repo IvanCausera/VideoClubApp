@@ -54,28 +54,32 @@
                          mat:HintAssist.Hint="Nombre*" MaxLength="35" FontWeight="Bold"
                          Margin="10"
                          MinWidth="100" MaxWidth="1000"
-                         Grid.Row="1"/>
+                         Grid.Row="1"
+                         Text="{Binding usuSelected.nombre, NotifyOnValidationError=True,ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
                 <!--Apellido 1-->
                 <TextBox x:Name="txtApellido1" Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                          mat:HintAssist.Hint="Primer Apellido*" MaxLength="35" FontWeight="Bold"
                          Margin="10"
                          MinWidth="100" MaxWidth="1000"
                          Grid.Row="1"
-                         Grid.Column="1"/>
+                         Grid.Column="1"
+                         Text="{Binding usuSelected.apellido1, NotifyOnValidationError=True,ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
                 <!--Apellido 2-->
                 <TextBox x:Name="txtApellido2" Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                          mat:HintAssist.Hint="Segundo Apellido" MaxLength="35"
                          Margin="10"
                          MinWidth="100" MaxWidth="1000"
                          Grid.Row="1"
-                         Grid.Column="12"/>
+                         Grid.Column="12"
+                         Text="{Binding usuSelected.apellido2, NotifyOnValidationError=True,ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
 
                 <!--DNI-->
                 <TextBox x:Name="txtDNI" Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                          mat:HintAssist.Hint="DNI" MaxLength="9"
                          Margin="10"
                          MinWidth="100" MaxWidth="1000"
-                         Grid.Row="2"/>
+                         Grid.Row="2"
+                         Text="{Binding usuSelected.DNI, NotifyOnValidationError=True,ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
                 
                 <!--Fecha nacimiento-->
                 <DatePicker x:Name="dateNacimiento" Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
@@ -83,14 +87,16 @@
                             Margin="10" HorizontalAlignment="Left"
                             MinWidth="15" MaxWidth="150"
                             Grid.Row="2"
-                            Grid.Column="1"/>
+                            Grid.Column="1"
+                            SelectedDate="{Binding usuSelected.fecha_nacimiento, NotifyOnValidationError=True,ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
 
                 <!--Telefono-->
                 <TextBox x:Name="txtTelefono" Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                          mat:HintAssist.Hint="Teléfono" MaxLength="13"
                          Margin="10"
                          MinWidth="100" MaxWidth="1000"
-                         Grid.Row="3"/>
+                         Grid.Row="3"
+                         Text="{Binding usuSelected.telefono, NotifyOnValidationError=True,ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
 
                 <!--Domicilio-->
                 <TextBox x:Name="txtDomicilio" Style="{StaticResource MaterialDesignFloatingHintTextBox}"
@@ -139,7 +145,8 @@
                          mat:HintAssist.Hint="Nombre*" MaxLength="10" FontWeight="Bold"
                          Margin="10"
                          MinWidth="100" MaxWidth="1000"
-                         Grid.Row="1"/>
+                         Grid.Row="1"
+                         Text="{Binding usuSelected.user, NotifyOnValidationError=True,ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
 
                 <!--Password-->
                 <PasswordBox x:Name="passPassword" Style="{StaticResource MaterialDesignFloatingHintPasswordBox}"
@@ -154,7 +161,8 @@
                          mat:HintAssist.Hint="Correo Electrónico" MaxLength="40"
                          Margin="10"
                          MinWidth="100" MaxWidth="1000"
-                         Grid.Row="2"/>
+                         Grid.Row="2"
+                         Text="{Binding usuSelected.mail, NotifyOnValidationError=True,ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
 
                 <!--Rol-->
                 <ComboBox x:Name="comboRol" Style="{StaticResource MaterialDesignFloatingHintComboBox}"
@@ -164,7 +172,7 @@
                          Grid.Row="3"
                          DisplayMemberPath="rol" SelectionChanged="comboRol_SelectionChanged"
                          ItemsSource="{Binding listRoles}"
-                         SelectedItem="{Binding rolSelected}"/>
+                         SelectedItem="{Binding usuSelected.roles}"/>
 
                 <!--Empleados/Administrador-->
                 <!--Salario-->
@@ -172,13 +180,15 @@
                          mat:HintAssist.Hint="Salario*" FontWeight="Bold"
                          Margin="10"
                          MinWidth="100" MaxWidth="1000"
-                         Grid.Row="3" Grid.Column="1"/>
+                         Grid.Row="3" Grid.Column="1"
+                         Text="{Binding usuSelected.empleado.salario, NotifyOnValidationError=True,ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
                 <!--Cuanta Banco-->
                 <TextBox x:Name="txtBanco" Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                          mat:HintAssist.Hint="Cuenta Banco*" MaxLength="24" FontWeight="Bold"
                          Margin="10"
                          MinWidth="100" MaxWidth="1000"
-                         Grid.Row="3" Grid.Column="2"/>
+                         Grid.Row="3" Grid.Column="2"
+                         Text="{Binding usuSelected.empleado.cuenta_bancaria, NotifyOnValidationError=True,ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
                 
                 <!--Clientes-->
                 <!--Salario-->
@@ -186,7 +196,8 @@
                          mat:HintAssist.Hint="Número de Tarjeta*" FontWeight="Bold"
                          Margin="10"
                          MinWidth="100" MaxWidth="1000"
-                         Grid.Row="3" Grid.Column="1"/>
+                         Grid.Row="3" Grid.Column="1"
+                         Text="{Binding usuSelected.cliente.numero_tarjeta, NotifyOnValidationError=True,ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
 
             </Grid>
 
@@ -197,6 +208,7 @@
                     Grid.Row="2"/>
             <Button x:Name="btnGuardar" Style="{StaticResource MaterialDesignRaisedButton}"
                     HorizontalAlignment="Right" Content="Guardar"
+                    Click="btnGuardar_Click"
                     Margin="15, 35, 15, 15" IsDefault="True"
                     Grid.Row="2"/>
         </Grid>

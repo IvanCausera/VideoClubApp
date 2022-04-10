@@ -24,6 +24,8 @@ namespace videoclub_project.MVVM {
             this.vidEnt = vidEnt;
 
             servUsu = new ServicioUsuario(vidEnt);
+            servicio = servUsu;
+            usuSel = new usuarios();
 
             listView = new ListCollectionView(servUsu.getAll().ToList());
 
@@ -48,5 +50,9 @@ namespace videoclub_project.MVVM {
         }
 
         // Metodos ***************************************************************************************
+
+        public bool guardar() {
+            return add(usuSelected);
+        }
     }
 }
