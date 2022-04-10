@@ -83,8 +83,7 @@
                             Margin="10" HorizontalAlignment="Left"
                             MinWidth="15" MaxWidth="150"
                             Grid.Row="2"
-                            Grid.Column="1">
-                </DatePicker>
+                            Grid.Column="1"/>
 
                 <!--Telefono-->
                 <TextBox x:Name="txtTelefono" Style="{StaticResource MaterialDesignFloatingHintTextBox}"

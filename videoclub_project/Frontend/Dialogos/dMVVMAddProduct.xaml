@@ -33,8 +33,9 @@
             
             <!--Selecionar tipo producto -->
             <Button x:Name="btnTipoProducto" Style="{StaticResource MaterialDesignRaisedButton}"
-                    HorizontalAlignment="Center" Content="Películas"/>
-            
+                    HorizontalAlignment="Center" Content="Películas"
+                    Click="btnTipoProducto_Click"/>
+
             <!--Informacion general-->
             <Grid Grid.Row="1" Margin="14">
                 <Grid.ColumnDefinitions>
@@ -60,10 +61,15 @@
                 <Button x:Name="btnPortada"
                         BorderBrush="Transparent" Background="Transparent"
                         Click="btnPortada_Click"
+                        Height="Auto"
+                        MinHeight="20" MaxHeight="400"
+                        Width="Auto"
+                        MinWidth="20" MaxWidth="400"
                         Grid.Row="1" Grid.Column="0"
                         Grid.RowSpan="5"
                         Margin="8">
-                    <Image x:Name="imgPortada"/>
+                    <Image x:Name="imgPortada" 
+                           Source="/Recursos/img/noImage.png"/>
                 </Button>
                 
                 <!--Titulo-->
@@ -71,8 +77,75 @@
                          mat:HintAssist.Hint="Titulo*" FontWeight="Bold" MaxLength="30"
                          Margin="10"
                          MinWidth="100" MaxWidth="1000"
+                         Height="38"
                          Grid.Row="1" Grid.Column="1"/>
+
+                <!--Titulo Original
+                ============================ Peliculas =======================-->
+                <TextBox x:Name="txtTituloOriginal" Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                         mat:HintAssist.Hint="Titulo Original" MaxLength="30"
+                         Margin="10"
+                         MinWidth="100" MaxWidth="1000"
+                         Height="38"
+                         Grid.Row="1" Grid.Column="2"/>
+
+                <!--Fecha Lanzamiento-->
+                <DatePicker x:Name="dateLanzamiento" Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
+                            mat:HintAssist.Hint="Fecha Lanzamiento*" FontWeight="Bold"
+                            Margin="10" HorizontalAlignment="Left"
+                            MinWidth="15" MaxWidth="150"
+                            Grid.Row="2"
+                            Grid.Column="1"/>
+
+                <!--Duracion
+                ============================ Peliculas =======================-->
+                <TextBox x:Name="txtDuracion" Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                         mat:HintAssist.Hint="Duración (minutos)*" FontWeight="Bold" MaxLength="30"
+                         Margin="10"
+                         MinWidth="100" MaxWidth="1000"
+                         Height="38"
+                         Grid.Row="2" Grid.Column="2"/>
+
+                <!--Nota-->
+                <TextBox x:Name="txtNota" Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                         mat:HintAssist.Hint="Puntuación" MaxLength="30"
+                         Margin="10"
+                         MinWidth="100" MaxWidth="1000"
+                         Height="38"
+                         Grid.Row="3" Grid.Column="1"/>
+
+                <!--Edad Nota-->
+                <TextBox x:Name="txtEdadNota" Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                         mat:HintAssist.Hint="Clasificación Edad" MaxLength="30"
+                         Margin="10"
+                         MinWidth="100" MaxWidth="1000"
+                         Height="38"
+                         Grid.Row="4" Grid.Column="1"/>
                 
+                <!--Genero-->
+                <ComboBox x:Name="comboGenero" Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                         mat:HintAssist.Hint="Genero*" FontWeight="Bold"
+                         Margin="10"
+                         MinWidth="100" MaxWidth="1000"
+                         Height="38"
+                         Grid.Row="4" Grid.Column="2"/>
+
+                <!--Idioma-->
+                <ComboBox x:Name="comboIdioma" Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                         mat:HintAssist.Hint="Idioma*" FontWeight="Bold"
+                         Margin="10"
+                         MinWidth="100" MaxWidth="1000"
+                         Height="38"
+                         Grid.Row="5" Grid.Column="1"/>
+
+                <!--Idioma-->
+                <ComboBox x:Name="comboIdiomaDoblado" Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                         mat:HintAssist.Hint="Idioma Doblado*" FontWeight="Bold"
+                         Margin="10"
+                         MinWidth="100" MaxWidth="1000"
+                         Height="38"
+                         Grid.Row="5" Grid.Column="2"/>
+
             </Grid>
             
             <!--Informacion especifica-->
@@ -83,11 +156,120 @@
                     <ColumnDefinition MinWidth="100" MaxWidth="1000"/>
                     <ColumnDefinition MinWidth="100" MaxWidth="1000"/>
                 </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
                 <!--Lable-->
-                <TextBlock HorizontalAlignment="Left" VerticalAlignment="Bottom" Grid.ColumnSpan="3"
+                <TextBlock x:Name="lableInfo" HorizontalAlignment="Left" VerticalAlignment="Bottom" Grid.ColumnSpan="3"
                     Text="INFORMACIÓN PELÍCULA" Margin="0, 0, 0, 0" FontSize="20" FontWeight="Bold" FontStyle="Italic"
                        Grid.Row="0"/>
                 <Separator Grid.ColumnSpan="4" Grid.Row="0" Margin="0, 50, 0, 0"/>
+
+                <!--  ================== Peliculas =================== -->
+                <!--Sinopsis-->
+                <TextBox x:Name="txtSinopsis" Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                         mat:HintAssist.Hint="Sinopsis"
+                         TextWrapping="Wrap"
+                         Margin="10"
+                         MinWidth="100" MaxWidth="1000"
+                         MaxHeight="100"
+                         Grid.Row="1" Grid.Column="0"
+                         Grid.ColumnSpan="4"/>
+                
+                <!--Nota-->
+                <TextBox x:Name="txtDirector" Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                         mat:HintAssist.Hint="Director*" FontWeight="Bold" MaxLength="30"
+                         Margin="10"
+                         MinWidth="100" MaxWidth="1000"
+                         Height="38"
+                         Grid.Row="2" Grid.Column="0"/>
+
+                
+                <!--Pais-->
+                <TextBox x:Name="txtPais" Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                         mat:HintAssist.Hint="Pais*" FontWeight="Bold" MaxLength="30"
+                         Margin="10"
+                         MinWidth="100" MaxWidth="1000"
+                         Height="38"
+                         Grid.Row="2" Grid.Column="1"/>
+
+                <!--Formato/Plataforma-->
+                <Grid Grid.Row="3" Grid.Column="0"
+                            Grid.ColumnSpan="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="btnAddFormato" Style="{StaticResource MaterialDesignRaisedButton}"
+                    VerticalAlignment="Center" Content="Añadir"/>
+                    <!-- Peliculas -->
+                    <TextBox x:Name="txtFormato" Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                         mat:HintAssist.Hint="Añadir Formato" MaxLength="30"
+                         Margin="10"
+                         MinWidth="100" MaxWidth="1000"
+                         Height="38"
+                         Grid.Column="1"/>
+                    <!-- Videojuegos -->
+                    <TextBox x:Name="txtPlataforma" Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                         mat:HintAssist.Hint="Añadir Plataforma" MaxLength="10"
+                         Margin="10"
+                         MinWidth="100" MaxWidth="1000"
+                         Height="38"
+                         Grid.Column="1"/>
+                </Grid>
+                
+                <!--Actor-->
+                <Grid Grid.Row="3" Grid.Column="2"
+                            Grid.ColumnSpan="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="btnAddActor" Style="{StaticResource MaterialDesignRaisedButton}"
+                    VerticalAlignment="Center" Content="Añadir"
+                            Click="btnAddActor_Click"/>
+                    <TextBox x:Name="txtActor" Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                             VerticalAlignment="Center"
+                         mat:HintAssist.Hint="Añadir Actor" MaxLength="30"
+                         Margin="10"
+                         MinWidth="100" MaxWidth="1000"
+                         Height="38"
+                             Grid.Column="1"/>
+                </Grid>
+
+                <!-- ================== Videojuegos =================== -->
+
+                <!--Distribuidora-->
+                <TextBox x:Name="txtDistribuidora" Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                         mat:HintAssist.Hint="Distribuidora" MaxLength="25"
+                         Margin="10"
+                         MinWidth="100" MaxWidth="1000"
+                         Height="38"
+                         Grid.Row="1" Grid.Column="0"/>
+                
+                <!--Desarrolladora-->
+                <TextBox x:Name="txtDesarrolladora" Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                         mat:HintAssist.Hint="Desarrolladora" MaxLength="25"
+                         Margin="10"
+                         MinWidth="100" MaxWidth="1000"
+                         Height="38"
+                         Grid.Row="1" Grid.Column="1"/>
+
+                <Grid x:Name="gridLeft"
+                      Grid.Row="4" Grid.Column="0"
+                      Grid.ColumnSpan="2"
+                      Margin="0, 10"/>
+
+                <Grid x:Name="gridRight"
+                      Grid.Row="4" Grid.Column="2"
+                      Grid.ColumnSpan="2"
+                      Height="200"
+                      Margin="0, 10"/>
+
             </Grid>
             
             <!--Button-->
@@ -97,9 +279,10 @@
                     Grid.Row="3"/>
             <Button x:Name="btnGuardar" Style="{StaticResource MaterialDesignRaisedButton}"
                     HorizontalAlignment="Right" Content="Guardar"
-                    Margin="15, 35, 15, 15" IsDefault="True"
+                    Click="btnGuardar_Click"
+                    Margin="15, 35, 15, 15"
                     Grid.Row="3"/>
-            
+
         </Grid>
     </DockPanel>
 </mah:MetroWindow>

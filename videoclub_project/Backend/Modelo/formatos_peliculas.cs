@@ -14,6 +14,7 @@ namespace videoclub_project.Backend.Modelo
     
     public partial class formatos_peliculas
     {
+
         public int id { get; set; }
         public int id_formato { get; set; }
         public int id_pelicula { get; set; }

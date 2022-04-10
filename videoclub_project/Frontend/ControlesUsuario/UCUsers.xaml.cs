@@ -12,19 +12,14 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using videoclub_project.Backend.Modelo;
 
-namespace videoclub_project {
+namespace videoclub_project.Frontend.ControlesUsuario {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Lógica de interacción para UCUsers.xaml
     /// </summary>
-    public partial class MainWindow : Window {
-        private videoclubEntities vidEnt;
-        private usuarios usuLogin;
-        public MainWindow(videoclubEntities entity, usuarios user) {
+    public partial class UCUsers : UserControl {
+        public UCUsers() {
             InitializeComponent();
-            this.vidEnt = entity;
-            this.usuLogin = user;
         }
     }
 }
