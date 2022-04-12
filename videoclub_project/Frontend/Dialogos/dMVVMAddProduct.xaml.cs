@@ -19,6 +19,7 @@ using videoclub_project.MVVM;
 using System.IO;
 using System.Drawing.Imaging;
 using videoclub_project.Frontend.ControlesUsuario;
+using MahApps.Metro.Controls.Dialogs;
 
 namespace videoclub_project.Frontend.Dialogos {
     /// <summary>
@@ -35,6 +36,8 @@ namespace videoclub_project.Frontend.Dialogos {
         private BitmapImage portada;
 
         private UCActors uActors;
+        private UCFormatos uFormatos;
+        private UCPlataformas uPlataformas;
 
         public dMVVMAddProduct(videoclubEntities vidEnt) {
             InitializeComponent();
@@ -47,6 +50,9 @@ namespace videoclub_project.Frontend.Dialogos {
         private void inicializa() {
             mProduct = new MVProduct(vidEnt);
             DataContext = mProduct;
+
+            mProduct.prodSelected.videojuegos = new videojuegos();
+            mProduct.prodSelected.peliculas = new peliculas();
 
             showVideojuegos(false);
             showPelicula(true);
@@ -65,10 +71,26 @@ namespace videoclub_project.Frontend.Dialogos {
                 
         }
 
-        private void btnGuardar_Click(object sender, RoutedEventArgs e) {
+        private async void btnGuardar_Click(object sender, RoutedEventArgs e) {
             string portadaNombre = txtTitulo.Text + ".png";
-            saveImage(portada, "../../Recursos/img/productos/" + portadaNombre); 
+            saveImage(portada, "../../Recursos/img/productos/" + portadaNombre);
 
+            mProduct.prodSelected.portada = portadaNombre;
+
+            if (actualLayout == PELICULA) mProduct.prodSelected.videojuegos = new videojuegos();
+            else mProduct.prodSelected.peliculas = new peliculas();
+
+            bool result;
+            result = mProduct.guardar();
+
+            if (result) {
+                await this.ShowMessageAsync("GESTIÓN USUARIOS",
+                                   "TODO CORRECTO!!! Objeto guardado correctamente");
+                DialogResult = true;
+            } else {
+                await this.ShowMessageAsync("GESTIÓN USUARIOS",
+                                   "ERROR!!! No se puede guardar el objeto");
+            }
         }
 
         private void btnTipoProducto_Click(object sender, RoutedEventArgs e) {
@@ -89,6 +111,26 @@ namespace videoclub_project.Frontend.Dialogos {
             uActors.addActor(new actores_peliculas { nombre = txtActor.Text });
         }
 
+        private void btnAddFormato_Click(object sender, RoutedEventArgs e) {
+            try {
+                if (actualLayout == PELICULA) {
+                    uFormatos.addFormato(new formatos_peliculas {
+                        formatos = (formatos)comboFormato.SelectedItem,
+                        stock = int.Parse(txtStock.Text),
+                        precio = float.Parse(txtPrecio.Text)
+                    });
+                } else {
+                    uPlataformas.addPlataforma(new plataformas_videojuegos {
+                        plataformas = (plataformas)comboPlataforma.SelectedItem,
+                        stock = int.Parse(txtStock.Text),
+                        precio = float.Parse(txtPrecio.Text)
+                    });
+                }
+            } catch (Exception) {
+                //TODO excepcion
+            }
+        }
+
         /// <summary>
         /// Show the layout of movies or hides it.
         /// </summary>
@@ -97,17 +139,18 @@ namespace videoclub_project.Frontend.Dialogos {
             if (show) {
                 actualLayout = PELICULA;
 
-                mProduct.prodSelected.peliculas = new peliculas();
-                mProduct.prodSelected.videojuegos = null;
-
                 uActors = new UCActors(mProduct);
                 gridRight.Children.Clear();
                 gridRight.Children.Add(uActors);
 
+                uFormatos = new UCFormatos(mProduct);
+                gridLeft.Children.Clear();
+                gridLeft.Children.Add(uFormatos);
+
                 txtSinopsis.Visibility = Visibility.Visible;
                 txtDirector.Visibility = Visibility.Visible;
                 txtPais.Visibility = Visibility.Visible;
-                txtFormato.Visibility = Visibility.Visible;
+                comboFormato.Visibility = Visibility.Visible;
                 txtActor.Visibility = Visibility.Visible;
                 txtTituloOriginal.Visibility = Visibility.Visible;
                 txtDuracion.Visibility = Visibility.Visible;
@@ -116,7 +159,7 @@ namespace videoclub_project.Frontend.Dialogos {
                 txtSinopsis.Visibility = Visibility.Hidden;
                 txtDirector.Visibility = Visibility.Hidden;
                 txtPais.Visibility = Visibility.Hidden;
-                txtFormato.Visibility = Visibility.Hidden;
+                comboFormato.Visibility = Visibility.Hidden;
                 txtActor.Visibility = Visibility.Hidden;
                 txtTituloOriginal.Visibility = Visibility.Hidden;
                 txtDuracion.Visibility = Visibility.Hidden;
@@ -130,20 +173,21 @@ namespace videoclub_project.Frontend.Dialogos {
         /// <param name="show">If is going to show or hide</param>
         private void showVideojuegos(bool show) {
             if (show) {
-
-                mProduct.prodSelected.videojuegos = new videojuegos();
-                mProduct.prodSelected.peliculas = null;
+                actualLayout = VIDEOJUEGO;
 
                 gridRight.Children.Clear();
 
-                actualLayout = VIDEOJUEGO;
+                uPlataformas = new UCPlataformas(mProduct);
+                gridLeft.Children.Clear();
+                gridLeft.Children.Add(uPlataformas);
+
                 txtDistribuidora.Visibility = Visibility.Visible;
                 txtDesarrolladora.Visibility = Visibility.Visible;
-                txtPlataforma.Visibility = Visibility.Visible;
+                comboPlataforma.Visibility = Visibility.Visible;
             } else {
                 txtDistribuidora.Visibility = Visibility.Hidden;
                 txtDesarrolladora.Visibility = Visibility.Hidden;
-                txtPlataforma.Visibility = Visibility.Hidden;
+                comboPlataforma.Visibility = Visibility.Hidden;
             }
         }
         
@@ -151,11 +195,15 @@ namespace videoclub_project.Frontend.Dialogos {
         /// Saves a bitmapImage on a specific path.
         /// </summary>
         private void saveImage(BitmapImage img, string path) {
-            BitmapEncoder encoder = new PngBitmapEncoder();
-            encoder.Frames.Add(BitmapFrame.Create(img));
+            try {
+                BitmapEncoder encoder = new PngBitmapEncoder();
+                encoder.Frames.Add(BitmapFrame.Create(img));
 
-            using (var fileStream = new FileStream(path, FileMode.Create)) {
-                encoder.Save(fileStream);
+                using (var fileStream = new FileStream(path, FileMode.Create)) {
+                    encoder.Save(fileStream);
+                }
+            } catch (ArgumentNullException) {
+                //TODO excepcion
             }
         }
     }
