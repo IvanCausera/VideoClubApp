@@ -25,5 +25,9 @@ namespace videoclub_project.Backend.Modelo
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<permisos_roles> permisos_roles { get; set; }
+
+        public override string ToString() {
+            return permiso;
+        }
     }
 }

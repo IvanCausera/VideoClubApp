@@ -39,12 +39,36 @@ namespace videoclub_project.Frontend.Dialogos {
         private UCFormatos uFormatos;
         private UCPlataformas uPlataformas;
 
+        private bool editar;
+
         public dMVVMAddProduct(videoclubEntities vidEnt) {
             InitializeComponent();
 
             this.vidEnt = vidEnt;
 
             inicializa();
+
+            this.editar = true;
+        }
+
+        public dMVVMAddProduct(videoclubEntities vidEnt, productos product) {
+            InitializeComponent();
+
+            this.vidEnt = vidEnt;
+
+            inicializa();
+
+            this.editar = false;
+            btnGuardar.Content = "Editar";
+            mProduct.prodSelected = product;
+
+            if (mProduct.prodSelected.videojuegos == null) {
+                changeLayout(PELICULA);
+            } else {
+                changeLayout(VIDEOJUEGO);
+            }
+
+            btnTipoProducto.IsEnabled = false;
         }
 
         private void inicializa() {
@@ -77,11 +101,15 @@ namespace videoclub_project.Frontend.Dialogos {
 
             mProduct.prodSelected.portada = portadaNombre;
 
-            if (actualLayout == PELICULA) mProduct.prodSelected.videojuegos = new videojuegos();
-            else mProduct.prodSelected.peliculas = new peliculas();
+            if (actualLayout == PELICULA) mProduct.prodSelected.videojuegos = null;
+            else mProduct.prodSelected.peliculas = null;
 
             bool result;
-            result = mProduct.guardar();
+            if (editar) {
+                result = mProduct.editar();
+            } else {
+                result = mProduct.guardar();
+            }
 
             if (result) {
                 await this.ShowMessageAsync("GESTIÓN USUARIOS",
@@ -90,21 +118,17 @@ namespace videoclub_project.Frontend.Dialogos {
             } else {
                 await this.ShowMessageAsync("GESTIÓN USUARIOS",
                                    "ERROR!!! No se puede guardar el objeto");
+                DialogResult = false;
             }
         }
 
         private void btnTipoProducto_Click(object sender, RoutedEventArgs e) {
-            if (actualLayout == PELICULA) {
-                showPelicula(false);
-                showVideojuegos(true);
-                btnTipoProducto.Content = "Videojuegos";
-                lableInfo.Text = "INFORMACIÓN VIDEOJUEGO";
+            if (actualLayout == VIDEOJUEGO) {
+                changeLayout(PELICULA);
             } else {
-                showVideojuegos(false);
-                showPelicula(true);
-                btnTipoProducto.Content = "Películas";
-                lableInfo.Text = "INFORMACIÓN PELÍCULA";
+                changeLayout(VIDEOJUEGO);
             }
+            
         }
 
         private void btnAddActor_Click(object sender, RoutedEventArgs e) {
@@ -204,6 +228,20 @@ namespace videoclub_project.Frontend.Dialogos {
                 }
             } catch (ArgumentNullException) {
                 //TODO excepcion
+            }
+        }
+
+        private void changeLayout(int layout) {
+            if (layout == VIDEOJUEGO) {
+                showPelicula(false);
+                showVideojuegos(true);
+                btnTipoProducto.Content = "Videojuegos";
+                lableInfo.Text = "INFORMACIÓN VIDEOJUEGO";
+            } else {
+                showVideojuegos(false);
+                showPelicula(true);
+                btnTipoProducto.Content = "Películas";
+                lableInfo.Text = "INFORMACIÓN PELÍCULA";
             }
         }
     }

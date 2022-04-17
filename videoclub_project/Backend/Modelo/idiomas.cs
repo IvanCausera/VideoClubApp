@@ -28,5 +28,9 @@ namespace videoclub_project.Backend.Modelo
         public virtual ICollection<productos> productos { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<productos> productos1 { get; set; }
+
+        public override string ToString() {
+            return idioma;
+        }
     }
 }

@@ -23,6 +23,7 @@ namespace videoclub_project.Frontend.Dialogos {
     public partial class dMVVMAddUser : MetroWindow {
         private videoclubEntities vidEnt;
         private MVUser mUser;
+        private bool editar;
 
         public dMVVMAddUser(videoclubEntities vidEnt) {
             InitializeComponent();
@@ -30,6 +31,27 @@ namespace videoclub_project.Frontend.Dialogos {
             this.vidEnt = vidEnt;
 
             inicializa();
+
+            this.editar = false;
+        }
+
+        public dMVVMAddUser(videoclubEntities vidEnt, usuarios user) {
+            InitializeComponent();
+
+            this.vidEnt = vidEnt;
+
+            inicializa();
+
+            comboRol.IsEnabled = false;
+
+            this.editar = true;
+            btnGuardar.Content = "Editar";
+            mUser.usuSelected = user;
+            passPassword.Password = user.password;
+            string dir = user.direccion;
+            txtDomicilio.Text = dir.Substring(0, dir.IndexOf("-"));
+            txtPoblacion.Text = dir.Substring(dir.IndexOf("-") + 1, (dir.LastIndexOf("-") - (dir.IndexOf("-") + 1)));
+            txtCP.Text = dir.Substring(dir.LastIndexOf("-") + 1);
         }
 
         private void inicializa() {
@@ -57,26 +79,44 @@ namespace videoclub_project.Frontend.Dialogos {
         }
 
         private async void btnGuardar_Click(object sender, RoutedEventArgs e) {
-            setDireccion();
-            setPassword();
-            bool result;
-            result = mUser.guardar();
-
-            if (result) {
-                await this.ShowMessageAsync("GESTIÓN USUARIOS",
-                                   "TODO CORRECTO!!! Objeto guardado correctamente");
-                DialogResult = true;
+            if (!setPassword()) {
+                await this.ShowMessageAsync("GESTIÓN MODELO ARTÍCULO",
+                           "ERROR!!! La contraseña tiene que contener: Nº, letra, alfanumérico");
             } else {
-                await this.ShowMessageAsync("GESTIÓN USUARIOS",
-                                   "ERROR!!! No se puede guardar el objeto");
+                // -----------------
+                setDireccion();
+                bool result;
+                if (editar) {
+                    result = mUser.editar();
+                } else {
+                    result = mUser.guardar();
+                }
+
+                if (result) {
+                    await this.ShowMessageAsync("GESTIÓN USUARIOS",
+                                       "TODO CORRECTO!!! Objeto guardado correctamente");
+                    DialogResult = true;
+                } else {
+                    await this.ShowMessageAsync("GESTIÓN USUARIOS",
+                                       "ERROR!!! No se puede guardar el objeto");
+                    DialogResult = false;
+                }
             }
         }
 
         private void setDireccion() {
             mUser.usuSelected.direccion = txtDomicilio.Text + "-" + txtPoblacion.Text + "-" + txtCP.Text;
         }
-        private void setPassword() {
-            mUser.usuSelected.password = passPassword.Password;
+        private bool setPassword() {
+            bool result = mUser.validarPassword(passPassword.Password);
+
+            if (result) {
+                mUser.usuSelected.password = passPassword.Password;
+            } else {
+                passPassword.Focus();
+            }
+
+            return result;
         }
     }
 }

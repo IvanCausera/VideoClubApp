@@ -40,5 +40,9 @@ namespace videoclub_project.Backend.Modelo
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ventas_productos> ventas_productos { get; set; }
         public virtual videojuegos videojuegos { get; set; }
+
+        public override string ToString() {
+            return titulo;
+        }
     }
 }

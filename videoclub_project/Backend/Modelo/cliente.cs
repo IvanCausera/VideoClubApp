@@ -29,5 +29,9 @@ namespace videoclub_project.Backend.Modelo
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ventas> ventas { get; set; }
         public virtual usuarios usuarios { get; set; }
+
+        public override string ToString() {
+            return usuarios.nombre + " " + usuarios.apellido1;
+        }
     }
 }

@@ -25,5 +25,9 @@ namespace videoclub_project.Backend.Modelo
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<formatos_peliculas> formatos_peliculas { get; set; }
+
+        public override string ToString() {
+            return formato;
+        }
     }
 }

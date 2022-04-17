@@ -25,5 +25,9 @@ namespace videoclub_project.Backend.Modelo
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<plataformas_videojuegos> plataformas_videojuegos { get; set; }
+
+        public override string ToString() {
+            return plataforma;
+        }
     }
 }

@@ -8,7 +8,7 @@ using videoclub_project.Backend.Modelo;
 using videoclub_project.Backend.Servicios;
 
 namespace videoclub_project.MVVM {
-    class MVUser: MVBaseCRUD<usuarios> {
+    public class MVUser: MVBaseCRUD<usuarios> {
         // Variables privadas ***************************************************************************************
         private videoclubEntities vidEnt;
 
@@ -53,6 +53,41 @@ namespace videoclub_project.MVVM {
 
         public bool guardar() {
             return add(usuSelected);
+        }
+
+        public bool borrar() {
+            return delete(usuSelected);
+        }
+
+        public bool editar() {
+            return update(usuSelected);
+        }
+
+        public Boolean validarPassword(String pass) {
+            if (pass.Length < 8) return false;
+
+            int validConditions = 0;
+            foreach (char c in pass) {
+                if (c >= 'a' && c <= 'z') {
+                    validConditions++;
+                    break;
+                } else if (c >= 'A' && c <= 'Z') {
+                    validConditions++;
+                    break;
+                }
+            }
+            if (validConditions == 0) return false;
+            foreach (char c in pass) {
+                if (c >= '0' && c <= '9') {
+                    validConditions++;
+                    break;
+                }
+            }
+            if (validConditions == 1) return false;
+            char[] special = { '@', '#', '$', '%', '^', '&', '+', '=', '*', '/', '(', ')' };
+            if (pass.IndexOfAny(special) == -1) return false;
+            else
+                return true;
         }
     }
 }

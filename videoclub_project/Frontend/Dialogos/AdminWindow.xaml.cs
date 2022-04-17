@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using videoclub_project.Backend.Modelo;
+using videoclub_project.Frontend.ControlesUsuario;
 
 namespace videoclub_project.Frontend.Dialogos {
     /// <summary>
@@ -36,6 +37,23 @@ namespace videoclub_project.Frontend.Dialogos {
 
         private void rbtnAddProducto_Click(object sender, RoutedEventArgs e) {
             dMVVMAddProduct diag = new dMVVMAddProduct(vidEnt);
+            diag.ShowDialog();
+        }
+
+        private void rbtnListaUsuario_Click(object sender, RoutedEventArgs e) {
+            UCUsers uc = new UCUsers(vidEnt);
+            mainGrid.Children.Clear();
+            mainGrid.Children.Add(uc);
+        }
+
+        private void rbtnListaProductos_Click(object sender, RoutedEventArgs e) {
+            UCProduct uc = new UCProduct(vidEnt);
+            mainGrid.Children.Clear();
+            mainGrid.Children.Add(uc);
+        }
+
+        private void rbtnAddAlquiler_Click(object sender, RoutedEventArgs e) {
+            dMVVMAddAlquiler diag = new dMVVMAddAlquiler(vidEnt);
             diag.ShowDialog();
         }
     }

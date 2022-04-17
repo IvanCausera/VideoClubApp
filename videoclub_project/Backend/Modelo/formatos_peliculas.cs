@@ -23,5 +23,9 @@ namespace videoclub_project.Backend.Modelo
     
         public virtual formatos formatos { get; set; }
         public virtual peliculas peliculas { get; set; }
+
+        public override string ToString() {
+            return peliculas.productos.titulo +" "+ formatos.formato + " ["+stock+", "+precio+"€]";
+        }
     }
 }

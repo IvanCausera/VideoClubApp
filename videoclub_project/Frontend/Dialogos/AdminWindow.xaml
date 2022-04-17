@@ -29,13 +29,8 @@
                         </fluent:Button.LargeIcon>
                     </fluent:Button>
 
-                    <fluent:Button Header="Eliminar" Foreground="#ff4500">
-                        <fluent:Button.LargeIcon>
-                            <mat:PackIcon Kind="UserRemove" Height="30" Width="30" Foreground="#ff4500"/>
-                        </fluent:Button.LargeIcon>
-                    </fluent:Button>
-
-                    <fluent:Button Header="Listado" x:Name="rbtnListaUsuario">
+                    <fluent:Button Header="Listado" x:Name="rbtnListaUsuario"
+                                   Click="rbtnListaUsuario_Click">
                         <fluent:Button.LargeIcon>
                             <mat:PackIcon Kind="UserMultiple" Height="30" Width="30" Foreground="Gray"/>
                         </fluent:Button.LargeIcon>
@@ -67,13 +62,8 @@
                         </fluent:Button.LargeIcon>
                     </fluent:Button>
 
-                    <fluent:Button Header="Eliminar" Foreground="#ff4500">
-                        <fluent:Button.LargeIcon>
-                            <mat:PackIcon Kind="PuzzleRemove" Height="30" Width="30" Foreground="#ff4500"/>
-                        </fluent:Button.LargeIcon>
-                    </fluent:Button>
-
-                    <fluent:Button Header="Listado" x:Name="rbtnListaProductos">
+                    <fluent:Button Header="Listado" x:Name="rbtnListaProductos"
+                                   Click="rbtnListaProductos_Click">
                         <fluent:Button.LargeIcon>
                             <mat:PackIcon Kind="Cards" Height="30" Width="30" Foreground="Gray"/>
                         </fluent:Button.LargeIcon>
@@ -105,12 +95,6 @@
                         </fluent:Button.LargeIcon>
                     </fluent:Button>
 
-                    <fluent:Button Header="Eliminar" Foreground="#ff4500">
-                        <fluent:Button.LargeIcon>
-                            <mat:PackIcon Kind="BasketRemove" Height="30" Width="30" Foreground="#ff4500"/>
-                        </fluent:Button.LargeIcon>
-                    </fluent:Button>
-
                     <fluent:Button Header="Listado" x:Name="rbtnListaVentas">
                         <fluent:Button.LargeIcon>
                             <mat:PackIcon Kind="ShoppingSearch" Height="30" Width="30" Foreground="Gray"/>
@@ -120,15 +104,10 @@
                 
                 <!--Group Gestion Alquileres-->
                 <fluent:RibbonGroupBox Header="Gestión Alquileres">
-                    <fluent:Button Header="Nuevo" x:Name="rbtnAddAlquiler">
+                    <fluent:Button Header="Nuevo" x:Name="rbtnAddAlquiler"
+                                   Click="rbtnAddAlquiler_Click">
                         <fluent:Button.LargeIcon>
                             <mat:PackIcon Kind="FolderPlus" Height="30" Width="30" Foreground="#34495e"/>
-                        </fluent:Button.LargeIcon>
-                    </fluent:Button>
-
-                    <fluent:Button Header="Editar" Foreground="#ff4500">
-                        <fluent:Button.LargeIcon>
-                            <mat:PackIcon Kind="FolderPound" Height="30" Width="30" Foreground="#ff4500"/>
                         </fluent:Button.LargeIcon>
                     </fluent:Button>
 

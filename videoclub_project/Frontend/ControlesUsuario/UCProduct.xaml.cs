@@ -18,32 +18,33 @@ using videoclub_project.MVVM;
 
 namespace videoclub_project.Frontend.ControlesUsuario {
     /// <summary>
-    /// Lógica de interacción para UCUsers.xaml
+    /// Lógica de interacción para UCProduct.xaml
     /// </summary>
-    public partial class UCUsers : UserControl {
+    public partial class UCProduct : UserControl {
 
         private videoclubEntities vidEnt;
-        private MVUser mUser;
+        private MVProduct mProduct;
 
-        public UCUsers(videoclubEntities vidEnt) {
+        public UCProduct(videoclubEntities vidEnt) {
             InitializeComponent();
 
             this.vidEnt = vidEnt;
-            mUser = new MVUser(vidEnt);
-            DataContext = mUser;
-        }
+            mProduct = new MVProduct(vidEnt);
+            DataContext = mProduct;
 
-        private void menuBorrar_Click(object sender, RoutedEventArgs e) {
-            if (mUser.borrar()) {
-                dgUser.Items.Refresh();
-            }
         }
 
         private void menuEditar_Click(object sender, RoutedEventArgs e) {
-            dMVVMAddUser diag = new dMVVMAddUser(vidEnt, (usuarios)dgUser.SelectedItem);
+            dMVVMAddProduct diag = new dMVVMAddProduct(vidEnt, (productos)dgProduct.SelectedItem);
             diag.ShowDialog();
             if ((bool)diag.DialogResult) {
-                dgUser.Items.Refresh();
+                dgProduct.Items.Refresh();
+            }
+        }
+
+        private void menuBorrar_Click(object sender, RoutedEventArgs e) {
+            if (mProduct.borrar()) {
+                dgProduct.Items.Refresh();
             }
         }
     }

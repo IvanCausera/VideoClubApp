@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Data;
 using videoclub_project.Backend.Modelo;
 using videoclub_project.Backend.Servicios;
 
 namespace videoclub_project.MVVM {
     public class MVProduct : MVBaseCRUD<productos> {
-        // Variables privadas ***************************************************************************************
+        // Variables privadas ****************************************************************************************
         private videoclubEntities vidEnt;
 
         private productos prodSel;
@@ -18,7 +19,9 @@ namespace videoclub_project.MVVM {
 
         private ServicioProducto servProd;
 
-        // Constructor ***************************************************************************************
+        private ListCollectionView listView;
+
+        // Constructor ***********************************************************************************************
         public MVProduct(videoclubEntities vidEnt) {
             this.vidEnt = vidEnt;
 
@@ -26,9 +29,15 @@ namespace videoclub_project.MVVM {
             servicio = servProd;
 
             prodSel = new productos();
+
+            listView = new ListCollectionView(servProd.getAll().ToList());
         }
 
-        // List ***************************************************************************************
+        // List ******************************************************************************************************
+
+        public ListCollectionView listProductos {
+            get { return listView; }
+        }
 
         public List<formatos> listFormatos {
             get { return new ServicioGenerico<formatos>(vidEnt).getAll().ToList(); }
@@ -69,7 +78,7 @@ namespace videoclub_project.MVVM {
         }
 
 
-        // Methods **************************************************************************************
+        // Methods ***************************************************************************************************
 
         public bool deleteActor() {
             return prodSel.peliculas.actores_peliculas.Remove(actorSelected);
@@ -85,6 +94,14 @@ namespace videoclub_project.MVVM {
 
         public bool guardar() {
             return add(prodSelected);
+        }
+
+        public bool borrar() {
+            return delete(prodSelected);
+        }
+
+        public bool editar() {
+            return update(prodSelected);
         }
     }
 }

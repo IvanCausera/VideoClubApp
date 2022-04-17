@@ -188,12 +188,12 @@
                          Margin="10"
                          MinWidth="100" MaxWidth="1000"
                          Grid.Row="3" Grid.Column="2"
-                         Text="{Binding usuSelected.empleado.cuenta_bancaria, NotifyOnValidationError=True,ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
+                         Text="{Binding usuSelected.empleado.cuanta_bancaria, NotifyOnValidationError=True,ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
                 
                 <!--Clientes-->
-                <!--Salario-->
+                <!--Nuemro Tarjeta-->
                 <TextBox x:Name="txtNTarjeta" Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                         mat:HintAssist.Hint="Número de Tarjeta*" FontWeight="Bold"
+                         mat:HintAssist.Hint="Número de Tarjeta*" MaxLength="25" FontWeight="Bold"
                          Margin="10"
                          MinWidth="100" MaxWidth="1000"
                          Grid.Row="3" Grid.Column="1"

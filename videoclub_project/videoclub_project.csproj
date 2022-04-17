@@ -124,6 +124,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Frontend\ControlesUsuario\UCFormatoPelicula.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Frontend\ControlesUsuario\UCFormatos.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -132,11 +136,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Frontend\ControlesUsuario\UCProduct.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Frontend\ControlesUsuario\UCUsers.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Frontend\Dialogos\AdminWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Frontend\Dialogos\dMVVMAddAlquiler.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -248,17 +260,26 @@
     <Compile Include="Frontend\ControlesUsuario\UCActors.xaml.cs">
       <DependentUpon>UCActors.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Frontend\ControlesUsuario\UCFormatoPelicula.xaml.cs">
+      <DependentUpon>UCFormatoPelicula.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Frontend\ControlesUsuario\UCFormatos.xaml.cs">
       <DependentUpon>UCFormatos.xaml</DependentUpon>
     </Compile>
     <Compile Include="Frontend\ControlesUsuario\UCPlataformas.xaml.cs">
       <DependentUpon>UCPlataformas.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Frontend\ControlesUsuario\UCProduct.xaml.cs">
+      <DependentUpon>UCProduct.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Frontend\ControlesUsuario\UCUsers.xaml.cs">
       <DependentUpon>UCUsers.xaml</DependentUpon>
     </Compile>
     <Compile Include="Frontend\Dialogos\AdminWindow.xaml.cs">
       <DependentUpon>AdminWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Frontend\Dialogos\dMVVMAddAlquiler.xaml.cs">
+      <DependentUpon>dMVVMAddAlquiler.xaml</DependentUpon>
     </Compile>
     <Compile Include="Frontend\Dialogos\dMVVMAddProduct.xaml.cs">
       <DependentUpon>dMVVMAddProduct.xaml</DependentUpon>
@@ -275,6 +296,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MVVM\MVAlquiler.cs" />
     <Compile Include="MVVM\MVBase.cs" />
     <Compile Include="MVVM\MVBaseCRUD.cs" />
     <Compile Include="MVVM\MVProduct.cs" />

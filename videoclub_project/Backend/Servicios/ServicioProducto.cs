@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using videoclub_project.Backend.Modelo;
 
 namespace videoclub_project.Backend.Servicios {
-    class ServicioProducto : ServicioGenerico<productos> {
+    public class ServicioProducto : ServicioGenerico<productos> {
         private static Logger log = LogManager.GetCurrentClassLogger();
         private DbContext context;
 

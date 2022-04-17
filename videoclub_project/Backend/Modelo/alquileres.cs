@@ -32,5 +32,9 @@ namespace videoclub_project.Backend.Modelo
         public virtual cliente cliente { get; set; }
         public virtual reservas reservas { get; set; }
         public virtual tipo_alquiler tipo_alquiler { get; set; }
+
+        public override string ToString() {
+            return idAlquileres + " ["+fecha.ToString()+"]";
+        }
     }
 }
