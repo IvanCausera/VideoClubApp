@@ -30,7 +30,7 @@ namespace videoclub_project.Backend.Modelo
         public virtual ICollection<alquileres> alquileres { get; set; }
 
         public override string ToString() {
-            return nombre + " [dias: " + duracion + " precio: " + precio + "]";
+            return nombre + " [dias: " + duracion + " precio: " + precio + "€]";
         }
     }
 }

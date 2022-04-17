@@ -39,6 +39,18 @@ namespace videoclub_project.Frontend.Dialogos {
             this.editar = false;
         }
 
+        public dMVVMAddAlquiler(videoclubEntities vidEnt, alquileres alq) {
+            InitializeComponent();
+
+            this.vidEnt = vidEnt;
+
+            inicializa();
+
+            this.editar = true;
+            btnGuardar.Content = "Editar";
+            mAlquiler.alqSelected = alq;
+        }
+
         private void inicializa() {
             mAlquiler = new MVAlquiler(vidEnt);
             DataContext = mAlquiler;
