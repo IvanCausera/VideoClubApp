@@ -14,13 +14,6 @@ namespace videoclub_project.Backend.Modelo
     
     public partial class productos
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public productos()
-        {
-            this.productos_alquiler = new HashSet<productos_alquiler>();
-            this.ventas_productos = new HashSet<ventas_productos>();
-        }
-    
         public int idProductos { get; set; }
         public string titulo { get; set; }
         public Nullable<System.DateTime> fecha { get; set; }
@@ -35,10 +28,6 @@ namespace videoclub_project.Backend.Modelo
         public virtual idiomas idiomas { get; set; }
         public virtual idiomas idiomas1 { get; set; }
         public virtual peliculas peliculas { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<productos_alquiler> productos_alquiler { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ventas_productos> ventas_productos { get; set; }
         public virtual videojuegos videojuegos { get; set; }
 
         public override string ToString() {

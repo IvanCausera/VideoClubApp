@@ -124,10 +124,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Frontend\ControlesUsuario\UCFormatoPelicula.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Frontend\ControlesUsuario\UCFormatos.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -196,6 +192,9 @@
     <Compile Include="Backend\Modelo\idiomas.cs">
       <DependentUpon>videoclubEDM.tt</DependentUpon>
     </Compile>
+    <Compile Include="Backend\Modelo\item.cs">
+      <DependentUpon>videoclubEDM.tt</DependentUpon>
+    </Compile>
     <Compile Include="Backend\Modelo\peliculas.cs">
       <DependentUpon>videoclubEDM.tt</DependentUpon>
     </Compile>
@@ -259,9 +258,6 @@
     <Compile Include="Backend\Servicios\ServicioUsuario.cs" />
     <Compile Include="Frontend\ControlesUsuario\UCActors.xaml.cs">
       <DependentUpon>UCActors.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Frontend\ControlesUsuario\UCFormatoPelicula.xaml.cs">
-      <DependentUpon>UCFormatoPelicula.xaml</DependentUpon>
     </Compile>
     <Compile Include="Frontend\ControlesUsuario\UCFormatos.xaml.cs">
       <DependentUpon>UCFormatos.xaml</DependentUpon>

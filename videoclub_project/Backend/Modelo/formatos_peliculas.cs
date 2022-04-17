@@ -14,7 +14,6 @@ namespace videoclub_project.Backend.Modelo
     
     public partial class formatos_peliculas
     {
-
         public int id { get; set; }
         public int id_formato { get; set; }
         public int id_pelicula { get; set; }
@@ -23,9 +22,9 @@ namespace videoclub_project.Backend.Modelo
     
         public virtual formatos formatos { get; set; }
         public virtual peliculas peliculas { get; set; }
-
+        public virtual item item { get; set; }
         public override string ToString() {
-            return peliculas.productos.titulo +" "+ formatos.formato + " ["+stock+", "+precio+"€]";
+            return peliculas.productos.titulo + " " + formatos.formato + " [" + stock + ", " + precio + "€]";
         }
     }
 }

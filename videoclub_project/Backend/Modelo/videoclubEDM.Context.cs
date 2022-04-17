@@ -33,6 +33,7 @@ namespace videoclub_project.Backend.Modelo
         public virtual DbSet<formatos_peliculas> formatos_peliculas { get; set; }
         public virtual DbSet<generos> generos { get; set; }
         public virtual DbSet<idiomas> idiomas { get; set; }
+        public virtual DbSet<item> item { get; set; }
         public virtual DbSet<peliculas> peliculas { get; set; }
         public virtual DbSet<permisos> permisos { get; set; }
         public virtual DbSet<permisos_roles> permisos_roles { get; set; }

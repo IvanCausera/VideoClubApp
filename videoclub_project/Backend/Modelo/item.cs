@@ -12,21 +12,22 @@ namespace videoclub_project.Backend.Modelo
     using System;
     using System.Collections.Generic;
     
-    public partial class videojuegos
+    public partial class item
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public videojuegos()
+        public item()
         {
-            this.plataformas_videojuegos = new HashSet<plataformas_videojuegos>();
+            this.productos_alquiler = new HashSet<productos_alquiler>();
+            this.ventas_productos = new HashSet<ventas_productos>();
         }
     
-        public int idVideojuegos { get; set; }
-        public string distribuidora { get; set; }
-        public string desarrolladora { get; set; }
-        public sbyte multijugador { get; set; }
+        public int idItem { get; set; }
     
+        public virtual formatos_peliculas formatos_peliculas { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<plataformas_videojuegos> plataformas_videojuegos { get; set; }
-        public virtual productos productos { get; set; }
+        public virtual ICollection<productos_alquiler> productos_alquiler { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ventas_productos> ventas_productos { get; set; }
+        public virtual plataformas_videojuegos plataformas_videojuegos { get; set; }
     }
 }
