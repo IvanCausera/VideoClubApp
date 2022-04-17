@@ -141,13 +141,9 @@
                          ItemsSource="{Binding listVideojuego}"/>
                 </Grid>
 
-                <Grid x:Name="gridPelicula"
+                <Grid x:Name="gridItems"
                       Grid.Row="2" Grid.Column="0"
-                      Height="150"
-                      Margin="10"/>
-
-                <Grid x:Name="gridVideojuego"
-                      Grid.Row="2" Grid.Column="1"
+                      Grid.ColumnSpan="2"
                       Height="150"
                       Margin="10"/>
             </Grid>

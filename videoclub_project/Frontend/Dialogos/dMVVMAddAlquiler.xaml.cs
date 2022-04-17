@@ -25,6 +25,8 @@ namespace videoclub_project.Frontend.Dialogos {
         private videoclubEntities vidEnt;
         private MVAlquiler mAlquiler;
 
+        private UCItems uItems;
+
         private bool editar;
 
         public dMVVMAddAlquiler(videoclubEntities vidEnt) {
@@ -40,6 +42,9 @@ namespace videoclub_project.Frontend.Dialogos {
         private void inicializa() {
             mAlquiler = new MVAlquiler(vidEnt);
             DataContext = mAlquiler;
+
+            uItems = new UCItems(mAlquiler);
+            gridItems.Children.Add(uItems);
         }
 
         private async void btnGuardar_Click(object sender, RoutedEventArgs e) {
@@ -62,11 +67,19 @@ namespace videoclub_project.Frontend.Dialogos {
         }
 
         private void btnAddPelicula_Click(object sender, RoutedEventArgs e) {
-            //TODO
+            mAlquiler.alqSelected.productos_alquiler.Add(new productos_alquiler {
+                alquileres = mAlquiler.alqSelected,
+                item = ((formatos_peliculas)comboPelicula.SelectedItem).item
+            });
+            uItems.update();
         }
 
         private void btnAddVideojuego_Click(object sender, RoutedEventArgs e) {
-            //TODO
+            mAlquiler.alqSelected.productos_alquiler.Add(new productos_alquiler {
+                alquileres = mAlquiler.alqSelected,
+                item = ((plataformas_videojuegos)comboVideojuego.SelectedItem).item
+            });
+            uItems.update();
         }
     }
 }

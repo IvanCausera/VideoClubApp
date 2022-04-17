@@ -36,10 +36,6 @@ namespace videoclub_project.MVVM {
             get { return listView; }
         }
 
-        public List<productos_alquiler> listProductosAlquiler {
-            get { return alqSelected.productos_alquiler.ToList(); }
-        }
-
         public List<cliente> listClientes {
             get { return new ServicioGenerico<cliente>(vidEnt).getAll().ToList(); }
         }
@@ -54,6 +50,10 @@ namespace videoclub_project.MVVM {
 
         public List<plataformas_videojuegos> listVideojuego {
             get { return new ServicioGenerico<plataformas_videojuegos>(vidEnt).getAll().ToList(); }
+        }
+
+        public List<productos_alquiler> listProductosAlquiler {
+            get { return new ServicioGenerico<productos_alquiler>(vidEnt).getAll().ToList(); }
         }
 
         // Getters and Setters ***************************************************************************************
