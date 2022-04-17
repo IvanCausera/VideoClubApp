@@ -15,7 +15,7 @@
         <!--Lista-->
         <Grid>
             <DataGrid x:Name="dgUser" AutoGenerateColumns="False" CanUserAddRows="False" ColumnWidth="*" IsReadOnly="True"
-                      ItemsSource="{Binding alqSelected.}"
+                      ItemsSource="{Binding alqSelected}"
                       SelectedItem="{Binding usuSelected}">
                 <DataGrid.Columns>
 
