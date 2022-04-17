@@ -19,6 +19,6 @@ namespace videoclub_project.Backend.Modelo
         public int id_producto { get; set; }
     
         public virtual alquileres alquileres { get; set; }
-        public virtual productos productos { get; set; }
+        public virtual item item { get; set; }
     }
 }

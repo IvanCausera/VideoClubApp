@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="videoclubModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="8.0" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="videoclubModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="8.0" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="actores_peliculas">
           <Key>
             <PropertyRef Name="id" />
@@ -46,7 +46,7 @@
             <PropertyRef Name="idFormatos" />
           </Key>
           <Property Name="idFormatos" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="formato" Type="varchar" MaxLength="10" />
+          <Property Name="formato" Type="varchar" MaxLength="20" />
         </EntityType>
         <EntityType Name="formatos_peliculas">
           <Key>
@@ -63,14 +63,20 @@
             <PropertyRef Name="idGeneros" />
           </Key>
           <Property Name="idGeneros" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="genero" Type="varchar" MaxLength="10" />
+          <Property Name="genero" Type="varchar" MaxLength="20" />
         </EntityType>
         <EntityType Name="idiomas">
           <Key>
             <PropertyRef Name="idIdiomas" />
           </Key>
           <Property Name="idIdiomas" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="idioma" Type="varchar" MaxLength="10" />
+          <Property Name="idioma" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="item">
+          <Key>
+            <PropertyRef Name="idItem" />
+          </Key>
+          <Property Name="idItem" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="peliculas">
           <Key>
@@ -103,7 +109,7 @@
             <PropertyRef Name="idPlataformas" />
           </Key>
           <Property Name="idPlataformas" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="plataforma" Type="varchar" MaxLength="10" />
+          <Property Name="plataforma" Type="varchar" MaxLength="20" />
         </EntityType>
         <EntityType Name="plataformas_videojuegos">
           <Key>
@@ -338,11 +344,11 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="id_producto_alquiler">
-          <End Role="productos" Type="Self.productos" Multiplicity="1" />
+          <End Role="item" Type="Self.item" Multiplicity="1" />
           <End Role="productos_alquiler" Type="Self.productos_alquiler" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="productos">
-              <PropertyRef Name="idProductos" />
+            <Principal Role="item">
+              <PropertyRef Name="idItem" />
             </Principal>
             <Dependent Role="productos_alquiler">
               <PropertyRef Name="id_producto" />
@@ -350,11 +356,11 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="id_producto_venta">
-          <End Role="productos" Type="Self.productos" Multiplicity="1" />
+          <End Role="item" Type="Self.item" Multiplicity="1" />
           <End Role="ventas_productos" Type="Self.ventas_productos" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="productos">
-              <PropertyRef Name="idProductos" />
+            <Principal Role="item">
+              <PropertyRef Name="idItem" />
             </Principal>
             <Dependent Role="ventas_productos">
               <PropertyRef Name="id_producto" />
@@ -469,6 +475,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="idItem_formatoPelicula">
+          <End Role="item" Type="Self.item" Multiplicity="1" />
+          <End Role="formatos_peliculas" Type="Self.formatos_peliculas" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="item">
+              <PropertyRef Name="idItem" />
+            </Principal>
+            <Dependent Role="formatos_peliculas">
+              <PropertyRef Name="id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="idItem_plataformaVideojuego">
+          <End Role="item" Type="Self.item" Multiplicity="1" />
+          <End Role="plataformas_videojuegos" Type="Self.plataformas_videojuegos" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="item">
+              <PropertyRef Name="idItem" />
+            </Principal>
+            <Dependent Role="plataformas_videojuegos">
+              <PropertyRef Name="id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="idPelicula_producto">
           <End Role="productos" Type="Self.productos" Multiplicity="1" />
           <End Role="peliculas" Type="Self.peliculas" Multiplicity="0..1" />
@@ -502,6 +532,7 @@
           <EntitySet Name="formatos_peliculas" EntityType="Self.formatos_peliculas" Schema="videoclub" store:Type="Tables" />
           <EntitySet Name="generos" EntityType="Self.generos" Schema="videoclub" store:Type="Tables" />
           <EntitySet Name="idiomas" EntityType="Self.idiomas" Schema="videoclub" store:Type="Tables" />
+          <EntitySet Name="item" EntityType="Self.item" Schema="videoclub" store:Type="Tables" />
           <EntitySet Name="peliculas" EntityType="Self.peliculas" Schema="videoclub" store:Type="Tables" />
           <EntitySet Name="permisos" EntityType="Self.permisos" Schema="videoclub" store:Type="Tables" />
           <EntitySet Name="permisos_roles" EntityType="Self.permisos_roles" Schema="videoclub" store:Type="Tables" />
@@ -561,11 +592,11 @@
             <End Role="plataformas_videojuegos" EntitySet="plataformas_videojuegos" />
           </AssociationSet>
           <AssociationSet Name="id_producto_alquiler" Association="Self.id_producto_alquiler">
-            <End Role="productos" EntitySet="productos" />
+            <End Role="item" EntitySet="item" />
             <End Role="productos_alquiler" EntitySet="productos_alquiler" />
           </AssociationSet>
           <AssociationSet Name="id_producto_venta" Association="Self.id_producto_venta">
-            <End Role="productos" EntitySet="productos" />
+            <End Role="item" EntitySet="item" />
             <End Role="ventas_productos" EntitySet="ventas_productos" />
           </AssociationSet>
           <AssociationSet Name="id_reserva_alquiler" Association="Self.id_reserva_alquiler">
@@ -604,6 +635,14 @@
             <End Role="usuarios" EntitySet="usuarios" />
             <End Role="empleado" EntitySet="empleado" />
           </AssociationSet>
+          <AssociationSet Name="idItem_formatoPelicula" Association="Self.idItem_formatoPelicula">
+            <End Role="item" EntitySet="item" />
+            <End Role="formatos_peliculas" EntitySet="formatos_peliculas" />
+          </AssociationSet>
+          <AssociationSet Name="idItem_plataformaVideojuego" Association="Self.idItem_plataformaVideojuego">
+            <End Role="item" EntitySet="item" />
+            <End Role="plataformas_videojuegos" EntitySet="plataformas_videojuegos" />
+          </AssociationSet>
           <AssociationSet Name="idPelicula_producto" Association="Self.idPelicula_producto">
             <End Role="productos" EntitySet="productos" />
             <End Role="peliculas" EntitySet="peliculas" />
@@ -613,11 +652,139 @@
             <End Role="videojuegos" EntitySet="videojuegos" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="videoclubModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="videoclubEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="actores_peliculas" EntityType="videoclubModel.actores_peliculas" />
+          <EntitySet Name="alquileres" EntityType="videoclubModel.alquileres" />
+          <EntitySet Name="cliente" EntityType="videoclubModel.cliente" />
+          <EntitySet Name="empleado" EntityType="videoclubModel.empleado" />
+          <EntitySet Name="formatos" EntityType="videoclubModel.formatos" />
+          <EntitySet Name="formatos_peliculas" EntityType="videoclubModel.formatos_peliculas" />
+          <EntitySet Name="generos" EntityType="videoclubModel.generos" />
+          <EntitySet Name="idiomas" EntityType="videoclubModel.idiomas" />
+          <EntitySet Name="item" EntityType="videoclubModel.item" />
+          <EntitySet Name="peliculas" EntityType="videoclubModel.peliculas" />
+          <EntitySet Name="permisos" EntityType="videoclubModel.permisos" />
+          <EntitySet Name="permisos_roles" EntityType="videoclubModel.permisos_roles" />
+          <EntitySet Name="plataformas" EntityType="videoclubModel.plataformas" />
+          <EntitySet Name="plataformas_videojuegos" EntityType="videoclubModel.plataformas_videojuegos" />
+          <EntitySet Name="productos" EntityType="videoclubModel.productos" />
+          <EntitySet Name="productos_alquiler" EntityType="videoclubModel.productos_alquiler" />
+          <EntitySet Name="reservas" EntityType="videoclubModel.reservas" />
+          <EntitySet Name="roles" EntityType="videoclubModel.roles" />
+          <EntitySet Name="tipo_alquiler" EntityType="videoclubModel.tipo_alquiler" />
+          <EntitySet Name="usuarios" EntityType="videoclubModel.usuarios" />
+          <EntitySet Name="ventas" EntityType="videoclubModel.ventas" />
+          <EntitySet Name="ventas_productos" EntityType="videoclubModel.ventas_productos" />
+          <EntitySet Name="videojuegos" EntityType="videoclubModel.videojuegos" />
+          <AssociationSet Name="id_peliculas_actores" Association="videoclubModel.id_peliculas_actores">
+            <End Role="peliculas" EntitySet="peliculas" />
+            <End Role="actores_peliculas" EntitySet="actores_peliculas" />
+          </AssociationSet>
+          <AssociationSet Name="id_aluiler_prodcutos" Association="videoclubModel.id_aluiler_prodcutos">
+            <End Role="alquileres" EntitySet="alquileres" />
+            <End Role="productos_alquiler" EntitySet="productos_alquiler" />
+          </AssociationSet>
+          <AssociationSet Name="id_cliente_alquiler" Association="videoclubModel.id_cliente_alquiler">
+            <End Role="cliente" EntitySet="cliente" />
+            <End Role="alquileres" EntitySet="alquileres" />
+          </AssociationSet>
+          <AssociationSet Name="id_reserva_alquiler" Association="videoclubModel.id_reserva_alquiler">
+            <End Role="reservas" EntitySet="reservas" />
+            <End Role="alquileres" EntitySet="alquileres" />
+          </AssociationSet>
+          <AssociationSet Name="id_tipo_alquiler_alquiler" Association="videoclubModel.id_tipo_alquiler_alquiler">
+            <End Role="tipo_alquiler" EntitySet="tipo_alquiler" />
+            <End Role="alquileres" EntitySet="alquileres" />
+          </AssociationSet>
+          <AssociationSet Name="id_cliente_venta" Association="videoclubModel.id_cliente_venta">
+            <End Role="cliente" EntitySet="cliente" />
+            <End Role="ventas" EntitySet="ventas" />
+          </AssociationSet>
+          <AssociationSet Name="idCliente_usuario" Association="videoclubModel.idCliente_usuario">
+            <End Role="usuarios" EntitySet="usuarios" />
+            <End Role="cliente" EntitySet="cliente" />
+          </AssociationSet>
+          <AssociationSet Name="idEmpleado_usuario" Association="videoclubModel.idEmpleado_usuario">
+            <End Role="usuarios" EntitySet="usuarios" />
+            <End Role="empleado" EntitySet="empleado" />
+          </AssociationSet>
+          <AssociationSet Name="id_formato_pelicula" Association="videoclubModel.id_formato_pelicula">
+            <End Role="formatos" EntitySet="formatos" />
+            <End Role="formatos_peliculas" EntitySet="formatos_peliculas" />
+          </AssociationSet>
+          <AssociationSet Name="id_pelicula_formato" Association="videoclubModel.id_pelicula_formato">
+            <End Role="peliculas" EntitySet="peliculas" />
+            <End Role="formatos_peliculas" EntitySet="formatos_peliculas" />
+          </AssociationSet>
+          <AssociationSet Name="idItem_formatoPelicula" Association="videoclubModel.idItem_formatoPelicula">
+            <End Role="item" EntitySet="item" />
+            <End Role="formatos_peliculas" EntitySet="formatos_peliculas" />
+          </AssociationSet>
+          <AssociationSet Name="id_genero_producto" Association="videoclubModel.id_genero_producto">
+            <End Role="generos" EntitySet="generos" />
+            <End Role="productos" EntitySet="productos" />
+          </AssociationSet>
+          <AssociationSet Name="id_idioma_producto" Association="videoclubModel.id_idioma_producto">
+            <End Role="idiomas" EntitySet="idiomas" />
+            <End Role="productos" EntitySet="productos" />
+          </AssociationSet>
+          <AssociationSet Name="id_idiomaDoblado_producto" Association="videoclubModel.id_idiomaDoblado_producto">
+            <End Role="idiomas" EntitySet="idiomas" />
+            <End Role="productos" EntitySet="productos" />
+          </AssociationSet>
+          <AssociationSet Name="id_producto_alquiler" Association="videoclubModel.id_producto_alquiler">
+            <End Role="item" EntitySet="item" />
+            <End Role="productos_alquiler" EntitySet="productos_alquiler" />
+          </AssociationSet>
+          <AssociationSet Name="id_producto_venta" Association="videoclubModel.id_producto_venta">
+            <End Role="item" EntitySet="item" />
+            <End Role="ventas_productos" EntitySet="ventas_productos" />
+          </AssociationSet>
+          <AssociationSet Name="idItem_plataformaVideojuego" Association="videoclubModel.idItem_plataformaVideojuego">
+            <End Role="item" EntitySet="item" />
+            <End Role="plataformas_videojuegos" EntitySet="plataformas_videojuegos" />
+          </AssociationSet>
+          <AssociationSet Name="idPelicula_producto" Association="videoclubModel.idPelicula_producto">
+            <End Role="productos" EntitySet="productos" />
+            <End Role="peliculas" EntitySet="peliculas" />
+          </AssociationSet>
+          <AssociationSet Name="id_permiso_rol" Association="videoclubModel.id_permiso_rol">
+            <End Role="permisos" EntitySet="permisos" />
+            <End Role="permisos_roles" EntitySet="permisos_roles" />
+          </AssociationSet>
+          <AssociationSet Name="id_rol_permiso" Association="videoclubModel.id_rol_permiso">
+            <End Role="roles" EntitySet="roles" />
+            <End Role="permisos_roles" EntitySet="permisos_roles" />
+          </AssociationSet>
+          <AssociationSet Name="id_plataforma_videojuego" Association="videoclubModel.id_plataforma_videojuego">
+            <End Role="plataformas" EntitySet="plataformas" />
+            <End Role="plataformas_videojuegos" EntitySet="plataformas_videojuegos" />
+          </AssociationSet>
+          <AssociationSet Name="id_videojuego_plataforma" Association="videoclubModel.id_videojuego_plataforma">
+            <End Role="videojuegos" EntitySet="videojuegos" />
+            <End Role="plataformas_videojuegos" EntitySet="plataformas_videojuegos" />
+          </AssociationSet>
+          <AssociationSet Name="idVideojuego_producto" Association="videoclubModel.idVideojuego_producto">
+            <End Role="productos" EntitySet="productos" />
+            <End Role="videojuegos" EntitySet="videojuegos" />
+          </AssociationSet>
+          <AssociationSet Name="id_reserva_venta" Association="videoclubModel.id_reserva_venta">
+            <End Role="reservas" EntitySet="reservas" />
+            <End Role="ventas" EntitySet="ventas" />
+          </AssociationSet>
+          <AssociationSet Name="id_rol_user" Association="videoclubModel.id_rol_user">
+            <End Role="roles" EntitySet="roles" />
+            <End Role="usuarios" EntitySet="usuarios" />
+          </AssociationSet>
+          <AssociationSet Name="id_venta_ventaproductos" Association="videoclubModel.id_venta_ventaproductos">
+            <End Role="ventas" EntitySet="ventas" />
+            <End Role="ventas_productos" EntitySet="ventas_productos" />
+          </AssociationSet>
+        </EntityContainer>
         <EntityType Name="actores_peliculas">
           <Key>
             <PropertyRef Name="id" />
@@ -627,7 +794,7 @@
           <Property Name="nombre" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="apellido1" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="apellido2" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="peliculas" Relationship="Self.id_peliculas_actores" FromRole="actores_peliculas" ToRole="peliculas" />
+          <NavigationProperty Name="peliculas" Relationship="videoclubModel.id_peliculas_actores" FromRole="actores_peliculas" ToRole="peliculas" />
         </EntityType>
         <EntityType Name="alquileres">
           <Key>
@@ -639,10 +806,10 @@
           <Property Name="fecha_devolucion" Type="DateTime" />
           <Property Name="id_tipo_alquiler" Type="Int32" Nullable="false" />
           <Property Name="id_reserva" Type="Int32" />
-          <NavigationProperty Name="productos_alquiler" Relationship="Self.id_aluiler_prodcutos" FromRole="alquileres" ToRole="productos_alquiler" />
-          <NavigationProperty Name="cliente" Relationship="Self.id_cliente_alquiler" FromRole="alquileres" ToRole="cliente" />
-          <NavigationProperty Name="reservas" Relationship="Self.id_reserva_alquiler" FromRole="alquileres" ToRole="reservas" />
-          <NavigationProperty Name="tipo_alquiler" Relationship="Self.id_tipo_alquiler_alquiler" FromRole="alquileres" ToRole="tipo_alquiler" />
+          <NavigationProperty Name="productos_alquiler" Relationship="videoclubModel.id_aluiler_prodcutos" FromRole="alquileres" ToRole="productos_alquiler" />
+          <NavigationProperty Name="cliente" Relationship="videoclubModel.id_cliente_alquiler" FromRole="alquileres" ToRole="cliente" />
+          <NavigationProperty Name="reservas" Relationship="videoclubModel.id_reserva_alquiler" FromRole="alquileres" ToRole="reservas" />
+          <NavigationProperty Name="tipo_alquiler" Relationship="videoclubModel.id_tipo_alquiler_alquiler" FromRole="alquileres" ToRole="tipo_alquiler" />
         </EntityType>
         <EntityType Name="cliente">
           <Key>
@@ -650,9 +817,9 @@
           </Key>
           <Property Name="idCliente" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="numero_tarjeta" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="alquileres" Relationship="Self.id_cliente_alquiler" FromRole="cliente" ToRole="alquileres" />
-          <NavigationProperty Name="ventas" Relationship="Self.id_cliente_venta" FromRole="cliente" ToRole="ventas" />
-          <NavigationProperty Name="usuarios" Relationship="Self.idCliente_usuario" FromRole="cliente" ToRole="usuarios" />
+          <NavigationProperty Name="alquileres" Relationship="videoclubModel.id_cliente_alquiler" FromRole="cliente" ToRole="alquileres" />
+          <NavigationProperty Name="ventas" Relationship="videoclubModel.id_cliente_venta" FromRole="cliente" ToRole="ventas" />
+          <NavigationProperty Name="usuarios" Relationship="videoclubModel.idCliente_usuario" FromRole="cliente" ToRole="usuarios" />
         </EntityType>
         <EntityType Name="empleado">
           <Key>
@@ -661,15 +828,15 @@
           <Property Name="idEmpleado" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="salario" Type="Single" Nullable="false" />
           <Property Name="cuanta_bancaria" Type="String" MaxLength="24" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="usuarios" Relationship="Self.idEmpleado_usuario" FromRole="empleado" ToRole="usuarios" />
+          <NavigationProperty Name="usuarios" Relationship="videoclubModel.idEmpleado_usuario" FromRole="empleado" ToRole="usuarios" />
         </EntityType>
         <EntityType Name="formatos">
           <Key>
             <PropertyRef Name="idFormatos" />
           </Key>
           <Property Name="idFormatos" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="formato" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="formatos_peliculas" Relationship="Self.id_formato_pelicula" FromRole="formatos" ToRole="formatos_peliculas" />
+          <Property Name="formato" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="formatos_peliculas" Relationship="videoclubModel.id_formato_pelicula" FromRole="formatos" ToRole="formatos_peliculas" />
         </EntityType>
         <EntityType Name="formatos_peliculas">
           <Key>
@@ -680,25 +847,36 @@
           <Property Name="id_pelicula" Type="Int32" Nullable="false" />
           <Property Name="stock" Type="Int32" Nullable="false" />
           <Property Name="precio" Type="Single" Nullable="false" />
-          <NavigationProperty Name="formatos" Relationship="Self.id_formato_pelicula" FromRole="formatos_peliculas" ToRole="formatos" />
-          <NavigationProperty Name="peliculas" Relationship="Self.id_pelicula_formato" FromRole="formatos_peliculas" ToRole="peliculas" />
+          <NavigationProperty Name="formatos" Relationship="videoclubModel.id_formato_pelicula" FromRole="formatos_peliculas" ToRole="formatos" />
+          <NavigationProperty Name="peliculas" Relationship="videoclubModel.id_pelicula_formato" FromRole="formatos_peliculas" ToRole="peliculas" />
+          <NavigationProperty Name="item" Relationship="videoclubModel.idItem_formatoPelicula" FromRole="formatos_peliculas" ToRole="item" />
         </EntityType>
         <EntityType Name="generos">
           <Key>
             <PropertyRef Name="idGeneros" />
           </Key>
           <Property Name="idGeneros" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="genero" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="productos" Relationship="Self.id_genero_producto" FromRole="generos" ToRole="productos" />
+          <Property Name="genero" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="productos" Relationship="videoclubModel.id_genero_producto" FromRole="generos" ToRole="productos" />
         </EntityType>
         <EntityType Name="idiomas">
           <Key>
             <PropertyRef Name="idIdiomas" />
           </Key>
           <Property Name="idIdiomas" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="idioma" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="productos" Relationship="Self.id_idioma_producto" FromRole="idiomas" ToRole="productos" />
-          <NavigationProperty Name="productos1" Relationship="Self.id_idiomaDoblado_producto" FromRole="idiomas" ToRole="productos" />
+          <Property Name="idioma" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="productos" Relationship="videoclubModel.id_idioma_producto" FromRole="idiomas" ToRole="productos" />
+          <NavigationProperty Name="productos1" Relationship="videoclubModel.id_idiomaDoblado_producto" FromRole="idiomas" ToRole="productos" />
+        </EntityType>
+        <EntityType Name="item">
+          <Key>
+            <PropertyRef Name="idItem" />
+          </Key>
+          <Property Name="idItem" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="formatos_peliculas" Relationship="videoclubModel.idItem_formatoPelicula" FromRole="item" ToRole="formatos_peliculas" />
+          <NavigationProperty Name="productos_alquiler" Relationship="videoclubModel.id_producto_alquiler" FromRole="item" ToRole="productos_alquiler" />
+          <NavigationProperty Name="ventas_productos" Relationship="videoclubModel.id_producto_venta" FromRole="item" ToRole="ventas_productos" />
+          <NavigationProperty Name="plataformas_videojuegos" Relationship="videoclubModel.idItem_plataformaVideojuego" FromRole="item" ToRole="plataformas_videojuegos" />
         </EntityType>
         <EntityType Name="peliculas">
           <Key>
@@ -710,9 +888,9 @@
           <Property Name="duracion" Type="Int32" Nullable="false" />
           <Property Name="sinopsis" Type="String" MaxLength="16777215" FixedLength="false" Unicode="false" />
           <Property Name="director" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="actores_peliculas" Relationship="Self.id_peliculas_actores" FromRole="peliculas" ToRole="actores_peliculas" />
-          <NavigationProperty Name="formatos_peliculas" Relationship="Self.id_pelicula_formato" FromRole="peliculas" ToRole="formatos_peliculas" />
-          <NavigationProperty Name="productos" Relationship="Self.idPelicula_producto" FromRole="peliculas" ToRole="productos" />
+          <NavigationProperty Name="actores_peliculas" Relationship="videoclubModel.id_peliculas_actores" FromRole="peliculas" ToRole="actores_peliculas" />
+          <NavigationProperty Name="formatos_peliculas" Relationship="videoclubModel.id_pelicula_formato" FromRole="peliculas" ToRole="formatos_peliculas" />
+          <NavigationProperty Name="productos" Relationship="videoclubModel.idPelicula_producto" FromRole="peliculas" ToRole="productos" />
         </EntityType>
         <EntityType Name="permisos">
           <Key>
@@ -720,7 +898,7 @@
           </Key>
           <Property Name="idPermiso" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="permiso" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="permisos_roles" Relationship="Self.id_permiso_rol" FromRole="permisos" ToRole="permisos_roles" />
+          <NavigationProperty Name="permisos_roles" Relationship="videoclubModel.id_permiso_rol" FromRole="permisos" ToRole="permisos_roles" />
         </EntityType>
         <EntityType Name="permisos_roles">
           <Key>
@@ -729,16 +907,16 @@
           <Property Name="idPermisos_roles" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="id_permiso" Type="Int32" Nullable="false" />
           <Property Name="id_rol" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="permisos" Relationship="Self.id_permiso_rol" FromRole="permisos_roles" ToRole="permisos" />
-          <NavigationProperty Name="roles" Relationship="Self.id_rol_permiso" FromRole="permisos_roles" ToRole="roles" />
+          <NavigationProperty Name="permisos" Relationship="videoclubModel.id_permiso_rol" FromRole="permisos_roles" ToRole="permisos" />
+          <NavigationProperty Name="roles" Relationship="videoclubModel.id_rol_permiso" FromRole="permisos_roles" ToRole="roles" />
         </EntityType>
         <EntityType Name="plataformas">
           <Key>
             <PropertyRef Name="idPlataformas" />
           </Key>
           <Property Name="idPlataformas" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="plataforma" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="plataformas_videojuegos" Relationship="Self.id_plataforma_videojuego" FromRole="plataformas" ToRole="plataformas_videojuegos" />
+          <Property Name="plataforma" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="plataformas_videojuegos" Relationship="videoclubModel.id_plataforma_videojuego" FromRole="plataformas" ToRole="plataformas_videojuegos" />
         </EntityType>
         <EntityType Name="plataformas_videojuegos">
           <Key>
@@ -749,8 +927,9 @@
           <Property Name="id_videojuego" Type="Int32" Nullable="false" />
           <Property Name="stock" Type="Int32" Nullable="false" />
           <Property Name="precio" Type="Single" Nullable="false" />
-          <NavigationProperty Name="plataformas" Relationship="Self.id_plataforma_videojuego" FromRole="plataformas_videojuegos" ToRole="plataformas" />
-          <NavigationProperty Name="videojuegos" Relationship="Self.id_videojuego_plataforma" FromRole="plataformas_videojuegos" ToRole="videojuegos" />
+          <NavigationProperty Name="item" Relationship="videoclubModel.idItem_plataformaVideojuego" FromRole="plataformas_videojuegos" ToRole="item" />
+          <NavigationProperty Name="plataformas" Relationship="videoclubModel.id_plataforma_videojuego" FromRole="plataformas_videojuegos" ToRole="plataformas" />
+          <NavigationProperty Name="videojuegos" Relationship="videoclubModel.id_videojuego_plataforma" FromRole="plataformas_videojuegos" ToRole="videojuegos" />
         </EntityType>
         <EntityType Name="productos">
           <Key>
@@ -765,13 +944,11 @@
           <Property Name="id_genero" Type="Int32" Nullable="false" />
           <Property Name="id_idioma" Type="Int32" Nullable="false" />
           <Property Name="id_idiomaDoblado" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="generos" Relationship="Self.id_genero_producto" FromRole="productos" ToRole="generos" />
-          <NavigationProperty Name="idiomas" Relationship="Self.id_idioma_producto" FromRole="productos" ToRole="idiomas" />
-          <NavigationProperty Name="idiomas1" Relationship="Self.id_idiomaDoblado_producto" FromRole="productos" ToRole="idiomas" />
-          <NavigationProperty Name="peliculas" Relationship="Self.idPelicula_producto" FromRole="productos" ToRole="peliculas" />
-          <NavigationProperty Name="productos_alquiler" Relationship="Self.id_producto_alquiler" FromRole="productos" ToRole="productos_alquiler" />
-          <NavigationProperty Name="ventas_productos" Relationship="Self.id_producto_venta" FromRole="productos" ToRole="ventas_productos" />
-          <NavigationProperty Name="videojuegos" Relationship="Self.idVideojuego_producto" FromRole="productos" ToRole="videojuegos" />
+          <NavigationProperty Name="generos" Relationship="videoclubModel.id_genero_producto" FromRole="productos" ToRole="generos" />
+          <NavigationProperty Name="idiomas" Relationship="videoclubModel.id_idioma_producto" FromRole="productos" ToRole="idiomas" />
+          <NavigationProperty Name="idiomas1" Relationship="videoclubModel.id_idiomaDoblado_producto" FromRole="productos" ToRole="idiomas" />
+          <NavigationProperty Name="peliculas" Relationship="videoclubModel.idPelicula_producto" FromRole="productos" ToRole="peliculas" />
+          <NavigationProperty Name="videojuegos" Relationship="videoclubModel.idVideojuego_producto" FromRole="productos" ToRole="videojuegos" />
         </EntityType>
         <EntityType Name="productos_alquiler">
           <Key>
@@ -780,8 +957,8 @@
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="id_alquiler" Type="Int32" Nullable="false" />
           <Property Name="id_producto" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="alquileres" Relationship="Self.id_aluiler_prodcutos" FromRole="productos_alquiler" ToRole="alquileres" />
-          <NavigationProperty Name="productos" Relationship="Self.id_producto_alquiler" FromRole="productos_alquiler" ToRole="productos" />
+          <NavigationProperty Name="alquileres" Relationship="videoclubModel.id_aluiler_prodcutos" FromRole="productos_alquiler" ToRole="alquileres" />
+          <NavigationProperty Name="item" Relationship="videoclubModel.id_producto_alquiler" FromRole="productos_alquiler" ToRole="item" />
         </EntityType>
         <EntityType Name="reservas">
           <Key>
@@ -790,8 +967,8 @@
           <Property Name="idReservas" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="cancelada" Type="SByte" Nullable="false" />
           <Property Name="fecha" Type="DateTime" />
-          <NavigationProperty Name="alquileres" Relationship="Self.id_reserva_alquiler" FromRole="reservas" ToRole="alquileres" />
-          <NavigationProperty Name="ventas" Relationship="Self.id_reserva_venta" FromRole="reservas" ToRole="ventas" />
+          <NavigationProperty Name="alquileres" Relationship="videoclubModel.id_reserva_alquiler" FromRole="reservas" ToRole="alquileres" />
+          <NavigationProperty Name="ventas" Relationship="videoclubModel.id_reserva_venta" FromRole="reservas" ToRole="ventas" />
         </EntityType>
         <EntityType Name="roles">
           <Key>
@@ -799,8 +976,8 @@
           </Key>
           <Property Name="idRoles" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="rol" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="permisos_roles" Relationship="Self.id_rol_permiso" FromRole="roles" ToRole="permisos_roles" />
-          <NavigationProperty Name="usuarios" Relationship="Self.id_rol_user" FromRole="roles" ToRole="usuarios" />
+          <NavigationProperty Name="permisos_roles" Relationship="videoclubModel.id_rol_permiso" FromRole="roles" ToRole="permisos_roles" />
+          <NavigationProperty Name="usuarios" Relationship="videoclubModel.id_rol_user" FromRole="roles" ToRole="usuarios" />
         </EntityType>
         <EntityType Name="tipo_alquiler">
           <Key>
@@ -811,7 +988,7 @@
           <Property Name="duracion" Type="Int32" Nullable="false" />
           <Property Name="recargo" Type="Single" Nullable="false" />
           <Property Name="nombre" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="alquileres" Relationship="Self.id_tipo_alquiler_alquiler" FromRole="tipo_alquiler" ToRole="alquileres" />
+          <NavigationProperty Name="alquileres" Relationship="videoclubModel.id_tipo_alquiler_alquiler" FromRole="tipo_alquiler" ToRole="alquileres" />
         </EntityType>
         <EntityType Name="usuarios">
           <Key>
@@ -829,9 +1006,9 @@
           <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="id_rol" Type="Int32" Nullable="false" />
           <Property Name="DNI" Type="String" MaxLength="9" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="cliente" Relationship="Self.idCliente_usuario" FromRole="usuarios" ToRole="cliente" />
-          <NavigationProperty Name="empleado" Relationship="Self.idEmpleado_usuario" FromRole="usuarios" ToRole="empleado" />
-          <NavigationProperty Name="roles" Relationship="Self.id_rol_user" FromRole="usuarios" ToRole="roles" />
+          <NavigationProperty Name="cliente" Relationship="videoclubModel.idCliente_usuario" FromRole="usuarios" ToRole="cliente" />
+          <NavigationProperty Name="empleado" Relationship="videoclubModel.idEmpleado_usuario" FromRole="usuarios" ToRole="empleado" />
+          <NavigationProperty Name="roles" Relationship="videoclubModel.id_rol_user" FromRole="usuarios" ToRole="roles" />
         </EntityType>
         <EntityType Name="ventas">
           <Key>
@@ -841,9 +1018,9 @@
           <Property Name="id_cliente" Type="Int32" Nullable="false" />
           <Property Name="fecha" Type="DateTime" />
           <Property Name="id_reserva" Type="Int32" />
-          <NavigationProperty Name="cliente" Relationship="Self.id_cliente_venta" FromRole="ventas" ToRole="cliente" />
-          <NavigationProperty Name="reservas" Relationship="Self.id_reserva_venta" FromRole="ventas" ToRole="reservas" />
-          <NavigationProperty Name="ventas_productos" Relationship="Self.id_venta_ventaproductos" FromRole="ventas" ToRole="ventas_productos" />
+          <NavigationProperty Name="cliente" Relationship="videoclubModel.id_cliente_venta" FromRole="ventas" ToRole="cliente" />
+          <NavigationProperty Name="reservas" Relationship="videoclubModel.id_reserva_venta" FromRole="ventas" ToRole="reservas" />
+          <NavigationProperty Name="ventas_productos" Relationship="videoclubModel.id_venta_ventaproductos" FromRole="ventas" ToRole="ventas_productos" />
         </EntityType>
         <EntityType Name="ventas_productos">
           <Key>
@@ -852,8 +1029,8 @@
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="id_venta" Type="Int32" Nullable="false" />
           <Property Name="id_producto" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="productos" Relationship="Self.id_producto_venta" FromRole="ventas_productos" ToRole="productos" />
-          <NavigationProperty Name="ventas" Relationship="Self.id_venta_ventaproductos" FromRole="ventas_productos" ToRole="ventas" />
+          <NavigationProperty Name="item" Relationship="videoclubModel.id_producto_venta" FromRole="ventas_productos" ToRole="item" />
+          <NavigationProperty Name="ventas" Relationship="videoclubModel.id_venta_ventaproductos" FromRole="ventas_productos" ToRole="ventas" />
         </EntityType>
         <EntityType Name="videojuegos">
           <Key>
@@ -863,12 +1040,12 @@
           <Property Name="distribuidora" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
           <Property Name="desarrolladora" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
           <Property Name="multijugador" Type="SByte" Nullable="false" />
-          <NavigationProperty Name="plataformas_videojuegos" Relationship="Self.id_videojuego_plataforma" FromRole="videojuegos" ToRole="plataformas_videojuegos" />
-          <NavigationProperty Name="productos" Relationship="Self.idVideojuego_producto" FromRole="videojuegos" ToRole="productos" />
+          <NavigationProperty Name="plataformas_videojuegos" Relationship="videoclubModel.id_videojuego_plataforma" FromRole="videojuegos" ToRole="plataformas_videojuegos" />
+          <NavigationProperty Name="productos" Relationship="videoclubModel.idVideojuego_producto" FromRole="videojuegos" ToRole="productos" />
         </EntityType>
         <Association Name="id_peliculas_actores">
-          <End Role="peliculas" Type="Self.peliculas" Multiplicity="1" />
-          <End Role="actores_peliculas" Type="Self.actores_peliculas" Multiplicity="*" />
+          <End Type="videoclubModel.peliculas" Role="peliculas" Multiplicity="1" />
+          <End Type="videoclubModel.actores_peliculas" Role="actores_peliculas" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="peliculas">
               <PropertyRef Name="idPeliculas" />
@@ -879,8 +1056,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="id_aluiler_prodcutos">
-          <End Role="alquileres" Type="Self.alquileres" Multiplicity="1" />
-          <End Role="productos_alquiler" Type="Self.productos_alquiler" Multiplicity="*" />
+          <End Type="videoclubModel.alquileres" Role="alquileres" Multiplicity="1" />
+          <End Type="videoclubModel.productos_alquiler" Role="productos_alquiler" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="alquileres">
               <PropertyRef Name="idAlquileres" />
@@ -891,8 +1068,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="id_cliente_alquiler">
-          <End Role="cliente" Type="Self.cliente" Multiplicity="1" />
-          <End Role="alquileres" Type="Self.alquileres" Multiplicity="*" />
+          <End Type="videoclubModel.cliente" Role="cliente" Multiplicity="1" />
+          <End Type="videoclubModel.alquileres" Role="alquileres" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="cliente">
               <PropertyRef Name="idCliente" />
@@ -903,8 +1080,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="id_reserva_alquiler">
-          <End Role="reservas" Type="Self.reservas" Multiplicity="0..1" />
-          <End Role="alquileres" Type="Self.alquileres" Multiplicity="*" />
+          <End Type="videoclubModel.reservas" Role="reservas" Multiplicity="0..1" />
+          <End Type="videoclubModel.alquileres" Role="alquileres" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="reservas">
               <PropertyRef Name="idReservas" />
@@ -915,8 +1092,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="id_tipo_alquiler_alquiler">
-          <End Role="tipo_alquiler" Type="Self.tipo_alquiler" Multiplicity="1" />
-          <End Role="alquileres" Type="Self.alquileres" Multiplicity="*" />
+          <End Type="videoclubModel.tipo_alquiler" Role="tipo_alquiler" Multiplicity="1" />
+          <End Type="videoclubModel.alquileres" Role="alquileres" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tipo_alquiler">
               <PropertyRef Name="idTipo_alquiler" />
@@ -927,8 +1104,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="id_cliente_venta">
-          <End Role="cliente" Type="Self.cliente" Multiplicity="1" />
-          <End Role="ventas" Type="Self.ventas" Multiplicity="*" />
+          <End Type="videoclubModel.cliente" Role="cliente" Multiplicity="1" />
+          <End Type="videoclubModel.ventas" Role="ventas" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="cliente">
               <PropertyRef Name="idCliente" />
@@ -939,8 +1116,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="idCliente_usuario">
-          <End Role="usuarios" Type="Self.usuarios" Multiplicity="1" />
-          <End Role="cliente" Type="Self.cliente" Multiplicity="0..1" />
+          <End Type="videoclubModel.usuarios" Role="usuarios" Multiplicity="1" />
+          <End Type="videoclubModel.cliente" Role="cliente" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="usuarios">
               <PropertyRef Name="idUsuarios" />
@@ -951,8 +1128,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="idEmpleado_usuario">
-          <End Role="usuarios" Type="Self.usuarios" Multiplicity="1" />
-          <End Role="empleado" Type="Self.empleado" Multiplicity="0..1" />
+          <End Type="videoclubModel.usuarios" Role="usuarios" Multiplicity="1" />
+          <End Type="videoclubModel.empleado" Role="empleado" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="usuarios">
               <PropertyRef Name="idUsuarios" />
@@ -963,8 +1140,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="id_formato_pelicula">
-          <End Role="formatos" Type="Self.formatos" Multiplicity="1" />
-          <End Role="formatos_peliculas" Type="Self.formatos_peliculas" Multiplicity="*" />
+          <End Type="videoclubModel.formatos" Role="formatos" Multiplicity="1" />
+          <End Type="videoclubModel.formatos_peliculas" Role="formatos_peliculas" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="formatos">
               <PropertyRef Name="idFormatos" />
@@ -975,8 +1152,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="id_pelicula_formato">
-          <End Role="peliculas" Type="Self.peliculas" Multiplicity="1" />
-          <End Role="formatos_peliculas" Type="Self.formatos_peliculas" Multiplicity="*" />
+          <End Type="videoclubModel.peliculas" Role="peliculas" Multiplicity="1" />
+          <End Type="videoclubModel.formatos_peliculas" Role="formatos_peliculas" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="peliculas">
               <PropertyRef Name="idPeliculas" />
@@ -986,9 +1163,21 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="idItem_formatoPelicula">
+          <End Type="videoclubModel.item" Role="item" Multiplicity="1" />
+          <End Type="videoclubModel.formatos_peliculas" Role="formatos_peliculas" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="item">
+              <PropertyRef Name="idItem" />
+            </Principal>
+            <Dependent Role="formatos_peliculas">
+              <PropertyRef Name="id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="id_genero_producto">
-          <End Role="generos" Type="Self.generos" Multiplicity="1" />
-          <End Role="productos" Type="Self.productos" Multiplicity="*" />
+          <End Type="videoclubModel.generos" Role="generos" Multiplicity="1" />
+          <End Type="videoclubModel.productos" Role="productos" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="generos">
               <PropertyRef Name="idGeneros" />
@@ -999,8 +1188,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="id_idioma_producto">
-          <End Role="idiomas" Type="Self.idiomas" Multiplicity="1" />
-          <End Role="productos" Type="Self.productos" Multiplicity="*" />
+          <End Type="videoclubModel.idiomas" Role="idiomas" Multiplicity="1" />
+          <End Type="videoclubModel.productos" Role="productos" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="idiomas">
               <PropertyRef Name="idIdiomas" />
@@ -1011,8 +1200,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="id_idiomaDoblado_producto">
-          <End Role="idiomas" Type="Self.idiomas" Multiplicity="1" />
-          <End Role="productos" Type="Self.productos" Multiplicity="*" />
+          <End Type="videoclubModel.idiomas" Role="idiomas" Multiplicity="1" />
+          <End Type="videoclubModel.productos" Role="productos" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="idiomas">
               <PropertyRef Name="idIdiomas" />
@@ -1022,9 +1211,45 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="id_producto_alquiler">
+          <End Type="videoclubModel.item" Role="item" Multiplicity="1" />
+          <End Type="videoclubModel.productos_alquiler" Role="productos_alquiler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="item">
+              <PropertyRef Name="idItem" />
+            </Principal>
+            <Dependent Role="productos_alquiler">
+              <PropertyRef Name="id_producto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="id_producto_venta">
+          <End Type="videoclubModel.item" Role="item" Multiplicity="1" />
+          <End Type="videoclubModel.ventas_productos" Role="ventas_productos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="item">
+              <PropertyRef Name="idItem" />
+            </Principal>
+            <Dependent Role="ventas_productos">
+              <PropertyRef Name="id_producto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="idItem_plataformaVideojuego">
+          <End Type="videoclubModel.item" Role="item" Multiplicity="1" />
+          <End Type="videoclubModel.plataformas_videojuegos" Role="plataformas_videojuegos" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="item">
+              <PropertyRef Name="idItem" />
+            </Principal>
+            <Dependent Role="plataformas_videojuegos">
+              <PropertyRef Name="id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="idPelicula_producto">
-          <End Role="productos" Type="Self.productos" Multiplicity="1" />
-          <End Role="peliculas" Type="Self.peliculas" Multiplicity="0..1" />
+          <End Type="videoclubModel.productos" Role="productos" Multiplicity="1" />
+          <End Type="videoclubModel.peliculas" Role="peliculas" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="productos">
               <PropertyRef Name="idProductos" />
@@ -1035,8 +1260,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="id_permiso_rol">
-          <End Role="permisos" Type="Self.permisos" Multiplicity="1" />
-          <End Role="permisos_roles" Type="Self.permisos_roles" Multiplicity="*" />
+          <End Type="videoclubModel.permisos" Role="permisos" Multiplicity="1" />
+          <End Type="videoclubModel.permisos_roles" Role="permisos_roles" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="permisos">
               <PropertyRef Name="idPermiso" />
@@ -1047,8 +1272,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="id_rol_permiso">
-          <End Role="roles" Type="Self.roles" Multiplicity="1" />
-          <End Role="permisos_roles" Type="Self.permisos_roles" Multiplicity="*" />
+          <End Type="videoclubModel.roles" Role="roles" Multiplicity="1" />
+          <End Type="videoclubModel.permisos_roles" Role="permisos_roles" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="roles">
               <PropertyRef Name="idRoles" />
@@ -1059,8 +1284,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="id_plataforma_videojuego">
-          <End Role="plataformas" Type="Self.plataformas" Multiplicity="1" />
-          <End Role="plataformas_videojuegos" Type="Self.plataformas_videojuegos" Multiplicity="*" />
+          <End Type="videoclubModel.plataformas" Role="plataformas" Multiplicity="1" />
+          <End Type="videoclubModel.plataformas_videojuegos" Role="plataformas_videojuegos" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="plataformas">
               <PropertyRef Name="idPlataformas" />
@@ -1071,8 +1296,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="id_videojuego_plataforma">
-          <End Role="videojuegos" Type="Self.videojuegos" Multiplicity="1" />
-          <End Role="plataformas_videojuegos" Type="Self.plataformas_videojuegos" Multiplicity="*" />
+          <End Type="videoclubModel.videojuegos" Role="videojuegos" Multiplicity="1" />
+          <End Type="videoclubModel.plataformas_videojuegos" Role="plataformas_videojuegos" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="videojuegos">
               <PropertyRef Name="idVideojuegos" />
@@ -1082,33 +1307,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="id_producto_alquiler">
-          <End Role="productos" Type="Self.productos" Multiplicity="1" />
-          <End Role="productos_alquiler" Type="Self.productos_alquiler" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="productos">
-              <PropertyRef Name="idProductos" />
-            </Principal>
-            <Dependent Role="productos_alquiler">
-              <PropertyRef Name="id_producto" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="id_producto_venta">
-          <End Role="productos" Type="Self.productos" Multiplicity="1" />
-          <End Role="ventas_productos" Type="Self.ventas_productos" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="productos">
-              <PropertyRef Name="idProductos" />
-            </Principal>
-            <Dependent Role="ventas_productos">
-              <PropertyRef Name="id_producto" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="idVideojuego_producto">
-          <End Role="productos" Type="Self.productos" Multiplicity="1" />
-          <End Role="videojuegos" Type="Self.videojuegos" Multiplicity="0..1" />
+          <End Type="videoclubModel.productos" Role="productos" Multiplicity="1" />
+          <End Type="videoclubModel.videojuegos" Role="videojuegos" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="productos">
               <PropertyRef Name="idProductos" />
@@ -1119,8 +1320,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="id_reserva_venta">
-          <End Role="reservas" Type="Self.reservas" Multiplicity="0..1" />
-          <End Role="ventas" Type="Self.ventas" Multiplicity="*" />
+          <End Type="videoclubModel.reservas" Role="reservas" Multiplicity="0..1" />
+          <End Type="videoclubModel.ventas" Role="ventas" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="reservas">
               <PropertyRef Name="idReservas" />
@@ -1131,8 +1332,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="id_rol_user">
-          <End Role="roles" Type="Self.roles" Multiplicity="1" />
-          <End Role="usuarios" Type="Self.usuarios" Multiplicity="*" />
+          <End Type="videoclubModel.roles" Role="roles" Multiplicity="1" />
+          <End Type="videoclubModel.usuarios" Role="usuarios" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="roles">
               <PropertyRef Name="idRoles" />
@@ -1143,8 +1344,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="id_venta_ventaproductos">
-          <End Role="ventas" Type="Self.ventas" Multiplicity="1" />
-          <End Role="ventas_productos" Type="Self.ventas_productos" Multiplicity="*" />
+          <End Type="videoclubModel.ventas" Role="ventas" Multiplicity="1" />
+          <End Type="videoclubModel.ventas_productos" Role="ventas_productos" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="ventas">
               <PropertyRef Name="idVentas" />
@@ -1154,126 +1355,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="videoclubEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="actores_peliculas" EntityType="Self.actores_peliculas" />
-          <EntitySet Name="alquileres" EntityType="Self.alquileres" />
-          <EntitySet Name="cliente" EntityType="Self.cliente" />
-          <EntitySet Name="empleado" EntityType="Self.empleado" />
-          <EntitySet Name="formatos" EntityType="Self.formatos" />
-          <EntitySet Name="formatos_peliculas" EntityType="Self.formatos_peliculas" />
-          <EntitySet Name="generos" EntityType="Self.generos" />
-          <EntitySet Name="idiomas" EntityType="Self.idiomas" />
-          <EntitySet Name="peliculas" EntityType="Self.peliculas" />
-          <EntitySet Name="permisos" EntityType="Self.permisos" />
-          <EntitySet Name="permisos_roles" EntityType="Self.permisos_roles" />
-          <EntitySet Name="plataformas" EntityType="Self.plataformas" />
-          <EntitySet Name="plataformas_videojuegos" EntityType="Self.plataformas_videojuegos" />
-          <EntitySet Name="productos" EntityType="Self.productos" />
-          <EntitySet Name="productos_alquiler" EntityType="Self.productos_alquiler" />
-          <EntitySet Name="reservas" EntityType="Self.reservas" />
-          <EntitySet Name="roles" EntityType="Self.roles" />
-          <EntitySet Name="tipo_alquiler" EntityType="Self.tipo_alquiler" />
-          <EntitySet Name="usuarios" EntityType="Self.usuarios" />
-          <EntitySet Name="ventas" EntityType="Self.ventas" />
-          <EntitySet Name="ventas_productos" EntityType="Self.ventas_productos" />
-          <EntitySet Name="videojuegos" EntityType="Self.videojuegos" />
-          <AssociationSet Name="id_peliculas_actores" Association="Self.id_peliculas_actores">
-            <End Role="peliculas" EntitySet="peliculas" />
-            <End Role="actores_peliculas" EntitySet="actores_peliculas" />
-          </AssociationSet>
-          <AssociationSet Name="id_aluiler_prodcutos" Association="Self.id_aluiler_prodcutos">
-            <End Role="alquileres" EntitySet="alquileres" />
-            <End Role="productos_alquiler" EntitySet="productos_alquiler" />
-          </AssociationSet>
-          <AssociationSet Name="id_cliente_alquiler" Association="Self.id_cliente_alquiler">
-            <End Role="cliente" EntitySet="cliente" />
-            <End Role="alquileres" EntitySet="alquileres" />
-          </AssociationSet>
-          <AssociationSet Name="id_reserva_alquiler" Association="Self.id_reserva_alquiler">
-            <End Role="reservas" EntitySet="reservas" />
-            <End Role="alquileres" EntitySet="alquileres" />
-          </AssociationSet>
-          <AssociationSet Name="id_tipo_alquiler_alquiler" Association="Self.id_tipo_alquiler_alquiler">
-            <End Role="tipo_alquiler" EntitySet="tipo_alquiler" />
-            <End Role="alquileres" EntitySet="alquileres" />
-          </AssociationSet>
-          <AssociationSet Name="id_cliente_venta" Association="Self.id_cliente_venta">
-            <End Role="cliente" EntitySet="cliente" />
-            <End Role="ventas" EntitySet="ventas" />
-          </AssociationSet>
-          <AssociationSet Name="idCliente_usuario" Association="Self.idCliente_usuario">
-            <End Role="usuarios" EntitySet="usuarios" />
-            <End Role="cliente" EntitySet="cliente" />
-          </AssociationSet>
-          <AssociationSet Name="idEmpleado_usuario" Association="Self.idEmpleado_usuario">
-            <End Role="usuarios" EntitySet="usuarios" />
-            <End Role="empleado" EntitySet="empleado" />
-          </AssociationSet>
-          <AssociationSet Name="id_formato_pelicula" Association="Self.id_formato_pelicula">
-            <End Role="formatos" EntitySet="formatos" />
-            <End Role="formatos_peliculas" EntitySet="formatos_peliculas" />
-          </AssociationSet>
-          <AssociationSet Name="id_pelicula_formato" Association="Self.id_pelicula_formato">
-            <End Role="peliculas" EntitySet="peliculas" />
-            <End Role="formatos_peliculas" EntitySet="formatos_peliculas" />
-          </AssociationSet>
-          <AssociationSet Name="id_genero_producto" Association="Self.id_genero_producto">
-            <End Role="generos" EntitySet="generos" />
-            <End Role="productos" EntitySet="productos" />
-          </AssociationSet>
-          <AssociationSet Name="id_idioma_producto" Association="Self.id_idioma_producto">
-            <End Role="idiomas" EntitySet="idiomas" />
-            <End Role="productos" EntitySet="productos" />
-          </AssociationSet>
-          <AssociationSet Name="id_idiomaDoblado_producto" Association="Self.id_idiomaDoblado_producto">
-            <End Role="idiomas" EntitySet="idiomas" />
-            <End Role="productos" EntitySet="productos" />
-          </AssociationSet>
-          <AssociationSet Name="idPelicula_producto" Association="Self.idPelicula_producto">
-            <End Role="productos" EntitySet="productos" />
-            <End Role="peliculas" EntitySet="peliculas" />
-          </AssociationSet>
-          <AssociationSet Name="id_permiso_rol" Association="Self.id_permiso_rol">
-            <End Role="permisos" EntitySet="permisos" />
-            <End Role="permisos_roles" EntitySet="permisos_roles" />
-          </AssociationSet>
-          <AssociationSet Name="id_rol_permiso" Association="Self.id_rol_permiso">
-            <End Role="roles" EntitySet="roles" />
-            <End Role="permisos_roles" EntitySet="permisos_roles" />
-          </AssociationSet>
-          <AssociationSet Name="id_plataforma_videojuego" Association="Self.id_plataforma_videojuego">
-            <End Role="plataformas" EntitySet="plataformas" />
-            <End Role="plataformas_videojuegos" EntitySet="plataformas_videojuegos" />
-          </AssociationSet>
-          <AssociationSet Name="id_videojuego_plataforma" Association="Self.id_videojuego_plataforma">
-            <End Role="videojuegos" EntitySet="videojuegos" />
-            <End Role="plataformas_videojuegos" EntitySet="plataformas_videojuegos" />
-          </AssociationSet>
-          <AssociationSet Name="id_producto_alquiler" Association="Self.id_producto_alquiler">
-            <End Role="productos" EntitySet="productos" />
-            <End Role="productos_alquiler" EntitySet="productos_alquiler" />
-          </AssociationSet>
-          <AssociationSet Name="id_producto_venta" Association="Self.id_producto_venta">
-            <End Role="productos" EntitySet="productos" />
-            <End Role="ventas_productos" EntitySet="ventas_productos" />
-          </AssociationSet>
-          <AssociationSet Name="idVideojuego_producto" Association="Self.idVideojuego_producto">
-            <End Role="productos" EntitySet="productos" />
-            <End Role="videojuegos" EntitySet="videojuegos" />
-          </AssociationSet>
-          <AssociationSet Name="id_reserva_venta" Association="Self.id_reserva_venta">
-            <End Role="reservas" EntitySet="reservas" />
-            <End Role="ventas" EntitySet="ventas" />
-          </AssociationSet>
-          <AssociationSet Name="id_rol_user" Association="Self.id_rol_user">
-            <End Role="roles" EntitySet="roles" />
-            <End Role="usuarios" EntitySet="usuarios" />
-          </AssociationSet>
-          <AssociationSet Name="id_venta_ventaproductos" Association="Self.id_venta_ventaproductos">
-            <End Role="ventas" EntitySet="ventas" />
-            <End Role="ventas_productos" EntitySet="ventas_productos" />
-          </AssociationSet>
-        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1283,222 +1364,229 @@
           <EntitySetMapping Name="actores_peliculas">
             <EntityTypeMapping TypeName="videoclubModel.actores_peliculas">
               <MappingFragment StoreEntitySet="actores_peliculas">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="id_pelicula" ColumnName="id_pelicula" />
-                <ScalarProperty Name="nombre" ColumnName="nombre" />
-                <ScalarProperty Name="apellido1" ColumnName="apellido1" />
                 <ScalarProperty Name="apellido2" ColumnName="apellido2" />
+                <ScalarProperty Name="apellido1" ColumnName="apellido1" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="id_pelicula" ColumnName="id_pelicula" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="alquileres">
             <EntityTypeMapping TypeName="videoclubModel.alquileres">
               <MappingFragment StoreEntitySet="alquileres">
-                <ScalarProperty Name="idAlquileres" ColumnName="idAlquileres" />
-                <ScalarProperty Name="id_cliente" ColumnName="id_cliente" />
-                <ScalarProperty Name="fecha" ColumnName="fecha" />
-                <ScalarProperty Name="fecha_devolucion" ColumnName="fecha_devolucion" />
-                <ScalarProperty Name="id_tipo_alquiler" ColumnName="id_tipo_alquiler" />
                 <ScalarProperty Name="id_reserva" ColumnName="id_reserva" />
+                <ScalarProperty Name="id_tipo_alquiler" ColumnName="id_tipo_alquiler" />
+                <ScalarProperty Name="fecha_devolucion" ColumnName="fecha_devolucion" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+                <ScalarProperty Name="id_cliente" ColumnName="id_cliente" />
+                <ScalarProperty Name="idAlquileres" ColumnName="idAlquileres" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="cliente">
             <EntityTypeMapping TypeName="videoclubModel.cliente">
               <MappingFragment StoreEntitySet="cliente">
-                <ScalarProperty Name="idCliente" ColumnName="idCliente" />
                 <ScalarProperty Name="numero_tarjeta" ColumnName="numero_tarjeta" />
+                <ScalarProperty Name="idCliente" ColumnName="idCliente" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="empleado">
             <EntityTypeMapping TypeName="videoclubModel.empleado">
               <MappingFragment StoreEntitySet="empleado">
-                <ScalarProperty Name="idEmpleado" ColumnName="idEmpleado" />
-                <ScalarProperty Name="salario" ColumnName="salario" />
                 <ScalarProperty Name="cuanta_bancaria" ColumnName="cuanta_bancaria" />
+                <ScalarProperty Name="salario" ColumnName="salario" />
+                <ScalarProperty Name="idEmpleado" ColumnName="idEmpleado" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="formatos">
             <EntityTypeMapping TypeName="videoclubModel.formatos">
               <MappingFragment StoreEntitySet="formatos">
-                <ScalarProperty Name="idFormatos" ColumnName="idFormatos" />
                 <ScalarProperty Name="formato" ColumnName="formato" />
+                <ScalarProperty Name="idFormatos" ColumnName="idFormatos" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="formatos_peliculas">
             <EntityTypeMapping TypeName="videoclubModel.formatos_peliculas">
               <MappingFragment StoreEntitySet="formatos_peliculas">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="id_formato" ColumnName="id_formato" />
-                <ScalarProperty Name="id_pelicula" ColumnName="id_pelicula" />
-                <ScalarProperty Name="stock" ColumnName="stock" />
                 <ScalarProperty Name="precio" ColumnName="precio" />
+                <ScalarProperty Name="stock" ColumnName="stock" />
+                <ScalarProperty Name="id_pelicula" ColumnName="id_pelicula" />
+                <ScalarProperty Name="id_formato" ColumnName="id_formato" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="generos">
             <EntityTypeMapping TypeName="videoclubModel.generos">
               <MappingFragment StoreEntitySet="generos">
-                <ScalarProperty Name="idGeneros" ColumnName="idGeneros" />
                 <ScalarProperty Name="genero" ColumnName="genero" />
+                <ScalarProperty Name="idGeneros" ColumnName="idGeneros" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="idiomas">
             <EntityTypeMapping TypeName="videoclubModel.idiomas">
               <MappingFragment StoreEntitySet="idiomas">
-                <ScalarProperty Name="idIdiomas" ColumnName="idIdiomas" />
                 <ScalarProperty Name="idioma" ColumnName="idioma" />
+                <ScalarProperty Name="idIdiomas" ColumnName="idIdiomas" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="item">
+            <EntityTypeMapping TypeName="videoclubModel.item">
+              <MappingFragment StoreEntitySet="item">
+                <ScalarProperty Name="idItem" ColumnName="idItem" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="peliculas">
             <EntityTypeMapping TypeName="videoclubModel.peliculas">
               <MappingFragment StoreEntitySet="peliculas">
-                <ScalarProperty Name="idPeliculas" ColumnName="idPeliculas" />
-                <ScalarProperty Name="titulo_original" ColumnName="titulo_original" />
-                <ScalarProperty Name="pais" ColumnName="pais" />
-                <ScalarProperty Name="duracion" ColumnName="duracion" />
-                <ScalarProperty Name="sinopsis" ColumnName="sinopsis" />
                 <ScalarProperty Name="director" ColumnName="director" />
+                <ScalarProperty Name="sinopsis" ColumnName="sinopsis" />
+                <ScalarProperty Name="duracion" ColumnName="duracion" />
+                <ScalarProperty Name="pais" ColumnName="pais" />
+                <ScalarProperty Name="titulo_original" ColumnName="titulo_original" />
+                <ScalarProperty Name="idPeliculas" ColumnName="idPeliculas" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="permisos">
             <EntityTypeMapping TypeName="videoclubModel.permisos">
               <MappingFragment StoreEntitySet="permisos">
-                <ScalarProperty Name="idPermiso" ColumnName="idPermiso" />
                 <ScalarProperty Name="permiso" ColumnName="permiso" />
+                <ScalarProperty Name="idPermiso" ColumnName="idPermiso" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="permisos_roles">
             <EntityTypeMapping TypeName="videoclubModel.permisos_roles">
               <MappingFragment StoreEntitySet="permisos_roles">
-                <ScalarProperty Name="idPermisos_roles" ColumnName="idPermisos_roles" />
-                <ScalarProperty Name="id_permiso" ColumnName="id_permiso" />
                 <ScalarProperty Name="id_rol" ColumnName="id_rol" />
+                <ScalarProperty Name="id_permiso" ColumnName="id_permiso" />
+                <ScalarProperty Name="idPermisos_roles" ColumnName="idPermisos_roles" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="plataformas">
             <EntityTypeMapping TypeName="videoclubModel.plataformas">
               <MappingFragment StoreEntitySet="plataformas">
-                <ScalarProperty Name="idPlataformas" ColumnName="idPlataformas" />
                 <ScalarProperty Name="plataforma" ColumnName="plataforma" />
+                <ScalarProperty Name="idPlataformas" ColumnName="idPlataformas" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="plataformas_videojuegos">
             <EntityTypeMapping TypeName="videoclubModel.plataformas_videojuegos">
               <MappingFragment StoreEntitySet="plataformas_videojuegos">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="id_plataforma" ColumnName="id_plataforma" />
-                <ScalarProperty Name="id_videojuego" ColumnName="id_videojuego" />
-                <ScalarProperty Name="stock" ColumnName="stock" />
                 <ScalarProperty Name="precio" ColumnName="precio" />
+                <ScalarProperty Name="stock" ColumnName="stock" />
+                <ScalarProperty Name="id_videojuego" ColumnName="id_videojuego" />
+                <ScalarProperty Name="id_plataforma" ColumnName="id_plataforma" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="productos">
             <EntityTypeMapping TypeName="videoclubModel.productos">
               <MappingFragment StoreEntitySet="productos">
-                <ScalarProperty Name="idProductos" ColumnName="idProductos" />
-                <ScalarProperty Name="titulo" ColumnName="titulo" />
-                <ScalarProperty Name="fecha" ColumnName="fecha" />
-                <ScalarProperty Name="portada" ColumnName="portada" />
-                <ScalarProperty Name="nota" ColumnName="nota" />
-                <ScalarProperty Name="edad_nota" ColumnName="edad_nota" />
-                <ScalarProperty Name="id_genero" ColumnName="id_genero" />
-                <ScalarProperty Name="id_idioma" ColumnName="id_idioma" />
                 <ScalarProperty Name="id_idiomaDoblado" ColumnName="id_idiomaDoblado" />
+                <ScalarProperty Name="id_idioma" ColumnName="id_idioma" />
+                <ScalarProperty Name="id_genero" ColumnName="id_genero" />
+                <ScalarProperty Name="edad_nota" ColumnName="edad_nota" />
+                <ScalarProperty Name="nota" ColumnName="nota" />
+                <ScalarProperty Name="portada" ColumnName="portada" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+                <ScalarProperty Name="titulo" ColumnName="titulo" />
+                <ScalarProperty Name="idProductos" ColumnName="idProductos" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="productos_alquiler">
             <EntityTypeMapping TypeName="videoclubModel.productos_alquiler">
               <MappingFragment StoreEntitySet="productos_alquiler">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="id_alquiler" ColumnName="id_alquiler" />
                 <ScalarProperty Name="id_producto" ColumnName="id_producto" />
+                <ScalarProperty Name="id_alquiler" ColumnName="id_alquiler" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="reservas">
             <EntityTypeMapping TypeName="videoclubModel.reservas">
               <MappingFragment StoreEntitySet="reservas">
-                <ScalarProperty Name="idReservas" ColumnName="idReservas" />
-                <ScalarProperty Name="cancelada" ColumnName="cancelada" />
                 <ScalarProperty Name="fecha" ColumnName="fecha" />
+                <ScalarProperty Name="cancelada" ColumnName="cancelada" />
+                <ScalarProperty Name="idReservas" ColumnName="idReservas" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="roles">
             <EntityTypeMapping TypeName="videoclubModel.roles">
               <MappingFragment StoreEntitySet="roles">
-                <ScalarProperty Name="idRoles" ColumnName="idRoles" />
                 <ScalarProperty Name="rol" ColumnName="rol" />
+                <ScalarProperty Name="idRoles" ColumnName="idRoles" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tipo_alquiler">
             <EntityTypeMapping TypeName="videoclubModel.tipo_alquiler">
               <MappingFragment StoreEntitySet="tipo_alquiler">
-                <ScalarProperty Name="idTipo_alquiler" ColumnName="idTipo_alquiler" />
-                <ScalarProperty Name="precio" ColumnName="precio" />
-                <ScalarProperty Name="duracion" ColumnName="duracion" />
-                <ScalarProperty Name="recargo" ColumnName="recargo" />
                 <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="recargo" ColumnName="recargo" />
+                <ScalarProperty Name="duracion" ColumnName="duracion" />
+                <ScalarProperty Name="precio" ColumnName="precio" />
+                <ScalarProperty Name="idTipo_alquiler" ColumnName="idTipo_alquiler" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="usuarios">
             <EntityTypeMapping TypeName="videoclubModel.usuarios">
               <MappingFragment StoreEntitySet="usuarios">
-                <ScalarProperty Name="idUsuarios" ColumnName="idUsuarios" />
-                <ScalarProperty Name="nombre" ColumnName="nombre" />
-                <ScalarProperty Name="apellido1" ColumnName="apellido1" />
-                <ScalarProperty Name="apellido2" ColumnName="apellido2" />
-                <ScalarProperty Name="direccion" ColumnName="direccion" />
-                <ScalarProperty Name="mail" ColumnName="mail" />
-                <ScalarProperty Name="telefono" ColumnName="telefono" />
-                <ScalarProperty Name="fecha_nacimiento" ColumnName="fecha_nacimiento" />
-                <ScalarProperty Name="user" ColumnName="user" />
-                <ScalarProperty Name="password" ColumnName="password" />
-                <ScalarProperty Name="id_rol" ColumnName="id_rol" />
                 <ScalarProperty Name="DNI" ColumnName="DNI" />
+                <ScalarProperty Name="id_rol" ColumnName="id_rol" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="user" ColumnName="user" />
+                <ScalarProperty Name="fecha_nacimiento" ColumnName="fecha_nacimiento" />
+                <ScalarProperty Name="telefono" ColumnName="telefono" />
+                <ScalarProperty Name="mail" ColumnName="mail" />
+                <ScalarProperty Name="direccion" ColumnName="direccion" />
+                <ScalarProperty Name="apellido2" ColumnName="apellido2" />
+                <ScalarProperty Name="apellido1" ColumnName="apellido1" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="idUsuarios" ColumnName="idUsuarios" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ventas">
             <EntityTypeMapping TypeName="videoclubModel.ventas">
               <MappingFragment StoreEntitySet="ventas">
-                <ScalarProperty Name="idVentas" ColumnName="idVentas" />
-                <ScalarProperty Name="id_cliente" ColumnName="id_cliente" />
-                <ScalarProperty Name="fecha" ColumnName="fecha" />
                 <ScalarProperty Name="id_reserva" ColumnName="id_reserva" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+                <ScalarProperty Name="id_cliente" ColumnName="id_cliente" />
+                <ScalarProperty Name="idVentas" ColumnName="idVentas" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ventas_productos">
             <EntityTypeMapping TypeName="videoclubModel.ventas_productos">
               <MappingFragment StoreEntitySet="ventas_productos">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="id_venta" ColumnName="id_venta" />
                 <ScalarProperty Name="id_producto" ColumnName="id_producto" />
+                <ScalarProperty Name="id_venta" ColumnName="id_venta" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="videojuegos">
             <EntityTypeMapping TypeName="videoclubModel.videojuegos">
               <MappingFragment StoreEntitySet="videojuegos">
-                <ScalarProperty Name="idVideojuegos" ColumnName="idVideojuegos" />
-                <ScalarProperty Name="distribuidora" ColumnName="distribuidora" />
-                <ScalarProperty Name="desarrolladora" ColumnName="desarrolladora" />
                 <ScalarProperty Name="multijugador" ColumnName="multijugador" />
+                <ScalarProperty Name="desarrolladora" ColumnName="desarrolladora" />
+                <ScalarProperty Name="distribuidora" ColumnName="distribuidora" />
+                <ScalarProperty Name="idVideojuegos" ColumnName="idVideojuegos" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

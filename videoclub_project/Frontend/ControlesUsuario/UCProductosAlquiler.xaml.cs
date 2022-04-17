@@ -17,29 +17,28 @@ using videoclub_project.MVVM;
 
 namespace videoclub_project.Frontend.ControlesUsuario {
     /// <summary>
-    /// Lógica de interacción para UCActors.xaml
+    /// Lógica de interacción para UCItems.xaml
     /// </summary>
-    public partial class UCActors : UserControl {
-        private MVProduct mProduct;
+    public partial class UCItems : UserControl {
 
-        public UCActors(MVProduct mProduct) {
+        private MVAlquiler mAlquiler;
+
+        public UCItems(MVAlquiler mAlquiler) {
             InitializeComponent();
 
-            dgActor.SetBinding(DataGrid.ItemsSourceProperty, new Binding("prodSelected.peliculas.actores_peliculas"));
+            dgItems.SetBinding(DataGrid.ItemsSourceProperty, new Binding("{Binding alqSelected.productos_alquiler}"));
 
-            this.mProduct = mProduct;
-            DataContext = mProduct;
+            this.mAlquiler = mAlquiler;
+            DataContext = mAlquiler;
+
         }
 
-        public void addActor(actores_peliculas actor) {
-            mProduct.prodSelected.peliculas.actores_peliculas.Add(actor);
-            dgActor.Items.Refresh();
+        public void update() {
+            dgItems.Items.Refresh();
         }
 
         private void menuBorrar_Click(object sender, RoutedEventArgs e) {
-            if (mProduct.deleteActor()) {
-                dgActor.Items.Refresh();
-            }
+
         }
     }
 }

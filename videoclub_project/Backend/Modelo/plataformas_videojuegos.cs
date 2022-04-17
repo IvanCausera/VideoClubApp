@@ -20,11 +20,12 @@ namespace videoclub_project.Backend.Modelo
         public int stock { get; set; }
         public float precio { get; set; }
     
+        public virtual item item { get; set; }
         public virtual plataformas plataformas { get; set; }
         public virtual videojuegos videojuegos { get; set; }
 
         public override string ToString() {
-            return videojuegos.productos.titulo +" "+ plataformas.plataforma + " [" + stock + ", " + precio + "€]";
+            return videojuegos.productos.titulo + " " + plataformas.plataforma + " [" + stock + ", " + precio + "€]";
         }
     }
 }
