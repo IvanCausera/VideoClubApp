@@ -24,7 +24,7 @@
           <Property Name="fecha" Type="date" />
           <Property Name="fecha_devolucion" Type="date" />
           <Property Name="id_tipo_alquiler" Type="int" Nullable="false" />
-          <Property Name="id_reserva" Type="int" />
+          <Property Name="reserva" Type="date" />
         </EntityType>
         <EntityType Name="cliente">
           <Key>
@@ -143,14 +143,6 @@
           <Property Name="id_alquiler" Type="int" Nullable="false" />
           <Property Name="id_producto" Type="int" Nullable="false" />
         </EntityType>
-        <EntityType Name="reservas">
-          <Key>
-            <PropertyRef Name="idReservas" />
-          </Key>
-          <Property Name="idReservas" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="cancelada" Type="tinyint" Nullable="false" />
-          <Property Name="fecha" Type="date" />
-        </EntityType>
         <EntityType Name="roles">
           <Key>
             <PropertyRef Name="idRoles" />
@@ -192,7 +184,7 @@
           <Property Name="idVentas" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="id_cliente" Type="int" Nullable="false" />
           <Property Name="fecha" Type="date" />
-          <Property Name="id_reserva" Type="int" />
+          <Property Name="reserva" Type="date" />
         </EntityType>
         <EntityType Name="ventas_productos">
           <Key>
@@ -367,30 +359,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="id_reserva_alquiler">
-          <End Role="reservas" Type="Self.reservas" Multiplicity="0..1" />
-          <End Role="alquileres" Type="Self.alquileres" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="reservas">
-              <PropertyRef Name="idReservas" />
-            </Principal>
-            <Dependent Role="alquileres">
-              <PropertyRef Name="id_reserva" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="id_reserva_venta">
-          <End Role="reservas" Type="Self.reservas" Multiplicity="0..1" />
-          <End Role="ventas" Type="Self.ventas" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="reservas">
-              <PropertyRef Name="idReservas" />
-            </Principal>
-            <Dependent Role="ventas">
-              <PropertyRef Name="id_reserva" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="id_rol_permiso">
           <End Role="roles" Type="Self.roles" Multiplicity="1" />
           <End Role="permisos_roles" Type="Self.permisos_roles" Multiplicity="*" />
@@ -540,7 +508,6 @@
           <EntitySet Name="plataformas_videojuegos" EntityType="Self.plataformas_videojuegos" Schema="videoclub" store:Type="Tables" />
           <EntitySet Name="productos" EntityType="Self.productos" Schema="videoclub" store:Type="Tables" />
           <EntitySet Name="productos_alquiler" EntityType="Self.productos_alquiler" Schema="videoclub" store:Type="Tables" />
-          <EntitySet Name="reservas" EntityType="Self.reservas" Schema="videoclub" store:Type="Tables" />
           <EntitySet Name="roles" EntityType="Self.roles" Schema="videoclub" store:Type="Tables" />
           <EntitySet Name="tipo_alquiler" EntityType="Self.tipo_alquiler" Schema="videoclub" store:Type="Tables" />
           <EntitySet Name="usuarios" EntityType="Self.usuarios" Schema="videoclub" store:Type="Tables" />
@@ -598,14 +565,6 @@
           <AssociationSet Name="id_producto_venta" Association="Self.id_producto_venta">
             <End Role="item" EntitySet="item" />
             <End Role="ventas_productos" EntitySet="ventas_productos" />
-          </AssociationSet>
-          <AssociationSet Name="id_reserva_alquiler" Association="Self.id_reserva_alquiler">
-            <End Role="reservas" EntitySet="reservas" />
-            <End Role="alquileres" EntitySet="alquileres" />
-          </AssociationSet>
-          <AssociationSet Name="id_reserva_venta" Association="Self.id_reserva_venta">
-            <End Role="reservas" EntitySet="reservas" />
-            <End Role="ventas" EntitySet="ventas" />
           </AssociationSet>
           <AssociationSet Name="id_rol_permiso" Association="Self.id_rol_permiso">
             <End Role="roles" EntitySet="roles" />
@@ -673,7 +632,6 @@
           <EntitySet Name="plataformas_videojuegos" EntityType="videoclubModel.plataformas_videojuegos" />
           <EntitySet Name="productos" EntityType="videoclubModel.productos" />
           <EntitySet Name="productos_alquiler" EntityType="videoclubModel.productos_alquiler" />
-          <EntitySet Name="reservas" EntityType="videoclubModel.reservas" />
           <EntitySet Name="roles" EntityType="videoclubModel.roles" />
           <EntitySet Name="tipo_alquiler" EntityType="videoclubModel.tipo_alquiler" />
           <EntitySet Name="usuarios" EntityType="videoclubModel.usuarios" />
@@ -690,10 +648,6 @@
           </AssociationSet>
           <AssociationSet Name="id_cliente_alquiler" Association="videoclubModel.id_cliente_alquiler">
             <End Role="cliente" EntitySet="cliente" />
-            <End Role="alquileres" EntitySet="alquileres" />
-          </AssociationSet>
-          <AssociationSet Name="id_reserva_alquiler" Association="videoclubModel.id_reserva_alquiler">
-            <End Role="reservas" EntitySet="reservas" />
             <End Role="alquileres" EntitySet="alquileres" />
           </AssociationSet>
           <AssociationSet Name="id_tipo_alquiler_alquiler" Association="videoclubModel.id_tipo_alquiler_alquiler">
@@ -772,10 +726,6 @@
             <End Role="productos" EntitySet="productos" />
             <End Role="videojuegos" EntitySet="videojuegos" />
           </AssociationSet>
-          <AssociationSet Name="id_reserva_venta" Association="videoclubModel.id_reserva_venta">
-            <End Role="reservas" EntitySet="reservas" />
-            <End Role="ventas" EntitySet="ventas" />
-          </AssociationSet>
           <AssociationSet Name="id_rol_user" Association="videoclubModel.id_rol_user">
             <End Role="roles" EntitySet="roles" />
             <End Role="usuarios" EntitySet="usuarios" />
@@ -805,10 +755,9 @@
           <Property Name="fecha" Type="DateTime" />
           <Property Name="fecha_devolucion" Type="DateTime" />
           <Property Name="id_tipo_alquiler" Type="Int32" Nullable="false" />
-          <Property Name="id_reserva" Type="Int32" />
+          <Property Name="reserva" Type="DateTime" />
           <NavigationProperty Name="productos_alquiler" Relationship="videoclubModel.id_aluiler_prodcutos" FromRole="alquileres" ToRole="productos_alquiler" />
           <NavigationProperty Name="cliente" Relationship="videoclubModel.id_cliente_alquiler" FromRole="alquileres" ToRole="cliente" />
-          <NavigationProperty Name="reservas" Relationship="videoclubModel.id_reserva_alquiler" FromRole="alquileres" ToRole="reservas" />
           <NavigationProperty Name="tipo_alquiler" Relationship="videoclubModel.id_tipo_alquiler_alquiler" FromRole="alquileres" ToRole="tipo_alquiler" />
         </EntityType>
         <EntityType Name="cliente">
@@ -960,16 +909,6 @@
           <NavigationProperty Name="alquileres" Relationship="videoclubModel.id_aluiler_prodcutos" FromRole="productos_alquiler" ToRole="alquileres" />
           <NavigationProperty Name="item" Relationship="videoclubModel.id_producto_alquiler" FromRole="productos_alquiler" ToRole="item" />
         </EntityType>
-        <EntityType Name="reservas">
-          <Key>
-            <PropertyRef Name="idReservas" />
-          </Key>
-          <Property Name="idReservas" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="cancelada" Type="SByte" Nullable="false" />
-          <Property Name="fecha" Type="DateTime" />
-          <NavigationProperty Name="alquileres" Relationship="videoclubModel.id_reserva_alquiler" FromRole="reservas" ToRole="alquileres" />
-          <NavigationProperty Name="ventas" Relationship="videoclubModel.id_reserva_venta" FromRole="reservas" ToRole="ventas" />
-        </EntityType>
         <EntityType Name="roles">
           <Key>
             <PropertyRef Name="idRoles" />
@@ -1017,9 +956,8 @@
           <Property Name="idVentas" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="id_cliente" Type="Int32" Nullable="false" />
           <Property Name="fecha" Type="DateTime" />
-          <Property Name="id_reserva" Type="Int32" />
+          <Property Name="reserva" Type="DateTime" />
           <NavigationProperty Name="cliente" Relationship="videoclubModel.id_cliente_venta" FromRole="ventas" ToRole="cliente" />
-          <NavigationProperty Name="reservas" Relationship="videoclubModel.id_reserva_venta" FromRole="ventas" ToRole="reservas" />
           <NavigationProperty Name="ventas_productos" Relationship="videoclubModel.id_venta_ventaproductos" FromRole="ventas" ToRole="ventas_productos" />
         </EntityType>
         <EntityType Name="ventas_productos">
@@ -1076,18 +1014,6 @@
             </Principal>
             <Dependent Role="alquileres">
               <PropertyRef Name="id_cliente" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="id_reserva_alquiler">
-          <End Type="videoclubModel.reservas" Role="reservas" Multiplicity="0..1" />
-          <End Type="videoclubModel.alquileres" Role="alquileres" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="reservas">
-              <PropertyRef Name="idReservas" />
-            </Principal>
-            <Dependent Role="alquileres">
-              <PropertyRef Name="id_reserva" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1319,18 +1245,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="id_reserva_venta">
-          <End Type="videoclubModel.reservas" Role="reservas" Multiplicity="0..1" />
-          <End Type="videoclubModel.ventas" Role="ventas" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="reservas">
-              <PropertyRef Name="idReservas" />
-            </Principal>
-            <Dependent Role="ventas">
-              <PropertyRef Name="id_reserva" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="id_rol_user">
           <End Type="videoclubModel.roles" Role="roles" Multiplicity="1" />
           <End Type="videoclubModel.usuarios" Role="usuarios" Multiplicity="*" />
@@ -1355,7 +1269,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -1375,7 +1289,7 @@
           <EntitySetMapping Name="alquileres">
             <EntityTypeMapping TypeName="videoclubModel.alquileres">
               <MappingFragment StoreEntitySet="alquileres">
-                <ScalarProperty Name="id_reserva" ColumnName="id_reserva" />
+                <ScalarProperty Name="reserva" ColumnName="reserva" />
                 <ScalarProperty Name="id_tipo_alquiler" ColumnName="id_tipo_alquiler" />
                 <ScalarProperty Name="fecha_devolucion" ColumnName="fecha_devolucion" />
                 <ScalarProperty Name="fecha" ColumnName="fecha" />
@@ -1515,15 +1429,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="reservas">
-            <EntityTypeMapping TypeName="videoclubModel.reservas">
-              <MappingFragment StoreEntitySet="reservas">
-                <ScalarProperty Name="fecha" ColumnName="fecha" />
-                <ScalarProperty Name="cancelada" ColumnName="cancelada" />
-                <ScalarProperty Name="idReservas" ColumnName="idReservas" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="roles">
             <EntityTypeMapping TypeName="videoclubModel.roles">
               <MappingFragment StoreEntitySet="roles">
@@ -1564,7 +1469,7 @@
           <EntitySetMapping Name="ventas">
             <EntityTypeMapping TypeName="videoclubModel.ventas">
               <MappingFragment StoreEntitySet="ventas">
-                <ScalarProperty Name="id_reserva" ColumnName="id_reserva" />
+                <ScalarProperty Name="reserva" ColumnName="reserva" />
                 <ScalarProperty Name="fecha" ColumnName="fecha" />
                 <ScalarProperty Name="id_cliente" ColumnName="id_cliente" />
                 <ScalarProperty Name="idVentas" ColumnName="idVentas" />

@@ -35,7 +35,7 @@ namespace videoclub_project.Backend.Modelo
         public virtual productos productos { get; set; }
 
         public override string ToString() {
-            return titulo_original + " ("+productos.titulo+")";
+            return titulo_original + " (" + productos.titulo + ")";
         }
     }
 }

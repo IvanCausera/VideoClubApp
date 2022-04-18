@@ -89,7 +89,8 @@
             <fluent:RibbonTabItem Header="VENTAS">
                 <!--Group Gestion Ventas-->
                 <fluent:RibbonGroupBox Header="Gestión Ventas">
-                    <fluent:Button Header="Nuevo" x:Name="rbtnAddVenta">
+                    <fluent:Button Header="Nuevo" x:Name="rbtnAddVenta"
+                                   Click="rbtnAddVenta_Click">
                         <fluent:Button.LargeIcon>
                             <mat:PackIcon Kind="BasketPlus" Height="30" Width="30" Foreground="#34495e"/>
                         </fluent:Button.LargeIcon>

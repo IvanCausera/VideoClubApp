@@ -62,5 +62,10 @@ namespace videoclub_project.Frontend.Dialogos {
             mainGrid.Children.Clear();
             mainGrid.Children.Add(uc);
         }
+
+        private void rbtnAddVenta_Click(object sender, RoutedEventArgs e) {
+            dMVVMAddVenta diag = new dMVVMAddVenta(vidEnt);
+            diag.ShowDialog();
+        }
     }
 }
