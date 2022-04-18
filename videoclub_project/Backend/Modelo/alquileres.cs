@@ -25,16 +25,15 @@ namespace videoclub_project.Backend.Modelo
         public Nullable<System.DateTime> fecha { get; set; }
         public Nullable<System.DateTime> fecha_devolucion { get; set; }
         public int id_tipo_alquiler { get; set; }
-        public Nullable<int> id_reserva { get; set; }
+        public Nullable<System.DateTime> reserva { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<productos_alquiler> productos_alquiler { get; set; }
         public virtual cliente cliente { get; set; }
-        public virtual reservas reservas { get; set; }
         public virtual tipo_alquiler tipo_alquiler { get; set; }
 
         public override string ToString() {
-            return idAlquileres + " ["+fecha.ToString()+"]";
+            return idAlquileres + " [" + fecha.ToString() + "]";
         }
     }
 }

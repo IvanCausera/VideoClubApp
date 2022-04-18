@@ -41,6 +41,5 @@ namespace videoclub_project.Backend.Modelo
 
             return str;
         }
-
     }
 }

@@ -124,6 +124,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Frontend\ControlesUsuario\UCAlquileres.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Frontend\ControlesUsuario\UCFormatos.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -144,6 +148,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Frontend\ControlesUsuario\UCVentasProductos.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Frontend\Dialogos\AdminWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -157,6 +165,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Frontend\Dialogos\dMVVMAddUser.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Frontend\Dialogos\dMVVMAddVenta.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -220,9 +232,6 @@
     <Compile Include="Backend\Modelo\productos_alquiler.cs">
       <DependentUpon>videoclubEDM.tt</DependentUpon>
     </Compile>
-    <Compile Include="Backend\Modelo\reservas.cs">
-      <DependentUpon>videoclubEDM.tt</DependentUpon>
-    </Compile>
     <Compile Include="Backend\Modelo\roles.cs">
       <DependentUpon>videoclubEDM.tt</DependentUpon>
     </Compile>
@@ -263,6 +272,9 @@
     <Compile Include="Frontend\ControlesUsuario\UCActors.xaml.cs">
       <DependentUpon>UCActors.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Frontend\ControlesUsuario\UCAlquileres.xaml.cs">
+      <DependentUpon>UCAlquileres.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Frontend\ControlesUsuario\UCFormatos.xaml.cs">
       <DependentUpon>UCFormatos.xaml</DependentUpon>
     </Compile>
@@ -278,6 +290,9 @@
     <Compile Include="Frontend\ControlesUsuario\UCUsers.xaml.cs">
       <DependentUpon>UCUsers.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Frontend\ControlesUsuario\UCVentasProductos.xaml.cs">
+      <DependentUpon>UCVentasProductos.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Frontend\Dialogos\AdminWindow.xaml.cs">
       <DependentUpon>AdminWindow.xaml</DependentUpon>
     </Compile>
@@ -289,6 +304,9 @@
     </Compile>
     <Compile Include="Frontend\Dialogos\dMVVMAddUser.xaml.cs">
       <DependentUpon>dMVVMAddUser.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Frontend\Dialogos\dMVVMAddVenta.xaml.cs">
+      <DependentUpon>dMVVMAddVenta.xaml</DependentUpon>
     </Compile>
     <Compile Include="Frontend\Dialogos\Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
@@ -304,6 +322,7 @@
     <Compile Include="MVVM\MVBaseCRUD.cs" />
     <Compile Include="MVVM\MVProduct.cs" />
     <Compile Include="MVVM\MVUser.cs" />
+    <Compile Include="MVVM\MVVenta.cs" />
     <Compile Include="MVVM\PropertyChangedDataError.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

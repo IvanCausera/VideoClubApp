@@ -25,7 +25,7 @@ namespace videoclub_project.Frontend.Dialogos {
         private videoclubEntities vidEnt;
         private MVAlquiler mAlquiler;
 
-        private UCItems uItems;
+        private UCProductosAlquiler uProductosAlquiler;
 
         private bool editar;
 
@@ -39,12 +39,24 @@ namespace videoclub_project.Frontend.Dialogos {
             this.editar = false;
         }
 
+        public dMVVMAddAlquiler(videoclubEntities vidEnt, alquileres alq) {
+            InitializeComponent();
+
+            this.vidEnt = vidEnt;
+
+            inicializa();
+
+            this.editar = true;
+            btnGuardar.Content = "Editar";
+            mAlquiler.alqSelected = alq;
+        }
+
         private void inicializa() {
             mAlquiler = new MVAlquiler(vidEnt);
             DataContext = mAlquiler;
 
-            uItems = new UCItems(mAlquiler);
-            gridItems.Children.Add(uItems);
+            uProductosAlquiler = new UCProductosAlquiler(mAlquiler);
+            gridItems.Children.Add(uProductosAlquiler);
         }
 
         private async void btnGuardar_Click(object sender, RoutedEventArgs e) {
@@ -56,11 +68,11 @@ namespace videoclub_project.Frontend.Dialogos {
             }
 
             if (result) {
-                await this.ShowMessageAsync("GESTIÓN USUARIOS",
+                await this.ShowMessageAsync("GESTIÓN ALQUILER",
                                    "TODO CORRECTO!!! Objeto guardado correctamente");
                 DialogResult = true;
             } else {
-                await this.ShowMessageAsync("GESTIÓN USUARIOS",
+                await this.ShowMessageAsync("GESTIÓN ALQUILER",
                                    "ERROR!!! No se puede guardar el objeto");
                 DialogResult = false;
             }
@@ -71,7 +83,7 @@ namespace videoclub_project.Frontend.Dialogos {
                 alquileres = mAlquiler.alqSelected,
                 item = ((formatos_peliculas)comboPelicula.SelectedItem).item
             });
-            uItems.update();
+            uProductosAlquiler.update();
         }
 
         private void btnAddVideojuego_Click(object sender, RoutedEventArgs e) {
@@ -79,7 +91,7 @@ namespace videoclub_project.Frontend.Dialogos {
                 alquileres = mAlquiler.alqSelected,
                 item = ((plataformas_videojuegos)comboVideojuego.SelectedItem).item
             });
-            uItems.update();
+            uProductosAlquiler.update();
         }
     }
 }

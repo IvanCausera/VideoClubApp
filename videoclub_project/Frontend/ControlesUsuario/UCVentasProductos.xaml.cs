@@ -12,25 +12,23 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using videoclub_project.Backend.Modelo;
 using videoclub_project.MVVM;
 
 namespace videoclub_project.Frontend.ControlesUsuario {
     /// <summary>
-    /// Lógica de interacción para UCItems.xaml
+    /// Lógica de interacción para UCVentasProductos.xaml
     /// </summary>
-    public partial class UCProductosAlquiler : UserControl {
+    public partial class UCVentasProductos : UserControl {
 
-        private MVAlquiler mAlquiler;
+        private MVVenta mVenta;
 
-        public UCProductosAlquiler(MVAlquiler mAlquiler) {
+        public UCVentasProductos(MVVenta mVenta) {
             InitializeComponent();
 
-            dgItems.SetBinding(DataGrid.ItemsSourceProperty, new Binding("{Binding alqSelected.productos_alquiler}"));
+            dgItems.SetBinding(DataGrid.ItemsSourceProperty, new Binding("{Binding ventaSelected.ventas_productos}"));
 
-            this.mAlquiler = mAlquiler;
-            DataContext = mAlquiler;
-
+            this.mVenta = mVenta;
+            DataContext = mVenta;
         }
 
         public void update() {

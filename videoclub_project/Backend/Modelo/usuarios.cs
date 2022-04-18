@@ -31,7 +31,6 @@ namespace videoclub_project.Backend.Modelo
         public virtual empleado empleado { get; set; }
         public virtual roles roles { get; set; }
 
-
         public override string ToString() {
             return nombre + " " + apellido1 + " " + apellido2;
         }

@@ -41,7 +41,6 @@ namespace videoclub_project.Backend.Modelo
         public virtual DbSet<plataformas_videojuegos> plataformas_videojuegos { get; set; }
         public virtual DbSet<productos> productos { get; set; }
         public virtual DbSet<productos_alquiler> productos_alquiler { get; set; }
-        public virtual DbSet<reservas> reservas { get; set; }
         public virtual DbSet<roles> roles { get; set; }
         public virtual DbSet<tipo_alquiler> tipo_alquiler { get; set; }
         public virtual DbSet<usuarios> usuarios { get; set; }

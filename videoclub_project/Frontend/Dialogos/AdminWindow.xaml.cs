@@ -56,5 +56,16 @@ namespace videoclub_project.Frontend.Dialogos {
             dMVVMAddAlquiler diag = new dMVVMAddAlquiler(vidEnt);
             diag.ShowDialog();
         }
+
+        private void rbtnListaAlquileres_Click(object sender, RoutedEventArgs e) {
+            UCAlquileres uc = new UCAlquileres(vidEnt);
+            mainGrid.Children.Clear();
+            mainGrid.Children.Add(uc);
+        }
+
+        private void rbtnAddVenta_Click(object sender, RoutedEventArgs e) {
+            dMVVMAddVenta diag = new dMVVMAddVenta(vidEnt);
+            diag.ShowDialog();
+        }
     }
 }
