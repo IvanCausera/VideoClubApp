@@ -30,14 +30,14 @@
           <Key>
             <PropertyRef Name="idCliente" />
           </Key>
-          <Property Name="idCliente" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idCliente" Type="int" Nullable="false" />
           <Property Name="numero_tarjeta" Type="varchar" MaxLength="25" />
         </EntityType>
         <EntityType Name="empleado">
           <Key>
             <PropertyRef Name="idEmpleado" />
           </Key>
-          <Property Name="idEmpleado" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idEmpleado" Type="int" Nullable="false" />
           <Property Name="salario" Type="float" Nullable="false" />
           <Property Name="cuanta_bancaria" Type="varchar" MaxLength="24" />
         </EntityType>
@@ -764,7 +764,7 @@
           <Key>
             <PropertyRef Name="idCliente" />
           </Key>
-          <Property Name="idCliente" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idCliente" Type="Int32" Nullable="false" />
           <Property Name="numero_tarjeta" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="alquileres" Relationship="videoclubModel.id_cliente_alquiler" FromRole="cliente" ToRole="alquileres" />
           <NavigationProperty Name="ventas" Relationship="videoclubModel.id_cliente_venta" FromRole="cliente" ToRole="ventas" />
@@ -774,7 +774,7 @@
           <Key>
             <PropertyRef Name="idEmpleado" />
           </Key>
-          <Property Name="idEmpleado" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idEmpleado" Type="Int32" Nullable="false" />
           <Property Name="salario" Type="Single" Nullable="false" />
           <Property Name="cuanta_bancaria" Type="String" MaxLength="24" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="usuarios" Relationship="videoclubModel.idEmpleado_usuario" FromRole="empleado" ToRole="usuarios" />

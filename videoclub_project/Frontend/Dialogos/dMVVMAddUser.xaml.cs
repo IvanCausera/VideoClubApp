@@ -24,6 +24,7 @@ namespace videoclub_project.Frontend.Dialogos {
         private videoclubEntities vidEnt;
         private MVUser mUser;
         private bool editar;
+        private bool empleado;
 
         public dMVVMAddUser(videoclubEntities vidEnt) {
             InitializeComponent();
@@ -33,6 +34,7 @@ namespace videoclub_project.Frontend.Dialogos {
             inicializa();
 
             this.editar = false;
+            this.empleado = false;
         }
 
         public dMVVMAddUser(videoclubEntities vidEnt, usuarios user) {
@@ -68,11 +70,13 @@ namespace videoclub_project.Frontend.Dialogos {
             if(mUser.usuSelected.roles.idRoles < 3) {
                 txtSalario.Visibility = Visibility.Visible;
                 txtBanco.Visibility = Visibility.Visible;
+                empleado = true;
 
                 txtNTarjeta.Visibility = Visibility.Hidden;
             } else {
                 txtSalario.Visibility = Visibility.Hidden;
                 txtBanco.Visibility = Visibility.Hidden;
+                empleado = false;
 
                 txtNTarjeta.Visibility = Visibility.Visible;
             }
@@ -86,6 +90,10 @@ namespace videoclub_project.Frontend.Dialogos {
                 // -----------------
                 setDireccion();
                 bool result;
+                if (empleado) {
+                    mUser.cliSelected = null;
+                } else mUser.emplSelected = null;
+
                 if (editar) {
                     result = mUser.editar();
                 } else {
@@ -99,7 +107,6 @@ namespace videoclub_project.Frontend.Dialogos {
                 } else {
                     await this.ShowMessageAsync("GESTIÓN USUARIOS",
                                        "ERROR!!! No se puede guardar el objeto");
-                    DialogResult = false;
                 }
             }
         }

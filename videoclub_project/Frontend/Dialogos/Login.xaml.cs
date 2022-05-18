@@ -46,13 +46,24 @@ namespace videoclub_project.Frontend.Dialogos {
                 "FALTAN CAMPOS", MessageBoxButton.OK, MessageBoxImage.Error);
             } else if (usuServ.login(txtUserName.Text, passPassword.Password)) {
                 if (empleado) {
-                    AdminWindow adminWindow = new AdminWindow(vidEnt, usuServ.usuLogin);
-                    adminWindow.Show();
+                    if (usuServ.usuLogin.empleado != null) {
+                        AdminWindow adminWindow = new AdminWindow(vidEnt, usuServ.usuLogin);
+                        adminWindow.Show();
+                        this.Close();
+                    } else {
+                        await this.ShowMessageAsync("USUARIO INCORRECTOS",
+                                   "El usuario no es un empleado o administrador");
+                    }
                 } else {
-                    UserWindow userWindow = new UserWindow(vidEnt, usuServ.usuLogin);
-                    userWindow.Show();
+                    if (usuServ.usuLogin.cliente != null) {
+                        UserWindow userWindow = new UserWindow(vidEnt, usuServ.usuLogin);
+                        userWindow.Show();
+                        this.Close();
+                    } else {
+                        await this.ShowMessageAsync("USUARIO INCORRECTOS",
+                                   "El usuario no es un cliente");
+                    }
                 }
-                this.Close();
             } else {
                 await this.ShowMessageAsync("CAMPOS INCORRECTOS",
                                    "Usuario o contraseña incorrectos");
