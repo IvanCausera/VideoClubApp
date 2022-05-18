@@ -29,6 +29,7 @@
                     Background="#181818">
             <TextBlock Text="L O G I N" HorizontalAlignment="Center"
                        Foreground="White" FontSize="50"
+                       x:Name="txtLogin"
                        Margin="0, 20"/>
             <TextBlock Text="Por favor introduce tu usuario y clave" HorizontalAlignment="Center"
                        Foreground="LightGray" FontSize="13"/>
@@ -60,16 +61,29 @@
                     </StackPanel>
                 </materialDesign:HintAssist.Hint>
             </PasswordBox>
+            <!--
             <TextBlock Text="¿Has olvidado la contraseña?" HorizontalAlignment="Center"
-                       Foreground="LightGray" FontSize="13" Margin="0, 20"/>
+                       Foreground="LightGray" FontSize="13"
+                       Margin="0, 20, 0, 0"/>
+            -->
+            <Button HorizontalAlignment="Center"
+                    Background="Transparent" BorderBrush="Transparent"
+                    Foreground="LightGray" Content="Portal Empleado"
+                    Margin="0, 20, 0, 0"
+                    x:Name="btnChangeUser" Click="btnChangeUser_Click"/>
+            <Button HorizontalAlignment="Center"
+                    Background="Transparent" BorderBrush="Transparent"
+                    Foreground="LightGray" Content="Entrar sin registrarte"
+                    Margin="0, 0, 0, 20"
+                    x:Name="btnLoginWithoutUser" Click="btnLoginWithoutUser_Click"/>
+
             <Button HorizontalAlignment="Center" Width="120" Height="40" 
                      Style="{StaticResource MaterialDesignOutlinedButton}"
                      materialDesign:TextFieldAssist.HasClearButton="True"
                      materialDesign:ButtonAssist.CornerRadius="20"
                      Foreground="LightGray" Content="Login"
                     BorderBrush="#578763" IsDefault="True"
-                    x:Name="btnLogin" Click="btnLogin_Click">
-            </Button>
+                    x:Name="btnLogin" Click="btnLogin_Click"/>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"
                         Margin="0, 20">
                 <Button Background="Transparent" BorderBrush="Transparent" Height="40" Width="75">

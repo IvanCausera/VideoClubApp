@@ -148,6 +148,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Frontend\ControlesUsuario\UCVentas.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Frontend\ControlesUsuario\UCVentasProductos.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -175,6 +179,10 @@
     <Page Include="Frontend\Dialogos\Login.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Frontend\Dialogos\UserWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -290,6 +298,9 @@
     <Compile Include="Frontend\ControlesUsuario\UCUsers.xaml.cs">
       <DependentUpon>UCUsers.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Frontend\ControlesUsuario\UCVentas.xaml.cs">
+      <DependentUpon>UCVentas.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Frontend\ControlesUsuario\UCVentasProductos.xaml.cs">
       <DependentUpon>UCVentasProductos.xaml</DependentUpon>
     </Compile>
@@ -310,6 +321,9 @@
     </Compile>
     <Compile Include="Frontend\Dialogos\Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Frontend\Dialogos\UserWindow.xaml.cs">
+      <DependentUpon>UserWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -352,6 +366,13 @@
       <DependentUpon>videoclubEDM.edmx</DependentUpon>
       <LastGenOutput>videoclubEDM.cs</LastGenOutput>
     </Content>
+    <Resource Include="Frontend\Dialogos\iconos\personal.png" />
+    <Resource Include="Frontend\Dialogos\iconos\filmstrip.png" />
+    <Resource Include="Frontend\Dialogos\iconos\controller-classic.png" />
+    <Resource Include="Frontend\Dialogos\iconos\beehive-outline.png" />
+    <Resource Include="Frontend\Dialogos\iconos\home.png" />
+    <Resource Include="Frontend\Dialogos\iconos\receipt-outline.png" />
+    <Resource Include="Frontend\Dialogos\iconos\handshake.png" />
     <Content Include="NLog.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

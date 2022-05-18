@@ -38,7 +38,18 @@ namespace videoclub_project.Frontend.Dialogos {
             inicializa();
 
             this.editar = false;
+        }
 
+        public dMVVMAddVenta(videoclubEntities vidEnt, ventas venta) {
+            InitializeComponent();
+
+            this.vidEnt = vidEnt;
+
+            inicializa();
+
+            this.editar = true;
+            btnGuardar.Content = "Editar";
+            mVenta.ventaSelected = venta;
         }
 
         private void inicializa() {
