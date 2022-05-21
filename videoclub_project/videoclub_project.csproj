@@ -349,6 +349,8 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Resource Include="Recursos\img\noImage.png" />
+    <Resource Include="Recursos\img\productos\Batman.png" />
+    <Resource Include="Recursos\img\productos\The Last of Us.png" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -394,7 +396,6 @@
     <Folder Include="Informes\" />
     <Folder Include="Recursos\Estilos\" />
     <Folder Include="Recursos\Iconos\" />
-    <Folder Include="Recursos\img\productos\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

@@ -48,7 +48,7 @@ namespace videoclub_project.Frontend.Dialogos {
 
             inicializa();
 
-            this.editar = true;
+            this.editar = false;
         }
 
         public dMVVMAddProduct(videoclubEntities vidEnt, productos product) {
@@ -58,9 +58,15 @@ namespace videoclub_project.Frontend.Dialogos {
 
             inicializa();
 
-            this.editar = false;
+            this.editar = true;
             btnGuardar.Content = "Editar";
             mProduct.prodSelected = product;
+
+            if (!string.IsNullOrEmpty(product.portada)) {
+                //portada = new BitmapImage(new Uri("../../Recursos/img/productos/" + product.portada, UriKind.Relative));
+                portada = new BitmapImage(new Uri("/Recursos/img/productos/" + product.portada, UriKind.Relative));
+                imgPortada.Source = portada;
+            }
 
             if (mProduct.prodSelected.videojuegos == null) {
                 changeLayout(PELICULA);
@@ -75,8 +81,8 @@ namespace videoclub_project.Frontend.Dialogos {
             mProduct = new MVProduct(vidEnt);
             DataContext = mProduct;
 
-            mProduct.prodSelected.videojuegos = new videojuegos();
-            mProduct.prodSelected.peliculas = new peliculas();
+            mProduct.prodSelected.videojuegos = new videojuegos { productos = mProduct.prodSelected };
+            mProduct.prodSelected.peliculas = new peliculas { productos = mProduct.prodSelected };
 
             showVideojuegos(false);
             showPelicula(true);
@@ -96,13 +102,17 @@ namespace videoclub_project.Frontend.Dialogos {
         }
 
         private async void btnGuardar_Click(object sender, RoutedEventArgs e) {
-            string portadaNombre = txtTitulo.Text + ".png";
-            saveImage(portada, "../../Recursos/img/productos/" + portadaNombre);
+            if (portada != null) {
+                string portadaNombre = txtTitulo.Text + ".png";
+                saveImage(portada, "../../Recursos/img/productos/" + portadaNombre);
+                mProduct.prodSelected.portada = portadaNombre;
+            }
 
-            mProduct.prodSelected.portada = portadaNombre;
-
-            if (actualLayout == PELICULA) mProduct.prodSelected.videojuegos = null;
-            else mProduct.prodSelected.peliculas = null;
+            if (actualLayout == PELICULA) {
+                mProduct.prodSelected.videojuegos = null;
+            } else {
+                mProduct.prodSelected.peliculas = null;
+            }
 
             bool result;
             if (editar) {
@@ -132,7 +142,10 @@ namespace videoclub_project.Frontend.Dialogos {
         }
 
         private void btnAddActor_Click(object sender, RoutedEventArgs e) {
-            uActors.addActor(new actores_peliculas { nombre = txtActor.Text });
+            uActors.addActor(new actores_peliculas { 
+                nombre = txtActor.Text, 
+                peliculas = mProduct.prodSelected.peliculas 
+            });
         }
 
         private void btnAddFormato_Click(object sender, RoutedEventArgs e) {
@@ -141,13 +154,15 @@ namespace videoclub_project.Frontend.Dialogos {
                     uFormatos.addFormato(new formatos_peliculas {
                         formatos = (formatos)comboFormato.SelectedItem,
                         stock = int.Parse(txtStock.Text),
-                        precio = float.Parse(txtPrecio.Text)
+                        precio = float.Parse(txtPrecio.Text),
+                        peliculas = mProduct.prodSelected.peliculas
                     });
                 } else {
                     uPlataformas.addPlataforma(new plataformas_videojuegos {
                         plataformas = (plataformas)comboPlataforma.SelectedItem,
                         stock = int.Parse(txtStock.Text),
-                        precio = float.Parse(txtPrecio.Text)
+                        precio = float.Parse(txtPrecio.Text),
+                        videojuegos = mProduct.prodSelected.videojuegos
                     });
                 }
             } catch (Exception) {

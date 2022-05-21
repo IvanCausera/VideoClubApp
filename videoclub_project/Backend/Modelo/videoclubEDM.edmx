@@ -52,7 +52,7 @@
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id" Type="int" Nullable="false" />
           <Property Name="id_formato" Type="int" Nullable="false" />
           <Property Name="id_pelicula" Type="int" Nullable="false" />
           <Property Name="stock" Type="int" Nullable="false" />
@@ -76,13 +76,13 @@
           <Key>
             <PropertyRef Name="idItem" />
           </Key>
-          <Property Name="idItem" Type="int" Nullable="false" />
+          <Property Name="idItem" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <EntityType Name="peliculas">
           <Key>
             <PropertyRef Name="idPeliculas" />
           </Key>
-          <Property Name="idPeliculas" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idPeliculas" Type="int" Nullable="false" />
           <Property Name="titulo_original" Type="varchar" MaxLength="30" />
           <Property Name="pais" Type="varchar" MaxLength="10" />
           <Property Name="duracion" Type="int" Nullable="false" />
@@ -115,7 +115,7 @@
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id" Type="int" Nullable="false" />
           <Property Name="id_plataforma" Type="int" Nullable="false" />
           <Property Name="id_videojuego" Type="int" Nullable="false" />
           <Property Name="stock" Type="int" Nullable="false" />
@@ -198,7 +198,7 @@
           <Key>
             <PropertyRef Name="idVideojuegos" />
           </Key>
-          <Property Name="idVideojuegos" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idVideojuegos" Type="int" Nullable="false" />
           <Property Name="distribuidora" Type="varchar" MaxLength="25" />
           <Property Name="desarrolladora" Type="varchar" MaxLength="25" />
           <Property Name="multijugador" Type="tinyint" Nullable="false" />
@@ -791,7 +791,7 @@
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id" Type="Int32" Nullable="false" />
           <Property Name="id_formato" Type="Int32" Nullable="false" />
           <Property Name="id_pelicula" Type="Int32" Nullable="false" />
           <Property Name="stock" Type="Int32" Nullable="false" />
@@ -821,7 +821,7 @@
           <Key>
             <PropertyRef Name="idItem" />
           </Key>
-          <Property Name="idItem" Type="Int32" Nullable="false" />
+          <Property Name="idItem" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <NavigationProperty Name="formatos_peliculas" Relationship="videoclubModel.idItem_formatoPelicula" FromRole="item" ToRole="formatos_peliculas" />
           <NavigationProperty Name="productos_alquiler" Relationship="videoclubModel.id_producto_alquiler" FromRole="item" ToRole="productos_alquiler" />
           <NavigationProperty Name="ventas_productos" Relationship="videoclubModel.id_producto_venta" FromRole="item" ToRole="ventas_productos" />
@@ -831,7 +831,7 @@
           <Key>
             <PropertyRef Name="idPeliculas" />
           </Key>
-          <Property Name="idPeliculas" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idPeliculas" Type="Int32" Nullable="false" />
           <Property Name="titulo_original" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="pais" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="duracion" Type="Int32" Nullable="false" />
@@ -871,7 +871,7 @@
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id" Type="Int32" Nullable="false"/>
           <Property Name="id_plataforma" Type="Int32" Nullable="false" />
           <Property Name="id_videojuego" Type="Int32" Nullable="false" />
           <Property Name="stock" Type="Int32" Nullable="false" />
@@ -974,7 +974,7 @@
           <Key>
             <PropertyRef Name="idVideojuegos" />
           </Key>
-          <Property Name="idVideojuegos" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idVideojuegos" Type="Int32" Nullable="false" />
           <Property Name="distribuidora" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
           <Property Name="desarrolladora" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
           <Property Name="multijugador" Type="SByte" Nullable="false" />

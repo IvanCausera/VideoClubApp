@@ -93,7 +93,57 @@ namespace videoclub_project.MVVM {
         }
 
         public bool guardar() {
-            return add(prodSelected);
+
+            if (prodSelected.videojuegos != null) {
+                videojuegos game = prodSelected.videojuegos;
+                prodSelected.videojuegos = null;
+                if (add(prodSelected)) {
+                    game.idVideojuegos = prodSelected.idProductos;
+                    ICollection<plataformas_videojuegos> gamePlataforms = game.plataformas_videojuegos;
+                    game.plataformas_videojuegos = null;
+                    if (new MVBaseCRUD<videojuegos>(new ServicioGenerico<videojuegos>(vidEnt)).add(game)) {
+
+                        foreach (plataformas_videojuegos platGame in gamePlataforms) {
+                            item gameItem = new item ();
+                            if (!new MVBaseCRUD<item>(new ServicioGenerico<item>(vidEnt)).add(gameItem)) return false; // item not inserted
+                            platGame.id_videojuego = game.idVideojuegos;
+                            platGame.id = gameItem.idItem;
+                            platGame.item = gameItem;
+                            if (!new MVBaseCRUD<plataformas_videojuegos>(new ServicioGenerico<plataformas_videojuegos>(vidEnt)).add(platGame)) return false; // product, inserted, game inserted, platform not.
+                            
+                        }
+                    } else {
+                        delete(prodSelected);
+                        return false; // product inserted, game not
+                    }
+                } else return false; // product not inserted
+            } else {
+                peliculas movie = prodSelected.peliculas;
+                prodSelected.peliculas = null;
+                if (add(prodSelected)) {
+
+                    movie.idPeliculas = prodSelected.idProductos;
+                    ICollection<formatos_peliculas> movieFormats = movie.formatos_peliculas;
+                    movie.formatos_peliculas = null;
+
+                    if (new MVBaseCRUD<peliculas>(new ServicioGenerico<peliculas>(vidEnt)).add(movie)) {
+                        foreach (formatos_peliculas movieFormat in movieFormats) {
+                            item movieItem = new item();
+                            if (!new MVBaseCRUD<item>(new ServicioGenerico<item>(vidEnt)).add(movieItem)) return false; // item not inserted
+                            movieFormat.id_pelicula = movie.idPeliculas;
+                            movieFormat.id = movieItem.idItem;
+                            movieFormat.item = movieItem;
+                            if (!new MVBaseCRUD<formatos_peliculas>(new ServicioGenerico<formatos_peliculas>(vidEnt)).add(movieFormat)) return false; // product, inserted, movie inserted, format not.
+                        }
+                    } else {
+                        delete(prodSelected);
+                        return false; // product inserted, movie not
+                    }
+
+                } else return false; // product not inserted
+            }
+
+            return true;
         }
 
         public bool borrar() {
