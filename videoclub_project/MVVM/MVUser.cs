@@ -13,6 +13,8 @@ namespace videoclub_project.MVVM {
         private videoclubEntities vidEnt;
 
         private roles rolSel;
+        private cliente cliSel;
+        private empleado emplSel;
         private usuarios usuSel;
 
         private ServicioUsuario servUsu;
@@ -26,6 +28,8 @@ namespace videoclub_project.MVVM {
             servUsu = new ServicioUsuario(vidEnt);
             servicio = servUsu;
             usuSel = new usuarios();
+            cliSel = new cliente();
+            emplSelected = new empleado();
 
             listView = new ListCollectionView(servUsu.getAll().ToList());
 
@@ -49,10 +53,32 @@ namespace videoclub_project.MVVM {
             set { usuSel = value; NotifyPropertyChanged(nameof(usuSelected)); }
         }
 
+        public cliente cliSelected {
+            get { return cliSel; }
+            set { cliSel = value; NotifyPropertyChanged(nameof(cliSelected)); }
+        }
+
+        public empleado emplSelected {
+            get { return emplSel; }
+            set { emplSel = value; NotifyPropertyChanged(nameof(emplSelected)); }
+        }
+
         // Metodos ***************************************************************************************
 
         public bool guardar() {
-            return add(usuSelected);
+            if (!add(usuSelected)) return false;
+
+            if (emplSelected == null) {
+                cliSelected.idCliente = usuSelected.idUsuarios;
+                cliSelected.usuarios = usuSelected;
+                if (!(new MVBaseCRUD<cliente>(new ServicioGenerico<cliente>(vidEnt)).add(cliSelected))) return false;
+            } else {
+                emplSelected.idEmpleado = usuSelected.idUsuarios;
+                emplSelected.usuarios = usuSelected;
+                if (!(new MVBaseCRUD<empleado>(new ServicioGenerico<empleado>(vidEnt)).add(emplSelected))) return false;
+            }
+
+            return true;
         }
 
         public bool borrar() {

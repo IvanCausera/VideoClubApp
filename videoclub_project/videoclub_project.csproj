@@ -128,6 +128,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Frontend\ControlesUsuario\UCClientProducts.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Frontend\ControlesUsuario\UCFormatos.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -145,6 +149,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Frontend\ControlesUsuario\UCUsers.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Frontend\ControlesUsuario\UCVentas.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -175,6 +183,10 @@
     <Page Include="Frontend\Dialogos\Login.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Frontend\Dialogos\UserWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -247,20 +259,10 @@
     <Compile Include="Backend\Modelo\ventas_productos.cs">
       <DependentUpon>videoclubEDM.tt</DependentUpon>
     </Compile>
-    <Compile Include="Backend\Modelo\videoclubEDM.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>videoclubEDM.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Backend\Modelo\videoclubEDM.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>videoclubEDM.tt</DependentUpon>
-    </Compile>
+    <Compile Include="Backend\Modelo\videoclubEDM.Context.cs" />
+    <Compile Include="Backend\Modelo\videoclubEDM.cs" />
     <Compile Include="Backend\Modelo\videoclubEDM.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>videoclubEDM.edmx</DependentUpon>
+      <DependentUpon>videoclubEDM.cs</DependentUpon>
     </Compile>
     <Compile Include="Backend\Modelo\videojuegos.cs">
       <DependentUpon>videoclubEDM.tt</DependentUpon>
@@ -274,6 +276,9 @@
     </Compile>
     <Compile Include="Frontend\ControlesUsuario\UCAlquileres.xaml.cs">
       <DependentUpon>UCAlquileres.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Frontend\ControlesUsuario\UCClientProducts.xaml.cs">
+      <DependentUpon>UCClientProducts.xaml</DependentUpon>
     </Compile>
     <Compile Include="Frontend\ControlesUsuario\UCFormatos.xaml.cs">
       <DependentUpon>UCFormatos.xaml</DependentUpon>
@@ -289,6 +294,9 @@
     </Compile>
     <Compile Include="Frontend\ControlesUsuario\UCUsers.xaml.cs">
       <DependentUpon>UCUsers.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Frontend\ControlesUsuario\UCVentas.xaml.cs">
+      <DependentUpon>UCVentas.xaml</DependentUpon>
     </Compile>
     <Compile Include="Frontend\ControlesUsuario\UCVentasProductos.xaml.cs">
       <DependentUpon>UCVentasProductos.xaml</DependentUpon>
@@ -310,6 +318,9 @@
     </Compile>
     <Compile Include="Frontend\Dialogos\Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Frontend\Dialogos\UserWindow.xaml.cs">
+      <DependentUpon>UserWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -342,22 +353,27 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <Resource Include="Frontend\Dialogos\iconos\personal.png" />
+    <Resource Include="Frontend\Dialogos\iconos\filmstrip.png" />
+    <Resource Include="Frontend\Dialogos\iconos\controller-classic.png" />
+    <Resource Include="Frontend\Dialogos\iconos\beehive-outline.png" />
+    <Resource Include="Frontend\Dialogos\iconos\home.png" />
+    <Resource Include="Frontend\Dialogos\iconos\receipt-outline.png" />
+    <Resource Include="Frontend\Dialogos\iconos\handshake.png" />
     <Content Include="Backend\Modelo\videoclubEDM.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>videoclubEDM.edmx</DependentUpon>
-      <LastGenOutput>videoclubEDM.Context.cs</LastGenOutput>
+      <LastGenOutput>videoclubEDM.Context1.cs</LastGenOutput>
     </Content>
     <Content Include="Backend\Modelo\videoclubEDM.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>videoclubEDM.edmx</DependentUpon>
-      <LastGenOutput>videoclubEDM.cs</LastGenOutput>
+      <LastGenOutput>videoclubEDM1.cs</LastGenOutput>
     </Content>
     <Content Include="NLog.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <EntityDeploy Include="Backend\Modelo\videoclubEDM.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>videoclubEDM.Designer.cs</LastGenOutput>
+      <LastGenOutput>videoclubEDM1.Designer.cs</LastGenOutput>
     </EntityDeploy>
     <None Include="Backend\Modelo\videoclubEDM.edmx.diagram">
       <DependentUpon>videoclubEDM.edmx</DependentUpon>

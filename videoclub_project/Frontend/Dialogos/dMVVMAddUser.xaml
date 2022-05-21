@@ -142,7 +142,7 @@
 
                 <!--Username-->
                 <TextBox x:Name="txtUsername" Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                         mat:HintAssist.Hint="Nombre*" MaxLength="10" FontWeight="Bold"
+                         mat:HintAssist.Hint="Username*" MaxLength="10" FontWeight="Bold"
                          Margin="10"
                          MinWidth="100" MaxWidth="1000"
                          Grid.Row="1"
@@ -181,14 +181,14 @@
                          Margin="10"
                          MinWidth="100" MaxWidth="1000"
                          Grid.Row="3" Grid.Column="1"
-                         Text="{Binding usuSelected.empleado.salario, NotifyOnValidationError=True,ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
+                         Text="{Binding emplSelected.salario, NotifyOnValidationError=True,ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
                 <!--Cuanta Banco-->
                 <TextBox x:Name="txtBanco" Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                          mat:HintAssist.Hint="Cuenta Banco*" MaxLength="24" FontWeight="Bold"
                          Margin="10"
                          MinWidth="100" MaxWidth="1000"
                          Grid.Row="3" Grid.Column="2"
-                         Text="{Binding usuSelected.empleado.cuanta_bancaria, NotifyOnValidationError=True,ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
+                         Text="{Binding emplSelected.cuanta_bancaria, NotifyOnValidationError=True,ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
                 
                 <!--Clientes-->
                 <!--Nuemro Tarjeta-->
@@ -197,7 +197,7 @@
                          Margin="10"
                          MinWidth="100" MaxWidth="1000"
                          Grid.Row="3" Grid.Column="1"
-                         Text="{Binding usuSelected.cliente.numero_tarjeta, NotifyOnValidationError=True,ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
+                         Text="{Binding cliSelected.numero_tarjeta, NotifyOnValidationError=True,ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
 
             </Grid>
 

@@ -12,6 +12,10 @@ namespace videoclub_project.MVVM {
         public ServicioGenerico<T> servicio { get; set; }
         private static Logger log = LogManager.GetCurrentClassLogger();
 
+        public MVBaseCRUD() { }
+        
+        public MVBaseCRUD(ServicioGenerico<T> serv) { servicio = serv; }
+
         /// <summary>
         /// Realiza una inserción en la base de datos y captura la excepción
         /// </summary>

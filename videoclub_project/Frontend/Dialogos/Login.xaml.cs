@@ -1,5 +1,6 @@
 ﻿using videoclub_project.Backend.Modelo;
 using MahApps.Metro.Controls;
+using MahApps.Metro.Controls.Dialogs;
 using NLog;
 using System;
 using System.Collections.Generic;
@@ -23,6 +24,9 @@ namespace videoclub_project.Frontend.Dialogos {
     /// </summary>
     public partial class Login : MetroWindow{
         private static Logger log = LogManager.GetCurrentClassLogger();
+
+        private bool empleado;
+
         private videoclubEntities vidEnt;
         private ServicioUsuario usuServ;
         public Login() {
@@ -33,19 +37,36 @@ namespace videoclub_project.Frontend.Dialogos {
                 Application.Current.Shutdown();
             }
             usuServ = new ServicioUsuario(vidEnt);
+            empleado = false;
         }
 
-        private void btnLogin_Click(object sender, RoutedEventArgs e) {
+        private async void btnLogin_Click(object sender, RoutedEventArgs e) {
             if (String.IsNullOrEmpty(txtUserName.Text) || String.IsNullOrEmpty(passPassword.Password)) {
                 MessageBox.Show("Es necesario establecer el usuario y la contraseña",
                 "FALTAN CAMPOS", MessageBoxButton.OK, MessageBoxImage.Error);
             } else if (usuServ.login(txtUserName.Text, passPassword.Password)) {
-                AdminWindow adminWindow = new AdminWindow(vidEnt, usuServ.usuLogin);
-                adminWindow.Show();
-                this.Close();
+                if (empleado) {
+                    if (usuServ.usuLogin.empleado != null) {
+                        AdminWindow adminWindow = new AdminWindow(vidEnt, usuServ.usuLogin);
+                        adminWindow.Show();
+                        this.Close();
+                    } else {
+                        await this.ShowMessageAsync("USUARIO INCORRECTOS",
+                                   "El usuario no es un empleado o administrador");
+                    }
+                } else {
+                    if (usuServ.usuLogin.cliente != null) {
+                        UserWindow userWindow = new UserWindow(vidEnt, usuServ.usuLogin);
+                        userWindow.Show();
+                        this.Close();
+                    } else {
+                        await this.ShowMessageAsync("USUARIO INCORRECTOS",
+                                   "El usuario no es un cliente");
+                    }
+                }
             } else {
-                MessageBox.Show("Usuario o contraseña incorrectos",
-                "CAMPOS INCORRECTOS", MessageBoxButton.OK, MessageBoxImage.Error);
+                await this.ShowMessageAsync("CAMPOS INCORRECTOS",
+                                   "Usuario o contraseña incorrectos");
             }
         }
 
@@ -63,5 +84,24 @@ namespace videoclub_project.Frontend.Dialogos {
             return conectar;
         }
 
+        private void btnLoginWithoutUser_Click(object sender, RoutedEventArgs e) {
+            UserWindow userWindow = new UserWindow(vidEnt, null);
+            userWindow.Show();
+            this.Close();
+        }
+
+        private void btnChangeUser_Click(object sender, RoutedEventArgs e) {
+            if (empleado) {
+                txtLogin.Text = "L O G I N";
+                btnChangeUser.Content = "Portal Empleado";
+                btnLoginWithoutUser.Visibility = Visibility.Visible;
+                empleado = false;
+            } else {
+                txtLogin.Text = "PORTAL EMPLEADO";
+                btnChangeUser.Content = "Portal Cliente";
+                btnLoginWithoutUser.Visibility = Visibility.Hidden;
+                empleado = true;
+            }
+        }
     }
 }

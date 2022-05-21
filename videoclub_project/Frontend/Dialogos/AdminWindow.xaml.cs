@@ -67,5 +67,16 @@ namespace videoclub_project.Frontend.Dialogos {
             dMVVMAddVenta diag = new dMVVMAddVenta(vidEnt);
             diag.ShowDialog();
         }
+
+        private void rbtnListaVentas_Click(object sender, RoutedEventArgs e) {
+            UCVentas uc = new UCVentas(vidEnt);
+            mainGrid.Children.Clear();
+            mainGrid.Children.Add(uc);
+        }
+
+        private void Salir_Click(object sender, RoutedEventArgs e) {
+            new Login().Show();
+            this.Close();
+        }
     }
 }
