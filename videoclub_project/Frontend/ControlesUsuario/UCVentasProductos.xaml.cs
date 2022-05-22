@@ -25,10 +25,11 @@ namespace videoclub_project.Frontend.ControlesUsuario {
         public UCVentasProductos(MVVenta mVenta) {
             InitializeComponent();
 
-            dgItems.SetBinding(DataGrid.ItemsSourceProperty, new Binding("{Binding ventaSelected.ventas_productos}"));
-
             this.mVenta = mVenta;
             DataContext = mVenta;
+
+            dgItems.SetBinding(DataGrid.ItemsSourceProperty, new Binding("ventaSelected.ventas_productos"));
+            dgItems.SetBinding(DataGrid.SelectedItemProperty, new Binding("ventProdSelected"));
         }
 
         public void update() {
@@ -36,7 +37,9 @@ namespace videoclub_project.Frontend.ControlesUsuario {
         }
 
         private void menuBorrar_Click(object sender, RoutedEventArgs e) {
-            //TODO
+            if (mVenta.delteVentaProduct()) {
+                dgItems.Items.Refresh();
+            }
         }
     }
 }

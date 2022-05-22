@@ -62,6 +62,10 @@ namespace videoclub_project.MVVM {
 
         // Methods ***************************************************************************************************
 
+        public bool delteVentaProduct() {
+            return ventaSelected.ventas_productos.Remove(ventProdSelected);
+        }
+
         public bool guardar() {
             return add(ventaSelected);
         }

@@ -33,8 +33,8 @@ namespace videoclub_project.Backend.Modelo
         public override string ToString() {
             string str;
 
-            if (productos_alquiler != null) {
-                str = productos_alquiler.ToString();
+            if (formatos_peliculas != null) {
+                str = formatos_peliculas.ToString();
             } else {
                 str = plataformas_videojuegos.ToString();
             }
