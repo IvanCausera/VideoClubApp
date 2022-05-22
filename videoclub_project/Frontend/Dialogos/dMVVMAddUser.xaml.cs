@@ -54,6 +54,11 @@ namespace videoclub_project.Frontend.Dialogos {
             txtDomicilio.Text = dir.Substring(0, dir.IndexOf("-"));
             txtPoblacion.Text = dir.Substring(dir.IndexOf("-") + 1, (dir.LastIndexOf("-") - (dir.IndexOf("-") + 1)));
             txtCP.Text = dir.Substring(dir.LastIndexOf("-") + 1);
+
+            if (user.cliente != null) {
+                mUser.cliSelected = user.cliente;
+            } else mUser.emplSelected = user.empleado;
+
         }
 
         private void inicializa() {
