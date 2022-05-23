@@ -204,7 +204,9 @@
           <Property Name="multijugador" Type="tinyint" Nullable="false" />
         </EntityType>
         <Association Name="id_aluiler_prodcutos">
-          <End Role="alquileres" Type="Self.alquileres" Multiplicity="1" />
+          <End Role="alquileres" Type="Self.alquileres" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="productos_alquiler" Type="Self.productos_alquiler" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="alquileres">
@@ -288,7 +290,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="id_pelicula_formato">
-          <End Role="peliculas" Type="Self.peliculas" Multiplicity="1" />
+          <End Role="peliculas" Type="Self.peliculas" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="formatos_peliculas" Type="Self.formatos_peliculas" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="peliculas">
@@ -300,7 +304,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="id_peliculas_actores">
-          <End Role="peliculas" Type="Self.peliculas" Multiplicity="1" />
+          <End Role="peliculas" Type="Self.peliculas" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="actores_peliculas" Type="Self.actores_peliculas" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="peliculas">
@@ -396,7 +402,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="id_venta_ventaproductos">
-          <End Role="ventas" Type="Self.ventas" Multiplicity="1" />
+          <End Role="ventas" Type="Self.ventas" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="ventas_productos" Type="Self.ventas_productos" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="ventas">
@@ -408,7 +416,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="id_videojuego_plataforma">
-          <End Role="videojuegos" Type="Self.videojuegos" Multiplicity="1" />
+          <End Role="videojuegos" Type="Self.videojuegos" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="plataformas_videojuegos" Type="Self.plataformas_videojuegos" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="videojuegos">
@@ -420,7 +430,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="idCliente_usuario">
-          <End Role="usuarios" Type="Self.usuarios" Multiplicity="1" />
+          <End Role="usuarios" Type="Self.usuarios" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="cliente" Type="Self.cliente" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="usuarios">
@@ -432,7 +444,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="idEmpleado_usuario">
-          <End Role="usuarios" Type="Self.usuarios" Multiplicity="1" />
+          <End Role="usuarios" Type="Self.usuarios" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="empleado" Type="Self.empleado" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="usuarios">
@@ -444,19 +458,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="idItem_formatoPelicula">
-          <End Role="item" Type="Self.item" Multiplicity="1" />
-          <End Role="formatos_peliculas" Type="Self.formatos_peliculas" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="item">
-              <PropertyRef Name="idItem" />
-            </Principal>
-            <Dependent Role="formatos_peliculas">
-              <PropertyRef Name="id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="idItem_plataformaVideojuego">
-          <End Role="item" Type="Self.item" Multiplicity="1" />
+          <End Role="item" Type="Self.item" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="plataformas_videojuegos" Type="Self.plataformas_videojuegos" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="item">
@@ -467,8 +471,24 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="idItem_plataformaVideojuego">
+          <End Role="item" Type="Self.item" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="formatos_peliculas" Type="Self.formatos_peliculas" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="item">
+              <PropertyRef Name="idItem" />
+            </Principal>
+            <Dependent Role="formatos_peliculas">
+              <PropertyRef Name="id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="idPelicula_producto">
-          <End Role="productos" Type="Self.productos" Multiplicity="1" />
+          <End Role="productos" Type="Self.productos" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="peliculas" Type="Self.peliculas" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="productos">
@@ -480,7 +500,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="idVideojuego_producto">
-          <End Role="productos" Type="Self.productos" Multiplicity="1" />
+          <End Role="productos" Type="Self.productos" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="videojuegos" Type="Self.videojuegos" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="productos">
@@ -596,11 +618,11 @@
           </AssociationSet>
           <AssociationSet Name="idItem_formatoPelicula" Association="Self.idItem_formatoPelicula">
             <End Role="item" EntitySet="item" />
-            <End Role="formatos_peliculas" EntitySet="formatos_peliculas" />
+            <End Role="plataformas_videojuegos" EntitySet="plataformas_videojuegos" />
           </AssociationSet>
           <AssociationSet Name="idItem_plataformaVideojuego" Association="Self.idItem_plataformaVideojuego">
             <End Role="item" EntitySet="item" />
-            <End Role="plataformas_videojuegos" EntitySet="plataformas_videojuegos" />
+            <End Role="formatos_peliculas" EntitySet="formatos_peliculas" />
           </AssociationSet>
           <AssociationSet Name="idPelicula_producto" Association="Self.idPelicula_producto">
             <End Role="productos" EntitySet="productos" />
@@ -674,7 +696,7 @@
             <End Role="peliculas" EntitySet="peliculas" />
             <End Role="formatos_peliculas" EntitySet="formatos_peliculas" />
           </AssociationSet>
-          <AssociationSet Name="idItem_formatoPelicula" Association="videoclubModel.idItem_formatoPelicula">
+          <AssociationSet Name="idItem_plataformaVideojuego" Association="videoclubModel.idItem_plataformaVideojuego">
             <End Role="item" EntitySet="item" />
             <End Role="formatos_peliculas" EntitySet="formatos_peliculas" />
           </AssociationSet>
@@ -698,7 +720,7 @@
             <End Role="item" EntitySet="item" />
             <End Role="ventas_productos" EntitySet="ventas_productos" />
           </AssociationSet>
-          <AssociationSet Name="idItem_plataformaVideojuego" Association="videoclubModel.idItem_plataformaVideojuego">
+          <AssociationSet Name="idItem_formatoPelicula" Association="videoclubModel.idItem_formatoPelicula">
             <End Role="item" EntitySet="item" />
             <End Role="plataformas_videojuegos" EntitySet="plataformas_videojuegos" />
           </AssociationSet>
@@ -798,7 +820,7 @@
           <Property Name="precio" Type="Single" Nullable="false" />
           <NavigationProperty Name="formatos" Relationship="videoclubModel.id_formato_pelicula" FromRole="formatos_peliculas" ToRole="formatos" />
           <NavigationProperty Name="peliculas" Relationship="videoclubModel.id_pelicula_formato" FromRole="formatos_peliculas" ToRole="peliculas" />
-          <NavigationProperty Name="item" Relationship="videoclubModel.idItem_formatoPelicula" FromRole="formatos_peliculas" ToRole="item" />
+          <NavigationProperty Name="item" Relationship="videoclubModel.idItem_plataformaVideojuego" FromRole="formatos_peliculas" ToRole="item" />
         </EntityType>
         <EntityType Name="generos">
           <Key>
@@ -822,10 +844,10 @@
             <PropertyRef Name="idItem" />
           </Key>
           <Property Name="idItem" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <NavigationProperty Name="formatos_peliculas" Relationship="videoclubModel.idItem_formatoPelicula" FromRole="item" ToRole="formatos_peliculas" />
+          <NavigationProperty Name="formatos_peliculas" Relationship="videoclubModel.idItem_plataformaVideojuego" FromRole="item" ToRole="formatos_peliculas" />
           <NavigationProperty Name="productos_alquiler" Relationship="videoclubModel.id_producto_alquiler" FromRole="item" ToRole="productos_alquiler" />
           <NavigationProperty Name="ventas_productos" Relationship="videoclubModel.id_producto_venta" FromRole="item" ToRole="ventas_productos" />
-          <NavigationProperty Name="plataformas_videojuegos" Relationship="videoclubModel.idItem_plataformaVideojuego" FromRole="item" ToRole="plataformas_videojuegos" />
+          <NavigationProperty Name="plataformas_videojuegos" Relationship="videoclubModel.idItem_formatoPelicula" FromRole="item" ToRole="plataformas_videojuegos" />
         </EntityType>
         <EntityType Name="peliculas">
           <Key>
@@ -871,12 +893,12 @@
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="Int32" Nullable="false"/>
+          <Property Name="id" Type="Int32" Nullable="false" />
           <Property Name="id_plataforma" Type="Int32" Nullable="false" />
           <Property Name="id_videojuego" Type="Int32" Nullable="false" />
           <Property Name="stock" Type="Int32" Nullable="false" />
           <Property Name="precio" Type="Single" Nullable="false" />
-          <NavigationProperty Name="item" Relationship="videoclubModel.idItem_plataformaVideojuego" FromRole="plataformas_videojuegos" ToRole="item" />
+          <NavigationProperty Name="item" Relationship="videoclubModel.idItem_formatoPelicula" FromRole="plataformas_videojuegos" ToRole="item" />
           <NavigationProperty Name="plataformas" Relationship="videoclubModel.id_plataforma_videojuego" FromRole="plataformas_videojuegos" ToRole="plataformas" />
           <NavigationProperty Name="videojuegos" Relationship="videoclubModel.id_videojuego_plataforma" FromRole="plataformas_videojuegos" ToRole="videojuegos" />
         </EntityType>
@@ -982,7 +1004,9 @@
           <NavigationProperty Name="productos" Relationship="videoclubModel.idVideojuego_producto" FromRole="videojuegos" ToRole="productos" />
         </EntityType>
         <Association Name="id_peliculas_actores">
-          <End Type="videoclubModel.peliculas" Role="peliculas" Multiplicity="1" />
+          <End Type="videoclubModel.peliculas" Role="peliculas" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Type="videoclubModel.actores_peliculas" Role="actores_peliculas" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="peliculas">
@@ -994,7 +1018,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="id_aluiler_prodcutos">
-          <End Type="videoclubModel.alquileres" Role="alquileres" Multiplicity="1" />
+          <End Type="videoclubModel.alquileres" Role="alquileres" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Type="videoclubModel.productos_alquiler" Role="productos_alquiler" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="alquileres">
@@ -1042,7 +1068,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="idCliente_usuario">
-          <End Type="videoclubModel.usuarios" Role="usuarios" Multiplicity="1" />
+          <End Type="videoclubModel.usuarios" Role="usuarios" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Type="videoclubModel.cliente" Role="cliente" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="usuarios">
@@ -1054,7 +1082,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="idEmpleado_usuario">
-          <End Type="videoclubModel.usuarios" Role="usuarios" Multiplicity="1" />
+          <End Type="videoclubModel.usuarios" Role="usuarios" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Type="videoclubModel.empleado" Role="empleado" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="usuarios">
@@ -1078,7 +1108,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="id_pelicula_formato">
-          <End Type="videoclubModel.peliculas" Role="peliculas" Multiplicity="1" />
+          <End Type="videoclubModel.peliculas" Role="peliculas" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Type="videoclubModel.formatos_peliculas" Role="formatos_peliculas" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="peliculas">
@@ -1089,8 +1121,10 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="idItem_formatoPelicula">
-          <End Type="videoclubModel.item" Role="item" Multiplicity="1" />
+        <Association Name="idItem_plataformaVideojuego">
+          <End Type="videoclubModel.item" Role="item" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Type="videoclubModel.formatos_peliculas" Role="formatos_peliculas" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="item">
@@ -1161,8 +1195,10 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="idItem_plataformaVideojuego">
-          <End Type="videoclubModel.item" Role="item" Multiplicity="1" />
+        <Association Name="idItem_formatoPelicula">
+          <End Type="videoclubModel.item" Role="item" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Type="videoclubModel.plataformas_videojuegos" Role="plataformas_videojuegos" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="item">
@@ -1174,7 +1210,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="idPelicula_producto">
-          <End Type="videoclubModel.productos" Role="productos" Multiplicity="1" />
+          <End Type="videoclubModel.productos" Role="productos" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Type="videoclubModel.peliculas" Role="peliculas" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="productos">
@@ -1222,7 +1260,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="id_videojuego_plataforma">
-          <End Type="videoclubModel.videojuegos" Role="videojuegos" Multiplicity="1" />
+          <End Type="videoclubModel.videojuegos" Role="videojuegos" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Type="videoclubModel.plataformas_videojuegos" Role="plataformas_videojuegos" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="videojuegos">
@@ -1234,7 +1274,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="idVideojuego_producto">
-          <End Type="videoclubModel.productos" Role="productos" Multiplicity="1" />
+          <End Type="videoclubModel.productos" Role="productos" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Type="videoclubModel.videojuegos" Role="videojuegos" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="productos">
@@ -1258,7 +1300,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="id_venta_ventaproductos">
-          <End Type="videoclubModel.ventas" Role="ventas" Multiplicity="1" />
+          <End Type="videoclubModel.ventas" Role="ventas" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Type="videoclubModel.ventas_productos" Role="ventas_productos" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="ventas">

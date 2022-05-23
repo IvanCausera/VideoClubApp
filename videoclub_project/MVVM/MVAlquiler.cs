@@ -80,7 +80,11 @@ namespace videoclub_project.MVVM {
         }
 
         public bool borrar() {
-            return delete(alqSelected);
+            if(!delete(alqSelected)) return false;
+
+            listAlquileres.Remove(alqSelected);
+
+            return true;
         }
 
         public bool editar() {

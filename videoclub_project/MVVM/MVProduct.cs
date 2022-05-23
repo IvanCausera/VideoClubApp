@@ -147,7 +147,11 @@ namespace videoclub_project.MVVM {
         }
 
         public bool borrar() {
-            return delete(prodSelected);
+            if (!delete(prodSelected)) return false;
+
+            listProductos.Remove(prodSelected);
+
+            return true;
         }
 
         public bool editar() {

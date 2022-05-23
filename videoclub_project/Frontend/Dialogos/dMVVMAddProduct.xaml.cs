@@ -63,7 +63,6 @@ namespace videoclub_project.Frontend.Dialogos {
             mProduct.prodSelected = product;
 
             if (!string.IsNullOrEmpty(product.portada)) {
-                //portada = new BitmapImage(new Uri("../../Recursos/img/productos/" + product.portada, UriKind.Relative));
                 portada = new BitmapImage(new Uri("/Recursos/img/productos/" + product.portada, UriKind.Relative));
                 imgPortada.Source = portada;
             }

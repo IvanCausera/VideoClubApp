@@ -82,7 +82,11 @@ namespace videoclub_project.MVVM {
         }
 
         public bool borrar() {
-            return delete(usuSelected);
+            if (!delete(usuSelected)) return false;
+
+            listUsuarios.Remove(usuSelected);
+
+            return true;
         }
 
         public bool editar() {
