@@ -26,11 +26,11 @@ namespace videoclub_project.Frontend.ControlesUsuario {
         public UCProductosAlquiler(MVAlquiler mAlquiler) {
             InitializeComponent();
 
-            dgItems.SetBinding(DataGrid.ItemsSourceProperty, new Binding("{Binding alqSelected.productos_alquiler}"));
-
             this.mAlquiler = mAlquiler;
             DataContext = mAlquiler;
 
+            dgItems.SetBinding(DataGrid.ItemsSourceProperty, new Binding("alqSelected.productos_alquiler"));
+            dgItems.SetBinding(DataGrid.SelectedItemProperty, new Binding("prodAlqSelected"));
         }
 
         public void update() {
@@ -38,7 +38,9 @@ namespace videoclub_project.Frontend.ControlesUsuario {
         }
 
         private void menuBorrar_Click(object sender, RoutedEventArgs e) {
-            //TODO
+            if (mAlquiler.deleteProductoAlquiler()) {
+                dgItems.Items.Refresh();
+            }
         }
     }
 }
