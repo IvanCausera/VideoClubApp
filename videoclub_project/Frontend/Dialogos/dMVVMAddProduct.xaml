@@ -7,7 +7,7 @@
         xmlns:mat="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:local="clr-namespace:videoclub_project.Frontend.Dialogos"
         mc:Ignorable="d"
-        Title="Insertar Producto" SizeToContent="Height" Width="800">
+        Title="Insertar Producto" SizeToContent="Height" Width="1100">
     <DockPanel>
         <Grid DockPanel.Dock="Top">
             <Grid.RowDefinitions>
@@ -30,10 +30,15 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
             
             <!--Selecionar tipo producto -->
             <Button x:Name="btnTipoProducto" Style="{StaticResource MaterialDesignRaisedButton}"
                     HorizontalAlignment="Center" Content="Películas"
+                    Grid.ColumnSpan="2"
                     Click="btnTipoProducto_Click"/>
 
             <!--Informacion general-->
@@ -164,7 +169,7 @@
             </Grid>
             
             <!--Informacion especifica-->
-            <Grid Grid.Row="2" Margin="14">
+            <Grid Grid.Row="1" Grid.Column="1" Margin="14">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition MinWidth="100" MaxWidth="1000"/>
                     <ColumnDefinition MinWidth="100" MaxWidth="1000"/>
@@ -319,12 +324,12 @@
             <Button x:Name="btnCancelar" Style="{StaticResource MaterialDesignOutlinedButton}"
                     HorizontalAlignment="Right" Content="Cancelar"
                     Margin="15, 35, 185, 15" IsCancel="True"
-                    Grid.Row="3"/>
+                    Grid.Row="3" Grid.Column="1"/>
             <Button x:Name="btnGuardar" Style="{StaticResource MaterialDesignRaisedButton}"
                     HorizontalAlignment="Right" Content="Guardar"
                     Click="btnGuardar_Click"
                     Margin="15, 35, 15, 15"
-                    Grid.Row="3"/>
+                    Grid.Row="3" Grid.Column="1"/>
 
         </Grid>
     </DockPanel>

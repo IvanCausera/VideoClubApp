@@ -29,6 +29,10 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
 
             <!--Datos Personales-->
             <Grid Grid.Row="0" Margin="14">
@@ -122,7 +126,7 @@
             </Grid>
 
             <!--Datos Usuario-->
-            <Grid Grid.Row="1" Margin="14">
+            <Grid Grid.Row="0" Grid.Column="1" Margin="14">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition MinWidth="100" MaxWidth="1000"/>
                     <ColumnDefinition MinWidth="100" MaxWidth="1000"/>
@@ -205,12 +209,12 @@
             <Button x:Name="btnCancelar" Style="{StaticResource MaterialDesignOutlinedButton}"
                     HorizontalAlignment="Right" Content="Cancelar"
                     Margin="15, 35, 185, 15" IsCancel="True"
-                    Grid.Row="2"/>
+                    Grid.Row="2" Grid.Column="1"/>
             <Button x:Name="btnGuardar" Style="{StaticResource MaterialDesignRaisedButton}"
                     HorizontalAlignment="Right" Content="Guardar"
                     Click="btnGuardar_Click"
                     Margin="15, 35, 15, 15" IsDefault="True"
-                    Grid.Row="2"/>
+                    Grid.Row="2" Grid.Column="1"/>
         </Grid>
     </DockPanel>
 </mah:MetroWindow>
