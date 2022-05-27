@@ -32,6 +32,25 @@ namespace videoclub_project.Frontend.ControlesUsuario {
             mProduct = new MVProduct(vidEnt);
             DataContext = mProduct;
 
+            if (MVUser.loginUsuer.id_rol != roles.EMPLEADO && MVUser.loginUsuer.id_rol != roles.ADMINISTRADOR) {
+                menuBorrar.Visibility = Visibility.Collapsed;
+                menuEditar.Visibility = Visibility.Collapsed;
+            }
+
+        }
+
+        public UCProduct(videoclubEntities vidEnt, int productType) {
+            InitializeComponent();
+
+            this.vidEnt = vidEnt;
+            mProduct = new MVProduct(vidEnt, productType);
+            DataContext = mProduct;
+
+            if (MVUser.loginUsuer.id_rol != roles.EMPLEADO && MVUser.loginUsuer.id_rol != roles.ADMINISTRADOR) {
+                menuBorrar.Visibility = Visibility.Collapsed;
+                menuEditar.Visibility = Visibility.Collapsed;
+            }
+
         }
 
         private void menuEditar_Click(object sender, RoutedEventArgs e) {

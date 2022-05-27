@@ -32,6 +32,11 @@ namespace videoclub_project.Frontend.ControlesUsuario {
             mAlquiler = new MVAlquiler(vidEnt);
             DataContext = mAlquiler;
 
+            if (MVUser.loginUsuer.id_rol != roles.EMPLEADO && MVUser.loginUsuer.id_rol != roles.ADMINISTRADOR) {
+                menuBorrar.Visibility = Visibility.Collapsed;
+                menuEditar.Visibility = Visibility.Collapsed;
+            }
+
         }
 
         private void menuEditar_Click(object sender, RoutedEventArgs e) {

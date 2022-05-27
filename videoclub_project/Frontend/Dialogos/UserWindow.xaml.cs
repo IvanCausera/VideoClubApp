@@ -41,11 +41,11 @@ namespace videoclub_project.Frontend.Dialogos {
             if (hamMenuPrincipal.SelectedItem == menuHome) {
                 
             } else if (hamMenuPrincipal.SelectedItem == menuPelicula) {
-                UCProduct uc = new UCProduct(vidEnt);
+                UCProduct uc = new UCProduct(vidEnt, productos.PELICULA);
                 mainGrid.Children.Clear();
                 mainGrid.Children.Add(uc);
             } else if (hamMenuPrincipal.SelectedItem == menuVideojuego) {
-                UCProduct uc = new UCProduct(vidEnt);
+                UCProduct uc = new UCProduct(vidEnt, productos.JUEGO);
                 mainGrid.Children.Clear();
                 mainGrid.Children.Add(uc);
             } else if (hamMenuPrincipal.SelectedItem == menuAlquiler) {

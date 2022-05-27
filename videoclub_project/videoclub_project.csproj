@@ -128,10 +128,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Frontend\ControlesUsuario\UCClientProducts.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Frontend\ControlesUsuario\UCFormatos.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -276,9 +272,6 @@
     </Compile>
     <Compile Include="Frontend\ControlesUsuario\UCAlquileres.xaml.cs">
       <DependentUpon>UCAlquileres.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Frontend\ControlesUsuario\UCClientProducts.xaml.cs">
-      <DependentUpon>UCClientProducts.xaml</DependentUpon>
     </Compile>
     <Compile Include="Frontend\ControlesUsuario\UCFormatos.xaml.cs">
       <DependentUpon>UCFormatos.xaml</DependentUpon>

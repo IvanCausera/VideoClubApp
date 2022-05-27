@@ -28,6 +28,11 @@ namespace videoclub_project.Frontend.Dialogos {
             this.vidEnt = vidEnt;
             this.usuLogin = usuLogin;
             tbUserLogin.Text = usuLogin.ToString();
+
+            if (usuLogin.id_rol != roles.ADMINISTRADOR) {
+                rtabAdministracion.Visibility = Visibility.Collapsed;
+            }
+
         }
 
         private void rbtnAddUsuario_Click(object sender, RoutedEventArgs e) {

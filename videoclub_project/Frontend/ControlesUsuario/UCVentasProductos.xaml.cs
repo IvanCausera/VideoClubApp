@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using videoclub_project.Backend.Modelo;
 using videoclub_project.MVVM;
 
 namespace videoclub_project.Frontend.ControlesUsuario {
@@ -30,6 +31,10 @@ namespace videoclub_project.Frontend.ControlesUsuario {
 
             dgItems.SetBinding(DataGrid.ItemsSourceProperty, new Binding("ventaSelected.ventas_productos"));
             dgItems.SetBinding(DataGrid.SelectedItemProperty, new Binding("ventProdSelected"));
+
+            if (MVUser.loginUsuer.id_rol != roles.EMPLEADO && MVUser.loginUsuer.id_rol != roles.ADMINISTRADOR) {
+                menuBorrar.Visibility = Visibility.Collapsed;
+            }
         }
 
         public void update() {

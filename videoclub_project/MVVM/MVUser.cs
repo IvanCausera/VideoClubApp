@@ -9,6 +9,9 @@ using videoclub_project.Backend.Servicios;
 
 namespace videoclub_project.MVVM {
     public class MVUser: MVBaseCRUD<usuarios> {
+
+        public static usuarios loginUsuer;
+
         // Variables privadas ***************************************************************************************
         private videoclubEntities vidEnt;
 

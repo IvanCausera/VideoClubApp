@@ -31,6 +31,10 @@ namespace videoclub_project.Frontend.ControlesUsuario {
 
             dgItems.SetBinding(DataGrid.ItemsSourceProperty, new Binding("alqSelected.productos_alquiler"));
             dgItems.SetBinding(DataGrid.SelectedItemProperty, new Binding("prodAlqSelected"));
+
+            if (MVUser.loginUsuer.id_rol != roles.EMPLEADO && MVUser.loginUsuer.id_rol != roles.ADMINISTRADOR) {
+                menuBorrar.Visibility = Visibility.Collapsed;
+            }
         }
 
         public void update() {

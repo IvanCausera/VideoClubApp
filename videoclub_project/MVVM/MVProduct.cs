@@ -33,6 +33,19 @@ namespace videoclub_project.MVVM {
             listView = new ListCollectionView(servProd.getAll().ToList());
         }
 
+        public MVProduct(videoclubEntities vidEnt, int productType) {
+            this.vidEnt = vidEnt;
+
+            servProd = new ServicioProducto(vidEnt);
+            servicio = servProd;
+
+            prodSel = new productos();
+
+            if (productType == productos.JUEGO) {
+                listView = new ListCollectionView(servProd.getAllVideojuegos().ToList());
+            } else listView = new ListCollectionView(servProd.getAllPeliculas().ToList());
+        }
+
         // List ******************************************************************************************************
 
         public ListCollectionView listProductos {

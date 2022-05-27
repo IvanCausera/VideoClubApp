@@ -14,6 +14,9 @@ namespace videoclub_project.Backend.Modelo
     
     public partial class productos
     {
+        public const int PELICULA = 1;
+        public const int JUEGO = 2;
+
         public int idProductos { get; set; }
         public string titulo { get; set; }
         public Nullable<System.DateTime> fecha { get; set; }

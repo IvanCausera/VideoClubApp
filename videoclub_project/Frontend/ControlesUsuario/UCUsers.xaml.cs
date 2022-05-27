@@ -31,6 +31,11 @@ namespace videoclub_project.Frontend.ControlesUsuario {
             this.vidEnt = vidEnt;
             mUser = new MVUser(vidEnt);
             DataContext = mUser;
+
+            if (MVUser.loginUsuer.id_rol != roles.ADMINISTRADOR) {
+                menuBorrar.Visibility = Visibility.Collapsed;
+                menuEditar.Visibility = Visibility.Collapsed;
+            }
         }
 
         private void menuBorrar_Click(object sender, RoutedEventArgs e) {

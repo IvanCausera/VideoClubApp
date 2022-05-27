@@ -29,6 +29,10 @@ namespace videoclub_project.Frontend.ControlesUsuario {
 
             this.mProduct = mProduct;
             DataContext = mProduct;
+
+            if (MVUser.loginUsuer.id_rol != roles.EMPLEADO && MVUser.loginUsuer.id_rol != roles.ADMINISTRADOR) {
+                menuBorrar.Visibility = Visibility.Collapsed;
+            }
         }
 
         public void addActor(actores_peliculas actor) {

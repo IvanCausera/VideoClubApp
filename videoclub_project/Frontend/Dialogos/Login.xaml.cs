@@ -17,6 +17,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using videoclub_project.Backend.Servicios;
 using videoclub_project;
+using videoclub_project.MVVM;
 
 namespace videoclub_project.Frontend.Dialogos {
     /// <summary>
@@ -29,6 +30,7 @@ namespace videoclub_project.Frontend.Dialogos {
 
         private videoclubEntities vidEnt;
         private ServicioUsuario usuServ;
+
         public Login() {
             InitializeComponent();
             if (!conectar()) {
@@ -48,6 +50,7 @@ namespace videoclub_project.Frontend.Dialogos {
                 if (empleado) {
                     if (usuServ.usuLogin.empleado != null) {
                         AdminWindow adminWindow = new AdminWindow(vidEnt, usuServ.usuLogin);
+                        MVUser.loginUsuer = usuServ.usuLogin;
                         adminWindow.Show();
                         this.Close();
                     } else {
@@ -57,6 +60,7 @@ namespace videoclub_project.Frontend.Dialogos {
                 } else {
                     if (usuServ.usuLogin.cliente != null) {
                         UserWindow userWindow = new UserWindow(vidEnt, usuServ.usuLogin);
+                        MVUser.loginUsuer = usuServ.usuLogin;
                         userWindow.Show();
                         this.Close();
                     } else {
@@ -86,6 +90,7 @@ namespace videoclub_project.Frontend.Dialogos {
 
         private void btnLoginWithoutUser_Click(object sender, RoutedEventArgs e) {
             UserWindow userWindow = new UserWindow(vidEnt, null);
+            MVUser.loginUsuer = new usuarios { id_rol = roles.CLIENTE };
             userWindow.Show();
             this.Close();
         }
