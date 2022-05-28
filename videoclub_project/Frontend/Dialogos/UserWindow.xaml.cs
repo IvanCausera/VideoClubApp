@@ -56,6 +56,12 @@ namespace videoclub_project.Frontend.Dialogos {
                 UCVentas uc = new UCVentas(vidEnt);
                 mainGrid.Children.Clear();
                 mainGrid.Children.Add(uc);
+            } else if (hamMenuPrincipal.SelectedItem == menuAddAlquiler) {
+                dMVVMAddAlquiler diag = new dMVVMAddAlquiler(vidEnt, usuLogin);
+                diag.ShowDialog();
+            } else if (hamMenuPrincipal.SelectedItem == menuAddPedidos) {
+                dMVVMAddVenta diag = new dMVVMAddVenta(vidEnt);
+                diag.ShowDialog();
             }
         }
 

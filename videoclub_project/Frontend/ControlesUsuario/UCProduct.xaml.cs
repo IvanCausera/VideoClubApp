@@ -66,5 +66,10 @@ namespace videoclub_project.Frontend.ControlesUsuario {
                 dgProduct.Items.Refresh();
             }
         }
+
+        private void menuVer_Click(object sender, RoutedEventArgs e) {
+            dMVVMAddProduct diag = new dMVVMAddProduct(vidEnt, (productos)dgProduct.SelectedItem, true);
+            diag.ShowDialog();
+        }
     }
 }

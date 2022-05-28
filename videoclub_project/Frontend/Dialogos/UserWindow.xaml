@@ -99,7 +99,7 @@
                         </mah:HamburgerMenuImageItem>
                         <mah:HamburgerMenuImageItem Label="Películas" ToolTip="Películas" x:Name="menuPelicula">
                             <mah:HamburgerMenuImageItem.Thumbnail>
-                                <BitmapImage UriSource="Iconos/filmstrip.png"/>
+                                <BitmapImage UriSource="Iconos/movie-open.png"/>
                             </mah:HamburgerMenuImageItem.Thumbnail>
                         </mah:HamburgerMenuImageItem>
                         <mah:HamburgerMenuImageItem Label="Videojuegos" ToolTip="Videojuegos" x:Name="menuVideojuego">
@@ -109,7 +109,12 @@
                         </mah:HamburgerMenuImageItem>
                         <mah:HamburgerMenuImageItem Label="Alquiler" ToolTip="Alquiler" x:Name="menuAlquiler">
                             <mah:HamburgerMenuImageItem.Thumbnail>
-                                <BitmapImage UriSource="Iconos/handshake.png"/>
+                                <BitmapImage UriSource="Iconos/archive-outline.png"/>
+                            </mah:HamburgerMenuImageItem.Thumbnail>
+                        </mah:HamburgerMenuImageItem>
+                        <mah:HamburgerMenuImageItem Label="Nuevo Alquiler" ToolTip="Nuevo Alquiler" x:Name="menuAddAlquiler">
+                            <mah:HamburgerMenuImageItem.Thumbnail>
+                                <BitmapImage UriSource="Iconos/archive-plus.png"/>
                             </mah:HamburgerMenuImageItem.Thumbnail>
                         </mah:HamburgerMenuImageItem>
                         <mah:HamburgerMenuImageItem Label="Pedidos" ToolTip="Pedidos" x:Name="menuPedidos">
@@ -117,15 +122,20 @@
                                 <BitmapImage UriSource="Iconos/receipt-outline.png"/>
                             </mah:HamburgerMenuImageItem.Thumbnail>
                         </mah:HamburgerMenuImageItem>
+                        <mah:HamburgerMenuImageItem Label="Nuevo Pedido" ToolTip="Nuevo Pedido" x:Name="menuAddPedidos">
+                            <mah:HamburgerMenuImageItem.Thumbnail>
+                                <BitmapImage UriSource="Iconos/receipt-text-plus.png"/>
+                            </mah:HamburgerMenuImageItem.Thumbnail>
+                        </mah:HamburgerMenuImageItem>
                     </mah:HamburgerMenuItemCollection>
                 </mah:HamburgerMenu.ItemsSource>
-                <!-- Sección de opciones -->
+                <!-- Sección de opciones
                 <mah:HamburgerMenu.OptionsItemsSource>
                     <mah:HamburgerMenuItemCollection>
                         <mah:HamburgerMenuIconItem Icon="{mat:PackIcon Kind=Help}" Label="Ayuda" x:Name="menuAyuda"/>
                     </mah:HamburgerMenuItemCollection>
                 </mah:HamburgerMenu.OptionsItemsSource>
-
+                -->
                 <mah:HamburgerMenu.Content>
                     <Grid x:Name="mainGrid"/>
                 </mah:HamburgerMenu.Content>

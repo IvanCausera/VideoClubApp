@@ -157,7 +157,7 @@
                          mat:HintAssist.Hint="Password*" MaxLength="50" FontWeight="Bold"
                          Margin="10"
                          MinWidth="100" MaxWidth="1000"
-                         Grid.Row="1"
+                         Grid.Row="1" Grid.ColumnSpan="2"
                          Grid.Column="1"/>
 
                 <!--Mail-->
@@ -165,7 +165,7 @@
                          mat:HintAssist.Hint="Correo Electrónico" MaxLength="40"
                          Margin="10"
                          MinWidth="100" MaxWidth="1000"
-                         Grid.Row="2"
+                         Grid.Row="2" Grid.ColumnSpan="2"
                          Text="{Binding usuSelected.mail, NotifyOnValidationError=True,ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
 
                 <!--Rol-->

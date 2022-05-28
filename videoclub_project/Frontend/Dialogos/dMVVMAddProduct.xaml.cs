@@ -51,7 +51,7 @@ namespace videoclub_project.Frontend.Dialogos {
             this.editar = false;
         }
 
-        public dMVVMAddProduct(videoclubEntities vidEnt, productos product) {
+        public dMVVMAddProduct(videoclubEntities vidEnt, productos product, bool ver = false) {
             InitializeComponent();
 
             this.vidEnt = vidEnt;
@@ -73,7 +73,19 @@ namespace videoclub_project.Frontend.Dialogos {
                 changeLayout(VIDEOJUEGO);
             }
 
-            btnTipoProducto.IsEnabled = false;
+            if (ver) {
+                gridGeneral.IsEnabled = false;
+                gridInfoEspecifica.IsEnabled = false;
+
+                gridAddActor.Visibility = Visibility.Collapsed;
+                gridAddFormato.Visibility = Visibility.Collapsed;
+                gridTitulo.Visibility = Visibility.Collapsed;
+                btnCancelar.Visibility = Visibility.Collapsed;
+                btnGuardar.Visibility = Visibility.Collapsed;
+                btnTipoProducto.Visibility = Visibility.Collapsed;
+            } else {
+                btnTipoProducto.IsEnabled = false;
+            }
         }
 
         private void inicializa() {
@@ -100,7 +112,7 @@ namespace videoclub_project.Frontend.Dialogos {
                 
         }
 
-        private async void btnGuardar_Click(object sender, RoutedEventArgs e) {
+        private void btnGuardar_Click(object sender, RoutedEventArgs e) {
             if (portada != null) {
                 string portadaNombre = txtTitulo.Text + ".png";
                 saveImage(portada, "../../Recursos/img/productos/" + portadaNombre);
@@ -121,13 +133,9 @@ namespace videoclub_project.Frontend.Dialogos {
             }
 
             if (result) {
-                await this.ShowMessageAsync("GESTIÓN USUARIOS",
-                                   "TODO CORRECTO!!! Objeto guardado correctamente");
-                DialogResult = true;
+                msgThrow("TODO CORRECTO!!! Objeto guardado correctamente", true, true);
             } else {
-                await this.ShowMessageAsync("GESTIÓN USUARIOS",
-                                   "ERROR!!! No se puede guardar el objeto");
-                DialogResult = false;
+                msgThrow("ERROR!!! No se puede guardar el objeto", true, false);
             }
         }
 
@@ -165,7 +173,8 @@ namespace videoclub_project.Frontend.Dialogos {
                     });
                 }
             } catch (Exception) {
-                //TODO excepcion
+                if (actualLayout == PELICULA) msgThrow("ERROR!! No es posible añadir la pelicula", false, false);
+                else msgThrow("ERROR!! No es posible añadir el videojuego", false, false);
             }
         }
 
@@ -256,6 +265,14 @@ namespace videoclub_project.Frontend.Dialogos {
                 showPelicula(true);
                 btnTipoProducto.Content = "Películas";
                 lableInfo.Text = "INFORMACIÓN PELÍCULA";
+            }
+        }
+
+        private async void msgThrow(string msg, bool close, bool result) {
+            await this.ShowMessageAsync("GESTIÓN USUARIOS",
+                                   msg);
+            if (close) {
+                DialogResult = result;
             }
         }
     }

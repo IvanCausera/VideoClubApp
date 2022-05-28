@@ -9,7 +9,7 @@
         mc:Ignorable="d"
         Title="Insertar Producto" SizeToContent="Height" Width="1100">
     <DockPanel>
-        <Grid DockPanel.Dock="Top">
+        <Grid DockPanel.Dock="Top" x:Name="gridTitulo">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
@@ -21,7 +21,7 @@
             </Border>
             <TextBlock Text="Los campos con * son obligatorios" VerticalAlignment="Top"
                        Margin="10,5,0,0" FontSize="10" FontWeight="Bold"
-                       Grid.Row="1"/>
+                       Grid.Row="1" x:Name="txtCampos"/>
         </Grid>
         <Grid>
             <Grid.RowDefinitions>
@@ -42,7 +42,7 @@
                     Click="btnTipoProducto_Click"/>
 
             <!--Informacion general-->
-            <Grid Grid.Row="1" Margin="14">
+            <Grid Grid.Row="1" Margin="14" x:Name="gridGeneral">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="40*" MinWidth="100" MaxWidth="1000"/>
                     <ColumnDefinition Width="30*" MinWidth="100" MaxWidth="1000"/>
@@ -169,7 +169,7 @@
             </Grid>
             
             <!--Informacion especifica-->
-            <Grid Grid.Row="1" Grid.Column="1" Margin="14">
+            <Grid Grid.Row="1" Grid.Column="1" Margin="14" x:Name="gridInfoEspecifica">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition MinWidth="100" MaxWidth="1000"/>
                     <ColumnDefinition MinWidth="100" MaxWidth="1000"/>
@@ -197,8 +197,7 @@
                          Margin="10"
                          MinWidth="100" MaxWidth="1000"
                          MaxHeight="100"
-                         Grid.Row="1" Grid.Column="0"
-                         Grid.ColumnSpan="4"
+                         Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4"
                          Text="{Binding prodSelected.peliculas.sinopsis, NotifyOnValidationError=True,ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
                 
                 <!--Director-->
@@ -207,7 +206,7 @@
                          Margin="10"
                          MinWidth="100" MaxWidth="1000"
                          Height="38"
-                         Grid.Row="2" Grid.Column="0"
+                         Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
                          Text="{Binding prodSelected.peliculas.director, NotifyOnValidationError=True,ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
 
                 
@@ -217,12 +216,12 @@
                          Margin="10"
                          MinWidth="100" MaxWidth="1000"
                          Height="38"
-                         Grid.Row="2" Grid.Column="1"
+                         Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2"
                          Text="{Binding prodSelected.peliculas.pais, NotifyOnValidationError=True,ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
 
                 <!--Formato/Plataforma-->
                 <Grid Grid.Row="3" Grid.Column="0"
-                            Grid.ColumnSpan="2">
+                            Grid.ColumnSpan="2" x:Name="gridAddFormato">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="*"/>
@@ -269,7 +268,7 @@
                 
                 <!--Actor-->
                 <Grid Grid.Row="3" Grid.Column="2"
-                            Grid.ColumnSpan="2">
+                            Grid.ColumnSpan="2" x:Name="gridAddActor">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="*"/>
@@ -294,7 +293,7 @@
                          Margin="10"
                          MinWidth="100" MaxWidth="1000"
                          Height="38"
-                         Grid.Row="1" Grid.Column="0"
+                         Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
                          Text="{Binding prodSelected.videojuegos.distribuidora, NotifyOnValidationError=True,ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
                 
                 <!--Desarrolladora-->
@@ -303,7 +302,7 @@
                          Margin="10"
                          MinWidth="100" MaxWidth="1000"
                          Height="38"
-                         Grid.Row="1" Grid.Column="1"
+                         Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2"
                          Text="{Binding prodSelected.videojuegos.desarrolladora, NotifyOnValidationError=True,ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
 
                 <Grid x:Name="gridLeft"

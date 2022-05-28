@@ -40,7 +40,7 @@ namespace videoclub_project.Frontend.Dialogos {
             this.editar = false;
         }
 
-        public dMVVMAddVenta(videoclubEntities vidEnt, ventas venta) {
+        public dMVVMAddVenta(videoclubEntities vidEnt, ventas venta, bool ver = false) {
             InitializeComponent();
 
             this.vidEnt = vidEnt;
@@ -50,6 +50,18 @@ namespace videoclub_project.Frontend.Dialogos {
             this.editar = true;
             btnGuardar.Content = "Editar";
             mVenta.ventaSelected = venta;
+
+            if (ver) {
+                gridVenta.IsEnabled = false;
+                gridProductos.IsEnabled = false;
+
+                gridAddJuego.Visibility = Visibility.Collapsed;
+                gridAddPelicula.Visibility = Visibility.Collapsed;
+                gridTitulo.Visibility = Visibility.Collapsed;
+
+                btnCancelar.Visibility = Visibility.Collapsed;
+                btnGuardar.Visibility = Visibility.Collapsed;
+            }
         }
 
         private void inicializa() {
@@ -61,19 +73,27 @@ namespace videoclub_project.Frontend.Dialogos {
         }
 
         private void btnAddPelicula_Click(object sender, RoutedEventArgs e) {
-            mVenta.ventaSelected.ventas_productos.Add(new ventas_productos {
-                ventas = mVenta.ventaSelected,
-                item = ((formatos_peliculas)comboPelicula.SelectedItem).item
-            });
-            uVentasProductos.update();
+            try {
+                mVenta.ventaSelected.ventas_productos.Add(new ventas_productos {
+                    ventas = mVenta.ventaSelected,
+                    item = ((formatos_peliculas)comboPelicula.SelectedItem).item
+                });
+                uVentasProductos.update();
+            } catch (Exception) {
+                msgThrow("ERROR!! No es posible añadir la pelicula", false, false);
+            }
         }
 
         private void btnAddVideojuego_Click(object sender, RoutedEventArgs e) {
-            mVenta.ventaSelected.ventas_productos.Add(new ventas_productos {
-                ventas = mVenta.ventaSelected,
-                item = ((plataformas_videojuegos)comboVideojuego.SelectedItem).item
-            });
-            uVentasProductos.update();
+            try {
+                mVenta.ventaSelected.ventas_productos.Add(new ventas_productos {
+                    ventas = mVenta.ventaSelected,
+                    item = ((plataformas_videojuegos)comboVideojuego.SelectedItem).item
+                });
+                uVentasProductos.update();
+            } catch (Exception) {
+                msgThrow("ERROR!! No es posible añadir el videojuego", false, false);
+            }
         }
 
         private async void btnGuardar_Click(object sender, RoutedEventArgs e) {
@@ -85,13 +105,17 @@ namespace videoclub_project.Frontend.Dialogos {
             }
 
             if (result) {
-                await this.ShowMessageAsync("GESTIÓN VENTAS",
-                                   "TODO CORRECTO!!! Objeto guardado correctamente");
-                DialogResult = true;
+                msgThrow("TODO CORRECTO!!! Objeto guardado correctamente", true, true);
             } else {
-                await this.ShowMessageAsync("GESTIÓN VENTAS",
-                                   "ERROR!!! No se puede guardar el objeto");
-                DialogResult = false;
+                msgThrow("ERROR!!! No se puede guardar el objeto", true, false);
+            }
+        }
+
+        private async void msgThrow(string msg, bool close, bool result) {
+            await this.ShowMessageAsync("GESTIÓN VENTAS",
+                                   msg);
+            if (close) {
+                DialogResult = result;
             }
         }
     }

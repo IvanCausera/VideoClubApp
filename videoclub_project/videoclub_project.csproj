@@ -363,6 +363,11 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>videoclubEDM1.cs</LastGenOutput>
     </Content>
+    <Resource Include="Frontend\Dialogos\iconos\movie-open.png" />
+    <Resource Include="Frontend\Dialogos\iconos\receipt-text-plus.png" />
+    <Resource Include="Frontend\Dialogos\iconos\archive-outline.png" />
+    <Resource Include="Frontend\Dialogos\iconos\archive-plus.png" />
+    <Resource Include="Frontend\Dialogos\iconos\archive.png" />
     <Content Include="NLog.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

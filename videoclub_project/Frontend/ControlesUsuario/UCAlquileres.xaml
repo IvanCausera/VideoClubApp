@@ -52,6 +52,14 @@
                                 </StackPanel>
                             </MenuItem.Header>
                         </MenuItem>
+                        <MenuItem x:Name="menuVer" Click="menuVer_Click">
+                            <MenuItem.Header>
+                                <StackPanel Orientation="Horizontal">
+                                    <mat:PackIcon Kind="Eye" Margin="0,0,10,0"/>
+                                    <TextBlock Text="Ver"/>
+                                </StackPanel>
+                            </MenuItem.Header>
+                        </MenuItem>
                     </ContextMenu>
                 </DataGrid.ContextMenu>
 

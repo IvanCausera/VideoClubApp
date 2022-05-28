@@ -9,7 +9,7 @@
         mc:Ignorable="d"
         Title="Insertar Alquiler" SizeToContent="Height" Width="800">
     <DockPanel>
-        <Grid DockPanel.Dock="Top">
+        <Grid DockPanel.Dock="Top" x:Name="gridTitulo">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
@@ -36,7 +36,7 @@
             </Grid.ColumnDefinitions>
 
             <!--Datos Personales-->
-            <Grid Grid.Row="0" Margin="14">
+            <Grid Grid.Row="0" Margin="8" x:Name="gridAlquiler">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition MinWidth="100" MaxWidth="1000"/>
                     <ColumnDefinition MinWidth="100" MaxWidth="1000"/>
@@ -59,6 +59,7 @@
                          Margin="10"
                          MinWidth="100" MaxWidth="1000"
                          Grid.Row="1"
+                         Grid.ColumnSpan="3"
                          ItemsSource="{Binding listClientes}"
                          SelectedItem="{Binding alqSelected.cliente}"/>
                 
@@ -95,12 +96,13 @@
                          Margin="10"
                          MinWidth="100" MaxWidth="1000"
                          Grid.Row="3"
+                         Grid.ColumnSpan="3"
                          ItemsSource="{Binding listTipoAlquiler}"
                          SelectedItem="{Binding alqSelected.tipo_alquiler}"/>
             </Grid>
 
             <!--Datos Usuario-->
-            <Grid Grid.Row="0" Grid.Column="1" Margin="14">
+            <Grid Grid.Row="0" Grid.Column="1" Margin="8" x:Name="gridProductos">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition MinWidth="100" MaxWidth="1000"/>
                     <ColumnDefinition MinWidth="100" MaxWidth="1000"/>
@@ -117,7 +119,7 @@
                 <Separator Grid.ColumnSpan="3" Grid.Row="0" Margin="0, 50, 0, 0"/>
 
                 <!--Pelicula-->
-                <Grid Grid.Row="1">
+                <Grid Grid.Row="1" x:Name="gridAddPelicula">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="*"/>
@@ -136,7 +138,7 @@
                 </Grid>
 
                 <!--Videojuego-->
-                <Grid Grid.Row="1" Grid.Column="1">
+                <Grid Grid.Row="1" Grid.Column="1" x:Name="gridAddJuego">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="*"/>

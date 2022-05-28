@@ -53,5 +53,10 @@ namespace videoclub_project.Frontend.ControlesUsuario {
                 dgAlquiler.Items.Refresh();
             }
         }
+
+        private void menuVer_Click(object sender, RoutedEventArgs e) {
+            dMVVMAddAlquiler diag = new dMVVMAddAlquiler(vidEnt, (alquileres)dgAlquiler.SelectedItem, true);
+            diag.ShowDialog();
+        }
     }
 }

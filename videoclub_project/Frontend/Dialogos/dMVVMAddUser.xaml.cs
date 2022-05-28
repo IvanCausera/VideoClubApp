@@ -87,10 +87,9 @@ namespace videoclub_project.Frontend.Dialogos {
             }
         }
 
-        private async void btnGuardar_Click(object sender, RoutedEventArgs e) {
+        private void btnGuardar_Click(object sender, RoutedEventArgs e) {
             if (!setPassword()) {
-                await this.ShowMessageAsync("GESTIÓN MODELO ARTÍCULO",
-                           "ERROR!!! La contraseña tiene que contener: Nº, letra, alfanumérico");
+                msgThrow("ERROR!!! La contraseña tiene que contener: Nº, letra, alfanumérico", false, false);
             } else {
                 // -----------------
                 setDireccion();
@@ -106,12 +105,9 @@ namespace videoclub_project.Frontend.Dialogos {
                 }
 
                 if (result) {
-                    await this.ShowMessageAsync("GESTIÓN USUARIOS",
-                                       "TODO CORRECTO!!! Objeto guardado correctamente");
-                    DialogResult = true;
+                    msgThrow("TODO CORRECTO!!! Objeto guardado correctamente", true, true);
                 } else {
-                    await this.ShowMessageAsync("GESTIÓN USUARIOS",
-                                       "ERROR!!! No se puede guardar el objeto");
+                    msgThrow("ERROR!!! No se puede guardar el objeto", true, false);
                 }
             }
         }
@@ -130,5 +126,14 @@ namespace videoclub_project.Frontend.Dialogos {
 
             return result;
         }
+
+        private async void msgThrow(string msg, bool close, bool result) {
+            await this.ShowMessageAsync("GESTIÓN USUARIOS",
+                                   msg);
+            if (close) {
+                DialogResult = result;
+            }
+        }
+
     }
 }
