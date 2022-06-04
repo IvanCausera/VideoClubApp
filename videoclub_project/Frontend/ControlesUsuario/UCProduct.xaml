@@ -8,71 +8,127 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <DockPanel>
-        <!--Filtros-->
-        <Grid DockPanel.Dock="Top">
+        <!--Articulos-->
+        <DockPanel DockPanel.Dock="Bottom">
+            <Grid DockPanel.Dock="Top">
+                <TextBlock Text="Articulos" FontSize="20" HorizontalAlignment="Left" Margin="5"/>
+            </Grid>
+            <Grid>
+                <DataGrid x:Name="dgArticulos" AutoGenerateColumns="False" CanUserAddRows="False" ColumnWidth="*" IsReadOnly="True">
+                    <DataGrid.Columns>
 
-        </Grid>
+                        <DataGridTextColumn x:Name="txtHeaderArticulo" Header="Formatos"
+                                    Binding="{Binding formatos}"/>
 
-        <Grid>
-            <DataGrid x:Name="dgProduct" AutoGenerateColumns="False" CanUserAddRows="False" ColumnWidth="*" IsReadOnly="True"
+                        <DataGridTextColumn Header="Stock" Binding="{Binding stock}"/>
+
+                        <DataGridTemplateColumn Header="Precio">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="{Binding precio}"/>
+                                        <TextBlock Text=" €"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                    </DataGrid.Columns>
+
+                    <DataGrid.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem x:Name="menuAlquilar" Click="menuAlquilar_Click">
+                                <MenuItem.Header>
+                                    <StackPanel Orientation="Horizontal">
+                                        <mat:PackIcon Kind="Archive" Margin="0,0,10,0"/>
+                                        <TextBlock Text="Alquilar"/>
+                                    </StackPanel>
+                                </MenuItem.Header>
+                            </MenuItem>
+                            <MenuItem x:Name="menuComprar" Click="menuComprar_Click">
+                                <MenuItem.Header>
+                                    <StackPanel Orientation="Horizontal">
+                                        <mat:PackIcon Kind="Receipt" Margin="0,0,10,0"/>
+                                        <TextBlock Text="Comprar"/>
+                                    </StackPanel>
+                                </MenuItem.Header>
+                            </MenuItem>
+                        </ContextMenu>
+                    </DataGrid.ContextMenu>
+
+                </DataGrid>
+            </Grid>
+        </DockPanel>
+
+        <!--Prodcutos-->
+        <DockPanel >
+            <!--Filtros-->
+            <Grid DockPanel.Dock="Top">
+                <TextBlock Text="Filtros" HorizontalAlignment="Left"/>
+            </Grid>
+
+            <!--Main-->
+            <Grid>
+                <DataGrid x:Name="dgProduct" AutoGenerateColumns="False" CanUserAddRows="False" ColumnWidth="*" IsReadOnly="True"
                       ItemsSource="{Binding listProductos}"
-                      SelectedItem="{Binding prodSelected}">
-                <DataGrid.Columns>
+                      SelectedItem="{Binding prodSelected}"
+                      SelectionChanged="dgProduct_SelectionChanged">
+                    <DataGrid.Columns>
 
-                    <DataGridTextColumn Header="Titulo"
+                        <DataGridTextColumn Header="Titulo"
                                     Binding="{Binding titulo}"/>
 
-                    <DataGridTextColumn Header="Fecha"
+                        <DataGridTextColumn Header="Fecha"
                                     Binding="{Binding fecha}"/>
 
-                    <DataGridTextColumn Header="Nota"
+                        <DataGridTextColumn Header="Nota"
                                     Binding="{Binding nota}"/>
 
-                    <DataGridTextColumn Header="Clasificacion edad"
+                        <DataGridTextColumn Header="Clasificacion edad"
                                     Binding="{Binding edad_nota}"/>
 
-                    <DataGridTextColumn Header="Genero"
+                        <DataGridTextColumn Header="Genero"
                                     Binding="{Binding generos}"/>
 
-                    <DataGridTextColumn Header="Idioma"
+                        <DataGridTextColumn Header="Idioma"
                                     Binding="{Binding idiomas}"/>
 
-                    <DataGridTextColumn Header="Idioma Doblado"
+                        <DataGridTextColumn Header="Idioma Doblado"
                                     Binding="{Binding idiomas1}"/>
 
-                </DataGrid.Columns>
+                    </DataGrid.Columns>
 
-                <!-- Menu -->
-                <DataGrid.ContextMenu>
-                    <ContextMenu>
-                        <MenuItem x:Name="menuEditar" Click="menuEditar_Click">
-                            <MenuItem.Header>
-                                <StackPanel Orientation="Horizontal">
-                                    <mat:PackIcon Kind="Edit" Margin="0,0,10,0"/>
-                                    <TextBlock Text="Editar"/>
-                                </StackPanel>
-                            </MenuItem.Header>
-                        </MenuItem>
-                        <MenuItem x:Name="menuBorrar" Click="menuBorrar_Click">
-                            <MenuItem.Header>
-                                <StackPanel Orientation="Horizontal">
-                                    <mat:PackIcon Kind="Delete" Margin="0,0,10,0"/>
-                                    <TextBlock Text="Borrar"/>
-                                </StackPanel>
-                            </MenuItem.Header>
-                        </MenuItem>
-                        <MenuItem x:Name="menuVer" Click="menuVer_Click">
-                            <MenuItem.Header>
-                                <StackPanel Orientation="Horizontal">
-                                    <mat:PackIcon Kind="Eye" Margin="0,0,10,0"/>
-                                    <TextBlock Text="Ver"/>
-                                </StackPanel>
-                            </MenuItem.Header>
-                        </MenuItem>
-                    </ContextMenu>
-                </DataGrid.ContextMenu>
-
-            </DataGrid>
-        </Grid>
+                    <!-- Menu -->
+                    <DataGrid.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem x:Name="menuEditar" Click="menuEditar_Click">
+                                <MenuItem.Header>
+                                    <StackPanel Orientation="Horizontal">
+                                        <mat:PackIcon Kind="Edit" Margin="0,0,10,0"/>
+                                        <TextBlock Text="Editar"/>
+                                    </StackPanel>
+                                </MenuItem.Header>
+                            </MenuItem>
+                            <MenuItem x:Name="menuBorrar" Click="menuBorrar_Click">
+                                <MenuItem.Header>
+                                    <StackPanel Orientation="Horizontal">
+                                        <mat:PackIcon Kind="Delete" Margin="0,0,10,0"/>
+                                        <TextBlock Text="Borrar"/>
+                                    </StackPanel>
+                                </MenuItem.Header>
+                            </MenuItem>
+                            <MenuItem x:Name="menuVer" Click="menuVer_Click">
+                                <MenuItem.Header>
+                                    <StackPanel Orientation="Horizontal">
+                                        <mat:PackIcon Kind="Eye" Margin="0,0,10,0"/>
+                                        <TextBlock Text="Ver"/>
+                                    </StackPanel>
+                                </MenuItem.Header>
+                            </MenuItem>
+                        </ContextMenu>
+                    </DataGrid.ContextMenu>
+                </DataGrid>
+            </Grid>
+        </DockPanel>
     </DockPanel>
 </UserControl>

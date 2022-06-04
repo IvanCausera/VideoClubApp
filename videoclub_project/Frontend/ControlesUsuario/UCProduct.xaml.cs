@@ -24,6 +24,7 @@ namespace videoclub_project.Frontend.ControlesUsuario {
 
         private videoclubEntities vidEnt;
         private MVProduct mProduct;
+        private int productType;
 
         public UCProduct(videoclubEntities vidEnt) {
             InitializeComponent();
@@ -35,6 +36,10 @@ namespace videoclub_project.Frontend.ControlesUsuario {
             if (MVUser.loginUsuer.id_rol != roles.EMPLEADO && MVUser.loginUsuer.id_rol != roles.ADMINISTRADOR) {
                 menuBorrar.Visibility = Visibility.Collapsed;
                 menuEditar.Visibility = Visibility.Collapsed;
+                if (MVUser.loginUsuer.cliente == null) {
+                    menuAlquilar.Visibility = Visibility.Collapsed;
+                    menuComprar.Visibility = Visibility.Collapsed;
+                }
             }
 
         }
@@ -43,14 +48,18 @@ namespace videoclub_project.Frontend.ControlesUsuario {
             InitializeComponent();
 
             this.vidEnt = vidEnt;
+            this.productType = productType;
             mProduct = new MVProduct(vidEnt, productType);
             DataContext = mProduct;
-
+            
             if (MVUser.loginUsuer.id_rol != roles.EMPLEADO && MVUser.loginUsuer.id_rol != roles.ADMINISTRADOR) {
                 menuBorrar.Visibility = Visibility.Collapsed;
                 menuEditar.Visibility = Visibility.Collapsed;
+                if (MVUser.loginUsuer.cliente == null) {
+                    menuAlquilar.Visibility = Visibility.Collapsed;
+                    menuComprar.Visibility = Visibility.Collapsed;
+                }
             }
-
         }
 
         private void menuEditar_Click(object sender, RoutedEventArgs e) {
@@ -70,6 +79,64 @@ namespace videoclub_project.Frontend.ControlesUsuario {
         private void menuVer_Click(object sender, RoutedEventArgs e) {
             dMVVMAddProduct diag = new dMVVMAddProduct(vidEnt, (productos)dgProduct.SelectedItem, true);
             diag.ShowDialog();
+        }
+
+        private void btnCierraSeleccion_Click(object sender, RoutedEventArgs e) {
+            dgProduct.SelectedIndex = -1;
+        }
+
+        public class StringNullOrEmptyToVisibilityConverter : System.Windows.Markup.MarkupExtension, IValueConverter {
+            public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture) {
+                return string.IsNullOrEmpty(value as string)
+                    ? Visibility.Collapsed : Visibility.Visible;
+            }
+            public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture) {
+                return null;
+            }
+            public override object ProvideValue(IServiceProvider serviceProvider) {
+                return this;
+            }
+        }
+
+        private void menuAlquilar_Click(object sender, RoutedEventArgs e) {
+            dMVVMAddAlquiler diag;
+
+            if (productType == productos.PELICULA) {
+                diag = new dMVVMAddAlquiler(vidEnt, MVUser.loginUsuer, mProduct.formatoSelected.item);
+            } else {
+                diag = new dMVVMAddAlquiler(vidEnt, MVUser.loginUsuer, mProduct.plataformaSelected.item);
+            }
+            
+            diag.ShowDialog();
+        }
+
+        private void menuComprar_Click(object sender, RoutedEventArgs e) {
+            dMVVMAddVenta diag;
+            
+            if (productType == productos.PELICULA) {
+                diag = new dMVVMAddVenta(vidEnt, MVUser.loginUsuer, mProduct.formatoSelected.item);
+            } else {
+                diag = new dMVVMAddVenta(vidEnt, MVUser.loginUsuer, mProduct.plataformaSelected.item);
+            }
+
+            diag.ShowDialog();
+        }
+
+        private void dgProduct_SelectionChanged(object sender, SelectionChangedEventArgs e) {
+            mProduct.prodSelected = (productos)dgProduct.SelectedItem;
+            if (mProduct.prodSelected.peliculas != null) {
+                productType = productos.PELICULA;
+                dgArticulos.SetBinding(DataGrid.ItemsSourceProperty, new Binding("prodSelected.peliculas.formatos_peliculas"));
+                dgArticulos.SetBinding(DataGrid.SelectedItemProperty, new Binding("formatoSelected"));
+                txtHeaderArticulo.Header = "Formato";
+                txtHeaderArticulo.Binding = new Binding("formatos");
+            } else {
+                productType = productos.JUEGO;
+                dgArticulos.SetBinding(DataGrid.ItemsSourceProperty, new Binding("prodSelected.videojuegos.plataformas_videojuegos"));
+                dgArticulos.SetBinding(DataGrid.SelectedItemProperty, new Binding("plataformaSelected"));
+                txtHeaderArticulo.Header = "Plataforma";
+                txtHeaderArticulo.Binding = new Binding("plataformas");
+            }
         }
     }
 }

@@ -46,12 +46,13 @@ namespace videoclub_project.Frontend.Dialogos {
 
             inicializa();
 
-            
-
             if (user.cliente != null) {
                 mAlquiler.alqSelected.cliente = user.cliente;
                 comboCliente.IsEnabled = false;
                 dateReserva.Visibility = Visibility.Collapsed;
+                dateDevolucion.Visibility = Visibility.Collapsed;
+                dateAlquiler.IsEnabled = false;
+                btnGuardar.Content = "Alquilar";
             }
 
             if (item != null) {
@@ -60,7 +61,11 @@ namespace videoclub_project.Frontend.Dialogos {
                     item = item
                 });
                 uProductosAlquiler.update();
+                gridAddJuego.Visibility = Visibility.Collapsed;
+                gridAddPelicula.Visibility = Visibility.Collapsed;
             }
+
+            mAlquiler.alqSelected.fecha = DateTime.Now;
 
             this.editar = false;
         }

@@ -21,12 +21,11 @@ namespace videoclub_project.Frontend.Dialogos {
     /// </summary>
     public partial class UserWindow : MetroWindow {
         private videoclubEntities vidEnt;
-        private usuarios usuLogin;
 
         public UserWindow(videoclubEntities vidEnt, usuarios usuLogin) {
             InitializeComponent();
             this.vidEnt = vidEnt;
-            this.usuLogin = usuLogin;
+
             if (usuLogin == null) {
                 tbUserLogin.Text = "sin registrar";
                 menuAlquiler.IsEnabled = false;
@@ -56,12 +55,6 @@ namespace videoclub_project.Frontend.Dialogos {
                 UCVentas uc = new UCVentas(vidEnt);
                 mainGrid.Children.Clear();
                 mainGrid.Children.Add(uc);
-            } else if (hamMenuPrincipal.SelectedItem == menuAddAlquiler) {
-                dMVVMAddAlquiler diag = new dMVVMAddAlquiler(vidEnt, usuLogin);
-                diag.ShowDialog();
-            } else if (hamMenuPrincipal.SelectedItem == menuAddPedidos) {
-                dMVVMAddVenta diag = new dMVVMAddVenta(vidEnt);
-                diag.ShowDialog();
             }
         }
 

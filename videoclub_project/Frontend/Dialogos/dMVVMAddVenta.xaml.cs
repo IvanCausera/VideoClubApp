@@ -40,6 +40,36 @@ namespace videoclub_project.Frontend.Dialogos {
             this.editar = false;
         }
 
+        public dMVVMAddVenta(videoclubEntities vidEnt, usuarios user, item item = null) {
+            InitializeComponent();
+
+            this.vidEnt = vidEnt;
+
+            inicializa();
+
+            if (user.cliente != null) {
+                mVenta.ventaSelected.cliente = user.cliente;
+                comboCliente.IsEnabled = false;
+                dateReserva.Visibility = Visibility.Collapsed;
+                dateVenta.IsEnabled = false;
+                btnGuardar.Content = "Comprar";
+            }
+
+            if (item != null) {
+                mVenta.ventaSelected.ventas_productos.Add(new ventas_productos {
+                    ventas = mVenta.ventaSelected,
+                    item = item
+                });
+                uVentasProductos.update();
+                gridAddJuego.Visibility = Visibility.Collapsed;
+                gridAddPelicula.Visibility = Visibility.Collapsed;
+            }
+
+            mVenta.ventaSelected.fecha = DateTime.Now;
+
+            this.editar = false;
+        }
+
         public dMVVMAddVenta(videoclubEntities vidEnt, ventas venta, bool ver = false) {
             InitializeComponent();
 

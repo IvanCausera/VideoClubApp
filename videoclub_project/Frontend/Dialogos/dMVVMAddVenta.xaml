@@ -61,7 +61,7 @@
                          SelectedItem="{Binding ventaSelected.cliente}"/>
 
                 <!--Fecha Venta-->
-                <DatePicker x:Name="dateAlquiler" Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
+                <DatePicker x:Name="dateVenta" Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
                             mat:HintAssist.Hint="Fecha Venta*" FontWeight="Bold"
                             Margin="10"
                             MinWidth="15" MaxWidth="150"
