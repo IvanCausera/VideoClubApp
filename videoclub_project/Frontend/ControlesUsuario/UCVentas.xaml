@@ -28,6 +28,9 @@
                     <DataGridTextColumn Header="Reserva"
                                     Binding="{Binding reserva, StringFormat=\{0:dd/MM/yyyy\}}"/>
 
+                    <DataGridTextColumn Header="Articulos"
+                                    Binding="{Binding Path=.}"/>
+
                 </DataGrid.Columns>
 
                 <!-- Menu -->

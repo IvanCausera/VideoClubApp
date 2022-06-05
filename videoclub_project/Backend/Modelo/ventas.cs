@@ -28,5 +28,13 @@ namespace videoclub_project.Backend.Modelo
         public virtual cliente cliente { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ventas_productos> ventas_productos { get; set; }
+
+        public override string ToString() {
+            string str = "";
+            foreach (ventas_productos product in ventas_productos) {
+                str += product.ToString() + "\n";
+            }
+            return str;
+        }
     }
 }

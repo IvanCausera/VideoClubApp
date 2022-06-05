@@ -30,14 +30,16 @@ namespace videoclub_project.MVVM {
             listView = new ListCollectionView(servAql.getAll().ToList());
         }
 
-        public MVAlquiler(videoclubEntities vidEnt, cliente client) {
+        public MVAlquiler(videoclubEntities vidEnt, cliente client, bool enCurso = false) {
             this.vidEnt = vidEnt;
 
             servAql = new ServicioAlquiler(vidEnt);
             servicio = servAql;
 
             alqSel = new alquileres();
-            listView = new ListCollectionView(servAql.getAllFromClient(client).ToList());
+            if (enCurso) {
+                listView = new ListCollectionView(servAql.getAllFromClientInProcess(client).ToList());
+            } else listView = new ListCollectionView(servAql.getAllFromClient(client).ToList());
         }
 
         // List ******************************************************************************************************

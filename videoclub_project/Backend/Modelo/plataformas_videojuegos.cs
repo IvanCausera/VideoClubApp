@@ -27,5 +27,9 @@ namespace videoclub_project.Backend.Modelo
         public override string ToString() {
             return videojuegos.productos.titulo + " | " + plataformas.plataforma + " [" + stock + ", " + precio + "€]";
         }
+
+        public string ToStringTitulo() {
+            return videojuegos.productos.titulo;
+        }
     }
 }

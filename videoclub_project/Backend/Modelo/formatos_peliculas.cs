@@ -26,5 +26,9 @@ namespace videoclub_project.Backend.Modelo
         public override string ToString() {
             return peliculas.productos.titulo + " | " + formatos.formato + " [" + stock + ", " + precio + "€]";
         }
+
+        public string ToStringTitulo() {
+            return peliculas.productos.titulo;
+        }
     }
 }

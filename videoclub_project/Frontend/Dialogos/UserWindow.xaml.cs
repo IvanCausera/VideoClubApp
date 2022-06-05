@@ -36,12 +36,30 @@ namespace videoclub_project.Frontend.Dialogos {
 
                 menuPedidos.IsEnabled = false;
                 menuPedidos.IsVisible = false;
-            } else tbUserLogin.Text = "Usuario: " + usuLogin.ToString();
+
+                UCClientHome uc = new UCClientHome();
+                mainGrid.Children.Clear();
+                mainGrid.Children.Add(uc);
+            } else {
+                tbUserLogin.Text = "Usuario: " + usuLogin.ToString();
+
+                UCClientHome uc = new UCClientHome(vidEnt, usuLogin);
+                mainGrid.Children.Clear();
+                mainGrid.Children.Add(uc);
+            }
+
+            
         }
 
         private void hamMenuPrincipal_ItemClick(object sender, ItemClickEventArgs args) {
             if (hamMenuPrincipal.SelectedItem == menuHome) {
-                
+                UCClientHome uc;
+
+                if (user == null) uc = new UCClientHome();
+                else uc = new UCClientHome(vidEnt, user);
+
+                mainGrid.Children.Clear();
+                mainGrid.Children.Add(uc);
             } else if (hamMenuPrincipal.SelectedItem == menuPelicula) {
                 UCProduct uc = new UCProduct(vidEnt, productos.PELICULA);
                 mainGrid.Children.Clear();

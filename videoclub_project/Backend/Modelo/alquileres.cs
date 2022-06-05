@@ -33,6 +33,14 @@ namespace videoclub_project.Backend.Modelo
         public virtual tipo_alquiler tipo_alquiler { get; set; }
 
         public override string ToString() {
+            string str = "";
+            foreach (productos_alquiler product in productos_alquiler) {
+                str += product.ToString() + "\n";
+            }
+            return str;
+        }
+
+        public string ToStringID() {
             return idAlquileres + " [" + fecha.ToString() + "]";
         }
     }

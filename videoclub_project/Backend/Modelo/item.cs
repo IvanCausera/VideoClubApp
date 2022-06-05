@@ -41,5 +41,17 @@ namespace videoclub_project.Backend.Modelo
 
             return str;
         }
+
+        public string ToStringTitulo() {
+            string str;
+
+            if (formatos_peliculas != null) {
+                str = formatos_peliculas.ToStringTitulo();
+            } else {
+                str = plataformas_videojuegos.ToStringTitulo();
+            }
+
+            return str;
+        }
     }
 }

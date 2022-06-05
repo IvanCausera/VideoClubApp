@@ -19,5 +19,9 @@ namespace videoclub_project.Backend.Servicios {
         public IEnumerable<alquileres> getAllFromClient(cliente client) {
             return context.Set<alquileres>().Where(a => a.id_cliente == client.idCliente).ToList();
         }
+
+        public IEnumerable<alquileres> getAllFromClientInProcess(cliente client) {
+            return context.Set<alquileres>().Where(a => a.id_cliente == client.idCliente && a.fecha_devolucion == null).ToList();
+        }
     }
 }

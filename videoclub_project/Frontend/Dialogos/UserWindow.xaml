@@ -7,7 +7,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:videoclub_project.Frontend.Dialogos"
         mc:Ignorable="d"
-        Title="VideoClub" Height="450" Width="800">
+        Title="VideoClub" Height="650" Width="1000">
     <mah:MetroWindow.RightWindowCommands>
         <mah:WindowCommands>
             <StackPanel Orientation="Horizontal">

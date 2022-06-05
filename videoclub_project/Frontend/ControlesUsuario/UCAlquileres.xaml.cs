@@ -44,7 +44,7 @@ namespace videoclub_project.Frontend.ControlesUsuario {
 
         private void inicializa() {
             DataContext = mAlquiler;
-
+            
             if (MVUser.loginUsuer.id_rol != roles.EMPLEADO && MVUser.loginUsuer.id_rol != roles.ADMINISTRADOR) {
                 menuBorrar.Visibility = Visibility.Collapsed;
                 menuEditar.Visibility = Visibility.Collapsed;
