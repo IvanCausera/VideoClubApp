@@ -108,6 +108,11 @@ namespace videoclub_project.Frontend.ControlesUsuario {
             }
             
             diag.ShowDialog();
+
+            if ((bool)diag.DialogResult) {
+
+                dgArticulos.Items.Refresh();
+            }
         }
 
         private void menuComprar_Click(object sender, RoutedEventArgs e) {
@@ -120,6 +125,12 @@ namespace videoclub_project.Frontend.ControlesUsuario {
             }
 
             diag.ShowDialog();
+
+            if ((bool)diag.DialogResult) {
+                if (productType == productos.JUEGO) {
+                }
+                dgArticulos.Items.Refresh();
+            }
         }
 
         private void dgProduct_SelectionChanged(object sender, SelectionChangedEventArgs e) {

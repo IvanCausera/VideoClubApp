@@ -30,14 +30,27 @@ namespace videoclub_project.Frontend.ControlesUsuario {
 
             this.vidEnt = vidEnt;
             mAlquiler = new MVAlquiler(vidEnt);
+            inicializa();
+        }
+
+        public UCAlquileres(videoclubEntities vidEnt, cliente client) {
+            InitializeComponent();
+
+            this.vidEnt = vidEnt;
+            mAlquiler = new MVAlquiler(vidEnt, client);
+            inicializa();
+
+        }
+
+        private void inicializa() {
             DataContext = mAlquiler;
 
             if (MVUser.loginUsuer.id_rol != roles.EMPLEADO && MVUser.loginUsuer.id_rol != roles.ADMINISTRADOR) {
                 menuBorrar.Visibility = Visibility.Collapsed;
                 menuEditar.Visibility = Visibility.Collapsed;
             }
-
         }
+
 
         private void menuEditar_Click(object sender, RoutedEventArgs e) {
             dMVVMAddAlquiler diag = new dMVVMAddAlquiler(vidEnt, (alquileres)dgAlquiler.SelectedItem);

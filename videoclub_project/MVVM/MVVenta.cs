@@ -15,7 +15,7 @@ namespace videoclub_project.MVVM {
         private ventas ventaSel;
         private ventas_productos ventProdSel;
 
-        private ServicioGenerico<ventas> servVenta;
+        private ServicioVenta servVenta;
 
         private ListCollectionView listView;
 
@@ -23,11 +23,21 @@ namespace videoclub_project.MVVM {
         public MVVenta(videoclubEntities vidEnt) {
             this.vidEnt = vidEnt;
 
-            servVenta = new ServicioGenerico<ventas>(vidEnt);
+            servVenta = new ServicioVenta(vidEnt);
             servicio = servVenta;
 
             ventaSel = new ventas();
             listView = new ListCollectionView(servVenta.getAll().ToList());
+        }
+
+        public MVVenta(videoclubEntities vidEnt, cliente client) {
+            this.vidEnt = vidEnt;
+
+            servVenta = new ServicioVenta(vidEnt);
+            servicio = servVenta;
+
+            ventaSel = new ventas();
+            listView = new ListCollectionView(servVenta.getAllFromClient(client).ToList());
         }
 
         // List ******************************************************************************************************
@@ -67,6 +77,14 @@ namespace videoclub_project.MVVM {
         }
 
         public bool guardar() {
+            foreach (ventas_productos ventProduct in ventaSelected.ventas_productos) {
+                if (ventProduct.item.formatos_peliculas != null) {
+                    ventProduct.item.formatos_peliculas.stock -= 1;
+                } else {
+                    ventProduct.item.plataformas_videojuegos.stock -= 1;
+                }
+            }
+
             return add(ventaSelected);
         }
 

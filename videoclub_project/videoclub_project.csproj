@@ -264,9 +264,11 @@
       <DependentUpon>videoclubEDM.tt</DependentUpon>
     </Compile>
     <Compile Include="Backend\Servicios\IServicioGenerico.cs" />
+    <Compile Include="Backend\Servicios\ServicioAlquiler.cs" />
     <Compile Include="Backend\Servicios\ServicioGenerico.cs" />
     <Compile Include="Backend\Servicios\ServicioProducto.cs" />
     <Compile Include="Backend\Servicios\ServicioUsuario.cs" />
+    <Compile Include="Backend\Servicios\ServicioVenta.cs" />
     <Compile Include="Frontend\ControlesUsuario\UCActors.xaml.cs">
       <DependentUpon>UCActors.xaml</DependentUpon>
     </Compile>

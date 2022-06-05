@@ -30,6 +30,20 @@ namespace videoclub_project.Frontend.ControlesUsuario {
 
             this.vidEnt = vidEnt;
             mVenta = new MVVenta(vidEnt);
+
+            inicializa();
+        }
+
+        public UCVentas(videoclubEntities vidEnt, cliente client) {
+            InitializeComponent();
+
+            this.vidEnt = vidEnt;
+            mVenta = new MVVenta(vidEnt, client);
+
+            inicializa();
+        }
+
+        private void inicializa() {
             DataContext = mVenta;
 
             if (MVUser.loginUsuer.id_rol != roles.EMPLEADO && MVUser.loginUsuer.id_rol != roles.ADMINISTRADOR) {

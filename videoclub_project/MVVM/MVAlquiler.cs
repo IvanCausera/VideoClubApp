@@ -15,7 +15,7 @@ namespace videoclub_project.MVVM {
         private alquileres alqSel;
         private productos_alquiler prodAlqSel;
 
-        private ServicioGenerico<alquileres> servAql;
+        private ServicioAlquiler servAql;
 
         private ListCollectionView listView;
 
@@ -23,11 +23,21 @@ namespace videoclub_project.MVVM {
         public MVAlquiler(videoclubEntities vidEnt) {
             this.vidEnt = vidEnt;
 
-            servAql = new ServicioGenerico<alquileres>(vidEnt);
+            servAql = new ServicioAlquiler(vidEnt);
             servicio = servAql;
 
             alqSel = new alquileres();
             listView = new ListCollectionView(servAql.getAll().ToList());
+        }
+
+        public MVAlquiler(videoclubEntities vidEnt, cliente client) {
+            this.vidEnt = vidEnt;
+
+            servAql = new ServicioAlquiler(vidEnt);
+            servicio = servAql;
+
+            alqSel = new alquileres();
+            listView = new ListCollectionView(servAql.getAllFromClient(client).ToList());
         }
 
         // List ******************************************************************************************************
@@ -76,6 +86,14 @@ namespace videoclub_project.MVVM {
         }
 
         public bool guardar() {
+            foreach (productos_alquiler alqProduct in alqSelected.productos_alquiler) {
+                if (alqProduct.item.formatos_peliculas != null) {
+                    alqProduct.item.formatos_peliculas.stock -= 1;
+                } else {
+                    alqProduct.item.plataformas_videojuegos.stock -= 1;
+                }
+            }
+
             return add(alqSelected);
         }
 

@@ -110,7 +110,7 @@ namespace videoclub_project.Frontend.Dialogos {
             }
 
             if (result) {
-                msgThrow("TODO CORRECTO!!! Objeto guardado correctamente", true, false);
+                msgThrow("TODO CORRECTO!!! Objeto guardado correctamente", true, true);
             } else {
                 msgThrow("ERROR!!! No se puede guardar el objeto", true, false);
             }
