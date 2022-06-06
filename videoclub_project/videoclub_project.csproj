@@ -360,6 +360,7 @@
     <Compile Include="Backend\Servicios\IServicioGenerico.cs" />
     <Compile Include="Backend\Servicios\ServicioAlquiler.cs" />
     <Compile Include="Backend\Servicios\ServicioGenerico.cs" />
+    <Compile Include="Backend\Servicios\ServicioItem.cs" />
     <Compile Include="Backend\Servicios\ServicioProducto.cs" />
     <Compile Include="Backend\Servicios\ServicioSQL.cs" />
     <Compile Include="Backend\Servicios\ServicioUsuario.cs" />

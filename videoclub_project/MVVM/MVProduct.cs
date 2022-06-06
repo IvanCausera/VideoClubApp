@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Data;
 using videoclub_project.Backend.Modelo;
 using videoclub_project.Backend.Servicios;
+using videoclub_project.Frontend.Dialogos;
 
 namespace videoclub_project.MVVM {
     public class MVProduct : MVBaseCRUD<productos> {
@@ -17,9 +18,18 @@ namespace videoclub_project.MVVM {
         private formatos_peliculas formatoSel;
         private plataformas_videojuegos plataformaSel;
 
+        private DateTime fecahFilt;
+        private generos generoSel;
+        private string txtTitulo;
+
         private ServicioProducto servProd;
 
         private ListCollectionView listView;
+
+        // Definicion criterios filtro *************************************
+        private List<Predicate<productos>> criterios;
+        private Predicate<productos> criterioGenero;
+        private Predicate<productos> criterioTitulo;
 
         // Constructor ***********************************************************************************************
         public MVProduct(videoclubEntities vidEnt) {
@@ -31,6 +41,8 @@ namespace videoclub_project.MVVM {
             prodSel = new productos();
 
             listView = new ListCollectionView(servProd.getAll().ToList());
+
+            inicializa();
         }
 
         public MVProduct(videoclubEntities vidEnt, int productType) {
@@ -44,6 +56,14 @@ namespace videoclub_project.MVVM {
             if (productType == productos.JUEGO) {
                 listView = new ListCollectionView(servProd.getAllVideojuegos().ToList());
             } else listView = new ListCollectionView(servProd.getAllPeliculas().ToList());
+
+            inicializa();
+        }
+
+        private void inicializa() {
+            criterios = new List<Predicate<productos>>();
+            criterioGenero = new Predicate<productos>(p => p.id_genero == generoSel.idGeneros);
+            criterioTitulo = new Predicate<productos>(p => p.titulo.ToUpper().StartsWith(txtTitulo.ToUpper()));
         }
 
         // List ******************************************************************************************************
@@ -90,6 +110,20 @@ namespace videoclub_project.MVVM {
             set { plataformaSel = value; NotifyPropertyChanged(nameof(plataformaSelected)); }
         }
 
+        public generos generoSelected {
+            get { return generoSel; }
+            set { generoSel = value; NotifyPropertyChanged(nameof(generoSelected)); }
+        }
+
+        public DateTime fechaFiltro {
+            get { return fecahFilt; }
+            set { fecahFilt = value; NotifyPropertyChanged(nameof(fechaFiltro)); }
+        }
+
+        public string txtFiltroTitulo {
+            get { return txtTitulo; }
+            set { txtTitulo = value; NotifyPropertyChanged(nameof(txtFiltroTitulo)); }
+        }
 
         // Methods ***************************************************************************************************
 
@@ -169,6 +203,34 @@ namespace videoclub_project.MVVM {
 
         public bool editar() {
             return update(prodSelected);
+        }
+
+        public bool filtroCriterios(object obj) {
+            if (obj == null) return false;
+            bool correct = true;
+
+            productos prod = (productos)obj;
+            if (criterios.Count() != 0) {
+                correct = criterios.TrueForAll(x => x(prod));
+            }
+
+            return correct;
+        }
+
+        public void addCriterios() {
+            criterios.Clear();
+            if (generoSelected != null) {
+                criterios.Add(criterioGenero);
+            }
+            if (!string.IsNullOrEmpty(txtFiltroTitulo)) {
+                criterios.Add(criterioTitulo);
+            }
+        }
+
+        public void borrarCriterios() {
+            generoSelected = null;
+            txtFiltroTitulo = null;
+            criterios.Clear();
         }
     }
 }

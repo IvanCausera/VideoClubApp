@@ -6,7 +6,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:videoclub_project.Frontend.ControlesUsuario"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="900">
     <DockPanel>
         <!--Articulos-->
         <DockPanel DockPanel.Dock="Bottom">
@@ -64,7 +64,43 @@
         <DockPanel >
             <!--Filtros-->
             <Grid DockPanel.Dock="Top">
-                <TextBlock Text="Filtros" HorizontalAlignment="Left"/>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="Genero: "
+                       VerticalAlignment="Center" Margin="15, 0, 0, 0"
+                       Grid.Column="1"/>
+                <ComboBox x:Name="comboFiltroGenero" Margin="10, 0, 0, 0"
+                      VerticalAlignment="center" 
+                      IsEditable="True" Text="Seleciona un Genero"
+                      ItemsSource="{Binding listGeneros}"
+                      SelectedItem="{Binding generoSelected}"
+                      SelectionChanged="comboFiltroGenero_SelectionChanged"
+                      Grid.Column="2"/>
+
+                <TextBlock Text="Titulo: "
+                       VerticalAlignment="Center" Margin="15, 0, 0, 0"
+                       Grid.Column="3"/>
+                <TextBox x:Name="txtFiltroTitulo" Width="150"
+                     VerticalAlignment="Center" HorizontalAlignment="Left"
+                     TextChanged="txtFiltroTitulo_TextChanged"
+                     Text="{Binding txtFiltroTitulo, UpdateSourceTrigger=PropertyChanged}"
+                     Grid.Column="4"/>
+                <Button x:Name="btnClearFilter" Click="btnClearFilter_Click"
+                    Background="Transparent" BorderBrush="Transparent"
+                    Grid.Column="5" HorizontalAlignment="Left">
+                    <mat:PackIcon Kind="FilterOff" Height="20" Width="20"/>
+                </Button>
+                <Separator Grid.Row="1" Grid.ColumnSpan="6"/>
             </Grid>
 
             <!--Main-->

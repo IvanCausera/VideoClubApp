@@ -10,7 +10,46 @@
     <DockPanel>
         <!--Filtros-->
         <Grid DockPanel.Dock="Top">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="Cliente: " x:Name="txtFiltroCliente"
+                       VerticalAlignment="Center" Margin="15, 0, 0, 0"
+                       Grid.Column="1"/>
+            <ComboBox x:Name="comboFiltroCliente" Margin="10, 0, 0, 0"
+                      VerticalAlignment="center" 
+                      IsEditable="True" Text="Seleciona un Cliente"
+                      ItemsSource="{Binding listClientes}"
+                      SelectedItem="{Binding clienteSelected}"
+                      SelectionChanged="comboFiltroCliente_SelectionChanged"
+                      Grid.Column="2"/>
 
+            <TextBlock Text="Articulo: "
+                       VerticalAlignment="Center" Margin="15, 0, 0, 0"
+                       Grid.Column="3"/>
+            <ComboBox x:Name="comboFiltroArticulo" Margin="10, 0, 0, 0"
+                      VerticalAlignment="center" 
+                      IsEditable="True" Text="Seleciona un Articulo"
+                      ItemsSource="{Binding listItems}"
+                      SelectedItem="{Binding itemSelected}"
+                      SelectionChanged="comboFiltroArticulo_SelectionChanged"
+                      Grid.Column="4"/>
+
+            <Button x:Name="btnClearFilter" Click="btnClearFilter_Click"
+                    Background="Transparent" BorderBrush="Transparent"
+                    Grid.Column="5" HorizontalAlignment="Left">
+                <mat:PackIcon Kind="FilterOff" Height="20" Width="20"/>
+            </Button>
+            <Separator Grid.Row="1" Grid.ColumnSpan="6"/>
         </Grid>
         <!--Lista-->
         <Grid>

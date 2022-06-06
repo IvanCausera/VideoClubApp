@@ -39,6 +39,7 @@ namespace videoclub_project.Frontend.Dialogos {
                 Application.Current.Shutdown();
             }
             usuServ = new ServicioUsuario(vidEnt);
+
             empleado = false;
         }
 

@@ -25,6 +25,8 @@ namespace videoclub_project.Frontend.ControlesUsuario {
         private videoclubEntities vidEnt;
         private MVUser mUser;
 
+        private Predicate<object> predUsuario;
+
         public UCUsers(videoclubEntities vidEnt) {
             InitializeComponent();
 
@@ -36,6 +38,8 @@ namespace videoclub_project.Frontend.ControlesUsuario {
                 menuBorrar.Visibility = Visibility.Collapsed;
                 menuEditar.Visibility = Visibility.Collapsed;
             }
+
+            predUsuario = new Predicate<object>(mUser.filtroCriterios);
         }
 
         private void menuBorrar_Click(object sender, RoutedEventArgs e) {
@@ -50,6 +54,32 @@ namespace videoclub_project.Frontend.ControlesUsuario {
             if ((bool)diag.DialogResult) {
                 dgUser.Items.Refresh();
             }
+        }
+
+        private void btnClearFilter_Click(object sender, RoutedEventArgs e) {
+            mUser.borrarCriterios();
+
+            comboFiltroRol.SelectedIndex = -1;
+            comboFiltroRol.Text = "Seleciona un Rol";
+
+            mUser.listUsuarios.Filter = predUsuario;
+        }
+
+        private void txtFiltroNombre_TextChanged(object sender, TextChangedEventArgs e) {
+            filtrar();
+        }
+
+        private void txtFiltroUsuario_TextChanged(object sender, TextChangedEventArgs e) {
+            filtrar();
+        }
+
+        private void comboFiltroRol_SelectionChanged(object sender, SelectionChangedEventArgs e) {
+            filtrar();
+        }
+
+        private void filtrar() {
+            mUser.addCriterios();
+            mUser.listUsuarios.Filter = predUsuario;
         }
     }
 }

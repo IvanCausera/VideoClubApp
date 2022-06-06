@@ -25,6 +25,7 @@ namespace videoclub_project.Frontend.ControlesUsuario {
         private videoclubEntities vidEnt;
         private MVProduct mProduct;
         private int productType;
+        private Predicate<object> predProduct;
 
         public UCProduct(videoclubEntities vidEnt) {
             InitializeComponent();
@@ -33,15 +34,7 @@ namespace videoclub_project.Frontend.ControlesUsuario {
             mProduct = new MVProduct(vidEnt);
             DataContext = mProduct;
 
-            if (MVUser.loginUsuer.id_rol != roles.EMPLEADO && MVUser.loginUsuer.id_rol != roles.ADMINISTRADOR) {
-                menuBorrar.Visibility = Visibility.Collapsed;
-                menuEditar.Visibility = Visibility.Collapsed;
-                if (MVUser.loginUsuer.cliente == null) {
-                    menuAlquilar.Visibility = Visibility.Collapsed;
-                    menuComprar.Visibility = Visibility.Collapsed;
-                }
-            }
-
+            inicializa();
         }
 
         public UCProduct(videoclubEntities vidEnt, int productType) {
@@ -51,7 +44,11 @@ namespace videoclub_project.Frontend.ControlesUsuario {
             this.productType = productType;
             mProduct = new MVProduct(vidEnt, productType);
             DataContext = mProduct;
-            
+
+            inicializa();
+        }
+
+        private void inicializa() {
             if (MVUser.loginUsuer.id_rol != roles.EMPLEADO && MVUser.loginUsuer.id_rol != roles.ADMINISTRADOR) {
                 menuBorrar.Visibility = Visibility.Collapsed;
                 menuEditar.Visibility = Visibility.Collapsed;
@@ -60,6 +57,8 @@ namespace videoclub_project.Frontend.ControlesUsuario {
                     menuComprar.Visibility = Visibility.Collapsed;
                 }
             }
+
+            predProduct = new Predicate<object>(mProduct.filtroCriterios);
         }
 
         private void menuEditar_Click(object sender, RoutedEventArgs e) {
@@ -135,19 +134,48 @@ namespace videoclub_project.Frontend.ControlesUsuario {
 
         private void dgProduct_SelectionChanged(object sender, SelectionChangedEventArgs e) {
             mProduct.prodSelected = (productos)dgProduct.SelectedItem;
-            if (mProduct.prodSelected.peliculas != null) {
-                productType = productos.PELICULA;
-                dgArticulos.SetBinding(DataGrid.ItemsSourceProperty, new Binding("prodSelected.peliculas.formatos_peliculas"));
-                dgArticulos.SetBinding(DataGrid.SelectedItemProperty, new Binding("formatoSelected"));
-                txtHeaderArticulo.Header = "Formato";
-                txtHeaderArticulo.Binding = new Binding("formatos");
-            } else {
-                productType = productos.JUEGO;
-                dgArticulos.SetBinding(DataGrid.ItemsSourceProperty, new Binding("prodSelected.videojuegos.plataformas_videojuegos"));
-                dgArticulos.SetBinding(DataGrid.SelectedItemProperty, new Binding("plataformaSelected"));
-                txtHeaderArticulo.Header = "Plataforma";
-                txtHeaderArticulo.Binding = new Binding("plataformas");
+
+            if (mProduct.prodSelected != null) {
+                if (mProduct.prodSelected.peliculas != null) {
+                    productType = productos.PELICULA;
+                    dgArticulos.SetBinding(DataGrid.ItemsSourceProperty, new Binding("prodSelected.peliculas.formatos_peliculas"));
+                    dgArticulos.SetBinding(DataGrid.SelectedItemProperty, new Binding("formatoSelected"));
+                    txtHeaderArticulo.Header = "Formato";
+                    txtHeaderArticulo.Binding = new Binding("formatos");
+                } else {
+                    productType = productos.JUEGO;
+                    dgArticulos.SetBinding(DataGrid.ItemsSourceProperty, new Binding("prodSelected.videojuegos.plataformas_videojuegos"));
+                    dgArticulos.SetBinding(DataGrid.SelectedItemProperty, new Binding("plataformaSelected"));
+                    txtHeaderArticulo.Header = "Plataforma";
+                    txtHeaderArticulo.Binding = new Binding("plataformas");
+                }
             }
+        }
+
+        private void dateFiltrar_SelectedDateChanged(object sender, SelectionChangedEventArgs e) {
+            filtrar();
+        }
+
+        private void txtFiltroTitulo_TextChanged(object sender, TextChangedEventArgs e) {
+            filtrar();
+        }
+
+        private void comboFiltroGenero_SelectionChanged(object sender, SelectionChangedEventArgs e) {
+            filtrar();
+        }
+
+        private void filtrar() {
+            mProduct.addCriterios();
+            mProduct.listProductos.Filter = predProduct;
+        }
+
+        private void btnClearFilter_Click(object sender, RoutedEventArgs e) {
+            mProduct.borrarCriterios();
+
+            comboFiltroGenero.SelectedIndex = -1;
+            comboFiltroGenero.Text = "Seleciona un Genero";
+
+            mProduct.listProductos.Filter = predProduct;
         }
     }
 }

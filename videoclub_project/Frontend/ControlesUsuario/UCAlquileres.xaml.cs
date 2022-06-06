@@ -25,6 +25,8 @@ namespace videoclub_project.Frontend.ControlesUsuario {
         private videoclubEntities vidEnt;
         private MVAlquiler mAlquiler;
 
+        private Predicate<object> predAlquiler;
+
         public UCAlquileres(videoclubEntities vidEnt) {
             InitializeComponent();
 
@@ -38,6 +40,10 @@ namespace videoclub_project.Frontend.ControlesUsuario {
 
             this.vidEnt = vidEnt;
             mAlquiler = new MVAlquiler(vidEnt, client);
+
+            txtFiltroCliente.Visibility = Visibility.Collapsed;
+            comboFiltroCliente.Visibility = Visibility.Collapsed;
+
             inicializa();
 
         }
@@ -49,6 +55,8 @@ namespace videoclub_project.Frontend.ControlesUsuario {
                 menuBorrar.Visibility = Visibility.Collapsed;
                 menuEditar.Visibility = Visibility.Collapsed;
             }
+
+            predAlquiler = new Predicate<object>(mAlquiler.filtroCriterios);
         }
 
 
@@ -70,6 +78,30 @@ namespace videoclub_project.Frontend.ControlesUsuario {
         private void menuVer_Click(object sender, RoutedEventArgs e) {
             dMVVMAddAlquiler diag = new dMVVMAddAlquiler(vidEnt, (alquileres)dgAlquiler.SelectedItem, true);
             diag.ShowDialog();
+        }
+
+        private void comboFiltroCliente_SelectionChanged(object sender, SelectionChangedEventArgs e) {
+            filtrar();
+        }
+
+        private void comboFiltroArticulo_SelectionChanged(object sender, SelectionChangedEventArgs e) {
+            filtrar();
+        }
+
+        private void btnClearFilter_Click(object sender, RoutedEventArgs e) {
+            mAlquiler.borrarCriterios();
+
+            comboFiltroArticulo.SelectedIndex = -1;
+            comboFiltroCliente.SelectedIndex = -1;
+            comboFiltroArticulo.Text = "Seleciona un Articulo";
+            comboFiltroCliente.Text = "Seleciona un Cliente";
+
+            mAlquiler.listAlquileres.Filter = predAlquiler;
+        }
+
+        private void filtrar() {
+            mAlquiler.addCriterios();
+            mAlquiler.listAlquileres.Filter = predAlquiler;
         }
     }
 }
