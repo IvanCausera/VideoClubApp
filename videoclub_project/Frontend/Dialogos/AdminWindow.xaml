@@ -49,16 +49,11 @@
                             <mat:PackIcon Kind="Cards" Height="30" Width="30" Foreground="Gray"/>
                         </fluent:Button.LargeIcon>
                     </fluent:Button>
-
-                    <fluent:Button Header="Arbol Productos" x:Name="rbtnArbolProductos">
-                        <fluent:Button.LargeIcon>
-                            <mat:PackIcon Kind="Group" Height="30" Width="30" Foreground="Gray"/>
-                        </fluent:Button.LargeIcon>
-                    </fluent:Button>
                 </fluent:RibbonGroupBox>
                 <!--Group Informes-->
                 <fluent:RibbonGroupBox Header="Informes">
-                    <fluent:Button Header="Productos">
+                    <fluent:Button Header="Productos" x:Name="rbtnInformeProductos"
+                                   Click="rbtnInformeProductos_Click">
                         <fluent:Button.LargeIcon>
                             <mat:PackIcon Kind="FileChart" Height="30" Width="30" Foreground="Gray"/>
                         </fluent:Button.LargeIcon>
@@ -104,24 +99,17 @@
 
                 <!--Group Informes-->
                 <fluent:RibbonGroupBox Header="Informes">
-                    <fluent:Button Header="Ventas">
+                    <fluent:Button Header="Ventas" x:Name="rbtnInformeVentas"
+                                   Click="rbtnInformeVentas_Click">
                         <fluent:Button.LargeIcon>
                             <mat:PackIcon Kind="FileChart" Height="30" Width="30" Foreground="Gray"/>
                         </fluent:Button.LargeIcon>
                     </fluent:Button>
-                    
-                    <fluent:Button Header="Alquileres">
-                        <fluent:Button.LargeIcon>
-                            <mat:PackIcon Kind="FileChart" Height="30" Width="30" Foreground="Gray"/>
-                        </fluent:Button.LargeIcon>
-                    </fluent:Button>
-                </fluent:RibbonGroupBox>
 
-                <!--Group STOCK-->
-                <fluent:RibbonGroupBox Header="STOCK">
-                    <fluent:Button>
+                    <fluent:Button Header="Alquileres" x:Name="rbtnInformeAlquileres"
+                                   Click="rbtnInformeAlquileres_Click">
                         <fluent:Button.LargeIcon>
-                            <mat:PackIcon Kind="Stocking" Height="35" Width="35"/>
+                            <mat:PackIcon Kind="FileChart" Height="30" Width="30" Foreground="Gray"/>
                         </fluent:Button.LargeIcon>
                     </fluent:Button>
                 </fluent:RibbonGroupBox>
@@ -143,16 +131,11 @@
                             <mat:PackIcon Kind="UserMultiple" Height="30" Width="30" Foreground="Gray"/>
                         </fluent:Button.LargeIcon>
                     </fluent:Button>
-
-                    <fluent:Button Header="Arbol Roles" x:Name="rbtnArbolUsuario">
-                        <fluent:Button.LargeIcon>
-                            <mat:PackIcon Kind="Group" Height="30" Width="30" Foreground="Gray"/>
-                        </fluent:Button.LargeIcon>
-                    </fluent:Button>
                 </fluent:RibbonGroupBox>
                 <!--Group Informes-->
                 <fluent:RibbonGroupBox Header="Informes">
-                    <fluent:Button Header="Usuarios">
+                    <fluent:Button Header="Usuarios" x:Name="rbtnInformeUsuario"
+                                   Click="rbtnInformeUsuario_Click">
                         <fluent:Button.LargeIcon>
                             <mat:PackIcon Kind="FileChart" Height="30" Width="30" Foreground="Gray"/>
                         </fluent:Button.LargeIcon>
