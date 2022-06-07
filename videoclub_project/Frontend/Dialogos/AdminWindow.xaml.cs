@@ -107,5 +107,16 @@ namespace videoclub_project.Frontend.Dialogos {
             mainGrid.Children.Clear();
             mainGrid.Children.Add(uc);
         }
+
+        private void rbtnAddTipoAlquiler_Click(object sender, RoutedEventArgs e) {
+            DMVVMTipoAlquiler diag = new DMVVMTipoAlquiler(vidEnt);
+            diag.ShowDialog();
+        }
+
+        private void rbtnListaTipoAlquiler_Click(object sender, RoutedEventArgs e) {
+            UCTipoAlquiler uc = new UCTipoAlquiler(vidEnt);
+            mainGrid.Children.Clear();
+            mainGrid.Children.Add(uc);
+        }
     }
 }

@@ -238,6 +238,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Frontend\ControlesUsuario\UCTipoAlquiler.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Frontend\ControlesUsuario\UCUsers.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -267,6 +271,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Frontend\Dialogos\dMVVMAddVenta.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Frontend\Dialogos\dMVVMTipoAlquiler.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -363,6 +371,7 @@
     <Compile Include="Backend\Servicios\ServicioItem.cs" />
     <Compile Include="Backend\Servicios\ServicioProducto.cs" />
     <Compile Include="Backend\Servicios\ServicioSQL.cs" />
+    <Compile Include="Backend\Servicios\ServicioTipoAlquiler.cs" />
     <Compile Include="Backend\Servicios\ServicioUsuario.cs" />
     <Compile Include="Backend\Servicios\ServicioVenta.cs" />
     <Compile Include="Frontend\ControlesUsuario\UCActors.xaml.cs">
@@ -398,6 +407,9 @@
     <Compile Include="Frontend\ControlesUsuario\UCProduct.xaml.cs">
       <DependentUpon>UCProduct.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Frontend\ControlesUsuario\UCTipoAlquiler.xaml.cs">
+      <DependentUpon>UCTipoAlquiler.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Frontend\ControlesUsuario\UCUsers.xaml.cs">
       <DependentUpon>UCUsers.xaml</DependentUpon>
     </Compile>
@@ -421,6 +433,9 @@
     </Compile>
     <Compile Include="Frontend\Dialogos\dMVVMAddVenta.xaml.cs">
       <DependentUpon>dMVVMAddVenta.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Frontend\Dialogos\dMVVMTipoAlquiler.xaml.cs">
+      <DependentUpon>dMVVMTipoAlquiler.xaml</DependentUpon>
     </Compile>
     <Compile Include="Frontend\Dialogos\Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
@@ -485,6 +500,7 @@
     <Compile Include="MVVM\MVBase.cs" />
     <Compile Include="MVVM\MVBaseCRUD.cs" />
     <Compile Include="MVVM\MVProduct.cs" />
+    <Compile Include="MVVM\MVTipoAlquiler.cs" />
     <Compile Include="MVVM\MVUser.cs" />
     <Compile Include="MVVM\MVVenta.cs" />
     <Compile Include="MVVM\PropertyChangedDataError.cs" />

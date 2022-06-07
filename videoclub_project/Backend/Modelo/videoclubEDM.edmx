@@ -158,7 +158,7 @@
           <Property Name="precio" Type="float" Nullable="false" />
           <Property Name="duracion" Type="int" Nullable="false" />
           <Property Name="recargo" Type="float" Nullable="false" />
-          <Property Name="nombre" Type="varchar" MaxLength="10" />
+          <Property Name="nombre" Type="varchar" MaxLength="28" />
         </EntityType>
         <EntityType Name="usuarios">
           <Key>
@@ -948,7 +948,7 @@
           <Property Name="precio" Type="Single" Nullable="false" />
           <Property Name="duracion" Type="Int32" Nullable="false" />
           <Property Name="recargo" Type="Single" Nullable="false" />
-          <Property Name="nombre" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="nombre" Type="String" MaxLength="28" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="alquileres" Relationship="videoclubModel.id_tipo_alquiler_alquiler" FromRole="tipo_alquiler" ToRole="alquileres" />
         </EntityType>
         <EntityType Name="usuarios">

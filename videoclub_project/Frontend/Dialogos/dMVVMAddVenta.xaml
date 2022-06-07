@@ -35,7 +35,7 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <!--Datos Personales-->
+            <!--Informacion Venta-->
             <Grid Grid.Row="0" Margin="14" x:Name="gridVenta">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition MinWidth="100" MaxWidth="1000"/>
