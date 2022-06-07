@@ -43,6 +43,11 @@ namespace videoclub_project.Frontend.ControlesUsuario {
             this.vidEnt = vidEnt;
             this.productType = productType;
             mProduct = new MVProduct(vidEnt, productType);
+
+            if (productType != productos.JUEGO) {
+                gridFiltroJuego.Visibility = Visibility.Collapsed;
+            } else gridFiltroPelicula.Visibility = Visibility.Collapsed;
+
             DataContext = mProduct;
 
             inicializa();
@@ -57,7 +62,6 @@ namespace videoclub_project.Frontend.ControlesUsuario {
                     menuComprar.Visibility = Visibility.Collapsed;
                 }
             }
-
             predProduct = new Predicate<object>(mProduct.filtroCriterios);
         }
 
@@ -176,6 +180,40 @@ namespace videoclub_project.Frontend.ControlesUsuario {
             comboFiltroGenero.Text = "Seleciona un Genero";
 
             mProduct.listProductos.Filter = predProduct;
+        }
+
+        private void dateFiltro_SelectedDateChanged(object sender, SelectionChangedEventArgs e) {
+            filtrar();
+        }
+
+        private void dateFinFiltro_SelectedDateChanged(object sender, SelectionChangedEventArgs e) {
+            filtrar();
+        }
+
+        private void txtFiltroActor_TextChanged(object sender, TextChangedEventArgs e) {
+            filtrar();
+        }
+
+        private void txtFiltroDirector_TextChanged(object sender, TextChangedEventArgs e) {
+            filtrar();
+        }
+
+        private void txtFiltroDesarrolladora_TextChanged(object sender, TextChangedEventArgs e) {
+            filtrar();
+        }
+
+        private void txtFiltroDistribuidora_TextChanged(object sender, TextChangedEventArgs e) {
+            filtrar();
+        }
+
+        private void chkMultijugador_Checked(object sender, RoutedEventArgs e) {
+            mProduct.chkFiltroMultijugador = true;
+            filtrar();
+        }
+
+        private void chkMultijugador_Unchecked(object sender, RoutedEventArgs e) {
+            mProduct.chkFiltroMultijugador = false;
+            filtrar();
         }
     }
 }

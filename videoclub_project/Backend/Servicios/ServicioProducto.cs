@@ -31,5 +31,15 @@ namespace videoclub_project.Backend.Servicios {
         public List<formatos_peliculas> getFormatos(int idPelicula) {
             return context.Set<formatos_peliculas>().Where(x => x.id_pelicula == idPelicula).ToList();
         }
+
+        public DateTime getFirstDate() {
+            productos prod = context.Set<productos>().OrderBy(p => p.fecha).FirstOrDefault();
+            return (DateTime)prod.fecha;
+        }
+
+        public DateTime getLastDate() {
+            productos prod = context.Set<productos>().OrderByDescending(p => p.fecha).FirstOrDefault();
+            return (DateTime)prod.fecha;
+        }
     }
 }

@@ -18,9 +18,17 @@ namespace videoclub_project.MVVM {
         private formatos_peliculas formatoSel;
         private plataformas_videojuegos plataformaSel;
 
-        private DateTime fecahFilt;
+        private DateTime fechaIniFilt;
+        private DateTime fechaFinFilt;
         private generos generoSel;
         private string txtTitulo;
+        private string txtActor;
+        private string txtDirector;
+        private string txtDistribuidora;
+        private string txtDesarrolladora;
+        private bool chkMultijugador;
+
+        private sbyte byteMultijugador;
 
         private ServicioProducto servProd;
 
@@ -30,6 +38,14 @@ namespace videoclub_project.MVVM {
         private List<Predicate<productos>> criterios;
         private Predicate<productos> criterioGenero;
         private Predicate<productos> criterioTitulo;
+        private Predicate<productos> criterioFecha;
+
+        private Predicate<productos> criterioActor;
+        private Predicate<productos> criterioDirector;
+
+        private Predicate<productos> criterioDistribuidora;
+        private Predicate<productos> criterioDesarrolladora;
+        private Predicate<productos> criterioMultijugador;
 
         // Constructor ***********************************************************************************************
         public MVProduct(videoclubEntities vidEnt) {
@@ -61,9 +77,27 @@ namespace videoclub_project.MVVM {
         }
 
         private void inicializa() {
+            fechaFiltro = servProd.getFirstDate();
+            fechaFinFiltro = servProd.getLastDate();
+
             criterios = new List<Predicate<productos>>();
             criterioGenero = new Predicate<productos>(p => p.id_genero == generoSel.idGeneros);
             criterioTitulo = new Predicate<productos>(p => p.titulo.ToUpper().StartsWith(txtTitulo.ToUpper()));
+            criterioFecha = new Predicate<productos>(p => p.fecha >= fechaFiltro && p.fecha <= fechaFinFiltro);
+
+            criterioActor = new Predicate<productos>(p => eachActor(p.peliculas.actores_peliculas));
+            criterioDirector = new Predicate<productos>(p => p.peliculas.director.ToUpper().StartsWith(txtFiltroDirector.ToUpper()));
+
+            criterioDistribuidora = new Predicate<productos>(p => p.videojuegos.distribuidora.ToUpper().StartsWith(txtFiltroDistribuidora.ToUpper()));
+            criterioDesarrolladora = new Predicate<productos>(p => p.videojuegos.desarrolladora.ToUpper().StartsWith(txtFiltroDesarrolladora.ToUpper()));
+            criterioMultijugador = new Predicate<productos>(p => p.videojuegos.multijugador == byteMultijugador);
+        }
+
+        private bool eachActor(ICollection<actores_peliculas> act) {
+            foreach (actores_peliculas actor in act) {
+                if (actor.nombre.ToUpper().StartsWith(txtFiltroActor.ToUpper())) return true;
+            }
+            return false;
         }
 
         // List ******************************************************************************************************
@@ -116,13 +150,48 @@ namespace videoclub_project.MVVM {
         }
 
         public DateTime fechaFiltro {
-            get { return fecahFilt; }
-            set { fecahFilt = value; NotifyPropertyChanged(nameof(fechaFiltro)); }
+            get { return fechaIniFilt; }
+            set { fechaIniFilt = value; NotifyPropertyChanged(nameof(fechaFiltro)); }
+        }
+
+        public DateTime fechaFinFiltro {
+            get { return fechaFinFilt; }
+            set { fechaFinFilt = value; NotifyPropertyChanged(nameof(fechaFiltro)); }
         }
 
         public string txtFiltroTitulo {
             get { return txtTitulo; }
             set { txtTitulo = value; NotifyPropertyChanged(nameof(txtFiltroTitulo)); }
+        }
+
+        public string txtFiltroActor {
+            get { return txtActor; }
+            set { txtActor = value; NotifyPropertyChanged(nameof(txtFiltroActor)); }
+        }
+
+        public string txtFiltroDirector {
+            get { return txtDirector; }
+            set { txtDirector = value; NotifyPropertyChanged(nameof(txtFiltroDirector)); }
+        }
+
+        public string txtFiltroDistribuidora {
+            get { return txtDistribuidora; }
+            set { txtDistribuidora = value; NotifyPropertyChanged(nameof(txtFiltroDistribuidora)); }
+        }
+
+        public string txtFiltroDesarrolladora {
+            get { return txtDesarrolladora; }
+            set { txtDesarrolladora = value; NotifyPropertyChanged(nameof(txtFiltroDesarrolladora)); }
+        }
+
+        public bool chkFiltroMultijugador {
+            get { return chkMultijugador; }
+            set {
+                chkMultijugador = value;
+                if (chkMultijugador) byteMultijugador = 1;
+                else byteMultijugador = 0;
+                NotifyPropertyChanged(nameof(chkFiltroMultijugador));
+            }
         }
 
         // Methods ***************************************************************************************************
@@ -225,11 +294,41 @@ namespace videoclub_project.MVVM {
             if (!string.IsNullOrEmpty(txtFiltroTitulo)) {
                 criterios.Add(criterioTitulo);
             }
+            if (fechaFinFiltro >= fechaFiltro) {
+                criterios.Add(criterioFecha);
+            }
+            if (!string.IsNullOrEmpty(txtFiltroActor)) {
+                criterios.Add(criterioActor);
+            }
+            if (!string.IsNullOrEmpty(txtFiltroDirector)) {
+                criterios.Add(criterioDirector);
+            }
+            if (!string.IsNullOrEmpty(txtFiltroDistribuidora)) {
+                criterios.Add(criterioDistribuidora);
+            }
+            if (!string.IsNullOrEmpty(txtFiltroDesarrolladora)) {
+                criterios.Add(criterioDesarrolladora);
+            }
+            if (chkFiltroMultijugador) {
+                criterios.Add(criterioMultijugador);
+            }
+
         }
 
         public void borrarCriterios() {
             generoSelected = null;
             txtFiltroTitulo = null;
+
+            txtFiltroActor = null;
+            txtFiltroDirector = null;
+
+            txtFiltroDistribuidora = null;
+            txtFiltroDesarrolladora = null;
+            chkFiltroMultijugador = false;
+
+            fechaFiltro = servProd.getFirstDate();
+            fechaFinFiltro = servProd.getLastDate();
+
             criterios.Clear();
         }
     }

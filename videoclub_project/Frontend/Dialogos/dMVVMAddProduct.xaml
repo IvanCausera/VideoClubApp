@@ -310,7 +310,7 @@
                            Text="Multijugador: "
                            Grid.Row="2" Grid.Column="0"/>
                 
-                <CheckBox x:Name="chkMultijugador" Style="{StaticResource MaterialDesignSwitchToggleButton}"
+                <CheckBox x:Name="chkMultijugador" Style="{StaticResource MaterialDesignCheckBox}"
                           mat:HintAssist.Hint="Multijugador"
                           Margin="0,5,75,0"
                           Grid.Row="2" Grid.Column="1"
