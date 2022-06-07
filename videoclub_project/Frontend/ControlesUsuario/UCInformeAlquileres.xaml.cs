@@ -28,7 +28,6 @@ namespace videoclub_project.Frontend.ControlesUsuario {
         private MVAlquiler mAlquiler;
 
         private string SQL_QUERY;
-        private List<MySqlParameter> parametros;
 
         public UCInformeAlquileres(videoclubEntities ent) {
             InitializeComponent();
@@ -47,17 +46,6 @@ namespace videoclub_project.Frontend.ControlesUsuario {
             // Obtenemos el servicio asociado
             ServicioSQL sqlServ = new ServicioSQL();
 
-            cargaParametros();
-
-            // Rellenamos la fuente de datos del informe con los datos
-            // que obtenemos del servicio SQL mediante el método getDatos
-            // al cual le pasamos la sentencia SQL
-            rd.SetDataSource(sqlServ.getDatos(SQL_QUERY, parametros));
-            // Rellenamos los datos del informe
-            crvInformeUsuarios.ViewerCore.ReportSource = rd;
-        }
-
-        private void cargaParametros() {
             SQL_QUERY = "select CONCAT(usu.nombre, ' ', usu.apellido1, ' ', ifnull(usu.apellido2, '')) AS nombreCompleto, alq.fecha, alq.fecha_devolucion, tipo.nombre AS tipoAlquiler, tipo.duracion, tipo.precio, tipo.recargo, prod.titulo, ifnull(plataformas.plataforma, formatos.formato) AS formato from alquileres alq " +
                 "inner join tipo_alquiler tipo on alq.id_tipo_alquiler = tipo.idTipo_alquiler" +
                 " inner join cliente cli on alq.id_cliente = cli.idCliente" +
@@ -72,27 +60,13 @@ namespace videoclub_project.Frontend.ControlesUsuario {
                 " left join peliculas peli on form.id_pelicula = peli.idPeliculas" +
                 " left join productos prod on prod.idProductos = vid.idVideojuegos or prod.idProductos = peli.idPeliculas " +
                 " WHERE 1 = 1";
-            /*
-            parametros = new List<MySqlParameter>();
 
-           if (mUser.usuarioNuevo != null) {
-               MySqlParameter paramUsu = new MySqlParameter();
-               paramUsu.ParameterName = "usu";
-
-               paramUsu.Value = ((usuario)mvUsu.usuarioNuevo).idusuario;
-               SQL_QUERY += " AND u.idusuario = @usu";
-               parametros.Add(paramUsu);
-           }
-
-           if (mvUsu.mesSeleccionado != 0) {
-               MySqlParameter paramMes = new MySqlParameter();
-               paramMes.ParameterName = "mes";
-
-               paramMes.Value = mvUsu.mesSeleccionado;
-               SQL_QUERY += " AND MONTH(s.fechasalida) = @mes";
-               parametros.Add(paramMes);
-           }
-           */
+            // Rellenamos la fuente de datos del informe con los datos
+            // que obtenemos del servicio SQL mediante el método getDatos
+            // al cual le pasamos la sentencia SQL
+            rd.SetDataSource(sqlServ.getDatos(SQL_QUERY));
+            // Rellenamos los datos del informe
+            crvInformeAlquileres.ViewerCore.ReportSource = rd;
         }
     }
 }

@@ -109,7 +109,7 @@ namespace videoclub_project.Frontend.Dialogos {
                 msgThrow("ERROR!!! Hay campos obligatorios sin completar", false, false);
                 return;
             }
-            return;
+
             bool result;
             if (editar) {
                 result = mAlquiler.editar();

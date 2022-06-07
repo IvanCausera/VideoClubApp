@@ -43,10 +43,17 @@
                         </fluent:Button.LargeIcon>
                     </fluent:Button>
 
-                    <fluent:Button Header="Listado" x:Name="rbtnListaProductos"
-                                   Click="rbtnListaProductos_Click">
+                    <fluent:Button Header="Listado Juegos" x:Name="rbtnListaProductosJuegos"
+                                   Click="rbtnListaProductosJuegos_Click">
                         <fluent:Button.LargeIcon>
-                            <mat:PackIcon Kind="Cards" Height="30" Width="30" Foreground="Gray"/>
+                            <mat:PackIcon Kind="Games" Height="30" Width="30" Foreground="Gray"/>
+                        </fluent:Button.LargeIcon>
+                    </fluent:Button>
+                    
+                    <fluent:Button Header="Listado Películas" x:Name="rbtnListaProductosPeliculas"
+                                   Click="rbtnListaProductosPeliculas_Click">
+                        <fluent:Button.LargeIcon>
+                            <mat:PackIcon Kind="Movie" Height="30" Width="30" Foreground="Gray"/>
                         </fluent:Button.LargeIcon>
                     </fluent:Button>
                 </fluent:RibbonGroupBox>
@@ -108,6 +115,20 @@
 
                     <fluent:Button Header="Alquileres" x:Name="rbtnInformeAlquileres"
                                    Click="rbtnInformeAlquileres_Click">
+                        <fluent:Button.LargeIcon>
+                            <mat:PackIcon Kind="FileChart" Height="30" Width="30" Foreground="Gray"/>
+                        </fluent:Button.LargeIcon>
+                    </fluent:Button>
+
+                    <fluent:Button Header="Alquileres Por Cliente" x:Name="rbtnInformeAlquileresPorUsuario"
+                                   Click="rbtnInformeAlquileresPorUsuario_Click">
+                        <fluent:Button.LargeIcon>
+                            <mat:PackIcon Kind="FileChart" Height="30" Width="30" Foreground="Gray"/>
+                        </fluent:Button.LargeIcon>
+                    </fluent:Button>
+
+                    <fluent:Button Header="Alquileres Por Devolver" x:Name="rbtnInformeAlquileresPorDevolver"
+                                   Click="rbtnInformeAlquileresPorDevolver_Click">
                         <fluent:Button.LargeIcon>
                             <mat:PackIcon Kind="FileChart" Height="30" Width="30" Foreground="Gray"/>
                         </fluent:Button.LargeIcon>

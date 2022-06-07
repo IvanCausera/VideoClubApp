@@ -2,5 +2,7 @@
 
 
     partial class DSUsuario {
+        partial class ClientesDataTableDataTable {
+        }
     }
 }

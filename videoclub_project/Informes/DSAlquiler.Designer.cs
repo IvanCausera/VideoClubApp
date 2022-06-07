@@ -26,6 +26,8 @@ namespace videoclub_project.Informes {
         
         private AlquilerDataTable tableAlquiler;
         
+        private AlquilerPorDevolverDataTable tableAlquilerPorDevolver;
+        
         private global::System.Data.SchemaSerializationMode _schemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -57,6 +59,9 @@ namespace videoclub_project.Informes {
                 if ((ds.Tables["Alquiler"] != null)) {
                     base.Tables.Add(new AlquilerDataTable(ds.Tables["Alquiler"]));
                 }
+                if ((ds.Tables["AlquilerPorDevolver"] != null)) {
+                    base.Tables.Add(new AlquilerPorDevolverDataTable(ds.Tables["AlquilerPorDevolver"]));
+                }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
                 this.Namespace = ds.Namespace;
@@ -82,6 +87,16 @@ namespace videoclub_project.Informes {
         public AlquilerDataTable Alquiler {
             get {
                 return this.tableAlquiler;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Browsable(false)]
+        [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
+        public AlquilerPorDevolverDataTable AlquilerPorDevolver {
+            get {
+                return this.tableAlquilerPorDevolver;
             }
         }
         
@@ -155,6 +170,9 @@ namespace videoclub_project.Informes {
                 if ((ds.Tables["Alquiler"] != null)) {
                     base.Tables.Add(new AlquilerDataTable(ds.Tables["Alquiler"]));
                 }
+                if ((ds.Tables["AlquilerPorDevolver"] != null)) {
+                    base.Tables.Add(new AlquilerPorDevolverDataTable(ds.Tables["AlquilerPorDevolver"]));
+                }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
                 this.Namespace = ds.Namespace;
@@ -194,6 +212,12 @@ namespace videoclub_project.Informes {
                     this.tableAlquiler.InitVars();
                 }
             }
+            this.tableAlquilerPorDevolver = ((AlquilerPorDevolverDataTable)(base.Tables["AlquilerPorDevolver"]));
+            if ((initTable == true)) {
+                if ((this.tableAlquilerPorDevolver != null)) {
+                    this.tableAlquilerPorDevolver.InitVars();
+                }
+            }
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -206,11 +230,19 @@ namespace videoclub_project.Informes {
             this.SchemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
             this.tableAlquiler = new AlquilerDataTable();
             base.Tables.Add(this.tableAlquiler);
+            this.tableAlquilerPorDevolver = new AlquilerPorDevolverDataTable();
+            base.Tables.Add(this.tableAlquilerPorDevolver);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         private bool ShouldSerializeAlquiler() {
+            return false;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        private bool ShouldSerializeAlquilerPorDevolver() {
             return false;
         }
         
@@ -272,6 +304,9 @@ namespace videoclub_project.Informes {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         public delegate void AlquilerRowChangeEventHandler(object sender, AlquilerRowChangeEvent e);
         
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        public delegate void AlquilerPorDevolverRowChangeEventHandler(object sender, AlquilerPorDevolverRowChangeEvent e);
+        
         /// <summary>
         ///Represents the strongly named DataTable class.
         ///</summary>
@@ -296,6 +331,8 @@ namespace videoclub_project.Informes {
             private global::System.Data.DataColumn columntitulo;
             
             private global::System.Data.DataColumn columnformato;
+            
+            private global::System.Data.DataColumn columnidCliente;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
@@ -404,6 +441,14 @@ namespace videoclub_project.Informes {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn idClienteColumn {
+                get {
+                    return this.columnidCliente;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -439,7 +484,7 @@ namespace videoclub_project.Informes {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public AlquilerRow AddAlquilerRow(string nombreCompleto, System.DateTime fecha, System.DateTime fecha_devolucion, string tipoAlquiler, int duracion, float precio, float recargo, string titulo, string formato) {
+            public AlquilerRow AddAlquilerRow(string nombreCompleto, System.DateTime fecha, System.DateTime fecha_devolucion, string tipoAlquiler, int duracion, float precio, float recargo, string titulo, string formato, int idCliente) {
                 AlquilerRow rowAlquilerRow = ((AlquilerRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         nombreCompleto,
@@ -450,10 +495,18 @@ namespace videoclub_project.Informes {
                         precio,
                         recargo,
                         titulo,
-                        formato};
+                        formato,
+                        idCliente};
                 rowAlquilerRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowAlquilerRow);
                 return rowAlquilerRow;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public AlquilerRow FindByidCliente(int idCliente) {
+                return ((AlquilerRow)(this.Rows.Find(new object[] {
+                            idCliente})));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -482,6 +535,7 @@ namespace videoclub_project.Informes {
                 this.columnrecargo = base.Columns["recargo"];
                 this.columntitulo = base.Columns["titulo"];
                 this.columnformato = base.Columns["formato"];
+                this.columnidCliente = base.Columns["idCliente"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -505,6 +559,10 @@ namespace videoclub_project.Informes {
                 base.Columns.Add(this.columntitulo);
                 this.columnformato = new global::System.Data.DataColumn("formato", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnformato);
+                this.columnidCliente = new global::System.Data.DataColumn("idCliente", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnidCliente);
+                this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
+                                this.columnidCliente}, true));
                 this.columnnombreCompleto.MaxLength = 62;
                 this.columntipoAlquiler.MaxLength = 10;
                 this.columnduracion.AllowDBNull = false;
@@ -512,6 +570,8 @@ namespace videoclub_project.Informes {
                 this.columnrecargo.AllowDBNull = false;
                 this.columntitulo.MaxLength = 30;
                 this.columnformato.MaxLength = 20;
+                this.columnidCliente.AllowDBNull = false;
+                this.columnidCliente.Unique = true;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -598,6 +658,397 @@ namespace videoclub_project.Informes {
                 global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
                 attribute2.Name = "tableTypeName";
                 attribute2.FixedValue = "AlquilerDataTable";
+                type.Attributes.Add(attribute2);
+                type.Particle = sequence;
+                global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
+                if (xs.Contains(dsSchema.TargetNamespace)) {
+                    global::System.IO.MemoryStream s1 = new global::System.IO.MemoryStream();
+                    global::System.IO.MemoryStream s2 = new global::System.IO.MemoryStream();
+                    try {
+                        global::System.Xml.Schema.XmlSchema schema = null;
+                        dsSchema.Write(s1);
+                        for (global::System.Collections.IEnumerator schemas = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator(); schemas.MoveNext(); ) {
+                            schema = ((global::System.Xml.Schema.XmlSchema)(schemas.Current));
+                            s2.SetLength(0);
+                            schema.Write(s2);
+                            if ((s1.Length == s2.Length)) {
+                                s1.Position = 0;
+                                s2.Position = 0;
+                                for (; ((s1.Position != s1.Length) 
+                                            && (s1.ReadByte() == s2.ReadByte())); ) {
+                                    ;
+                                }
+                                if ((s1.Position == s1.Length)) {
+                                    return type;
+                                }
+                            }
+                        }
+                    }
+                    finally {
+                        if ((s1 != null)) {
+                            s1.Close();
+                        }
+                        if ((s2 != null)) {
+                            s2.Close();
+                        }
+                    }
+                }
+                xs.Add(dsSchema);
+                return type;
+            }
+        }
+        
+        /// <summary>
+        ///Represents the strongly named DataTable class.
+        ///</summary>
+        [global::System.Serializable()]
+        [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
+        public partial class AlquilerPorDevolverDataTable : global::System.Data.TypedTableBase<AlquilerPorDevolverRow> {
+            
+            private global::System.Data.DataColumn columnnombreCompleto;
+            
+            private global::System.Data.DataColumn columnfecha;
+            
+            private global::System.Data.DataColumn columnfecha_devolucion;
+            
+            private global::System.Data.DataColumn columntipoAlquiler;
+            
+            private global::System.Data.DataColumn columnduracion;
+            
+            private global::System.Data.DataColumn columnprecio;
+            
+            private global::System.Data.DataColumn columnrecargo;
+            
+            private global::System.Data.DataColumn columntitulo;
+            
+            private global::System.Data.DataColumn columnformato;
+            
+            private global::System.Data.DataColumn columnidCliente;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public AlquilerPorDevolverDataTable() {
+                this.TableName = "AlquilerPorDevolver";
+                this.BeginInit();
+                this.InitClass();
+                this.EndInit();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            internal AlquilerPorDevolverDataTable(global::System.Data.DataTable table) {
+                this.TableName = table.TableName;
+                if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
+                    this.CaseSensitive = table.CaseSensitive;
+                }
+                if ((table.Locale.ToString() != table.DataSet.Locale.ToString())) {
+                    this.Locale = table.Locale;
+                }
+                if ((table.Namespace != table.DataSet.Namespace)) {
+                    this.Namespace = table.Namespace;
+                }
+                this.Prefix = table.Prefix;
+                this.MinimumCapacity = table.MinimumCapacity;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected AlquilerPorDevolverDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+                    base(info, context) {
+                this.InitVars();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn nombreCompletoColumn {
+                get {
+                    return this.columnnombreCompleto;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn fechaColumn {
+                get {
+                    return this.columnfecha;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn fecha_devolucionColumn {
+                get {
+                    return this.columnfecha_devolucion;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn tipoAlquilerColumn {
+                get {
+                    return this.columntipoAlquiler;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn duracionColumn {
+                get {
+                    return this.columnduracion;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn precioColumn {
+                get {
+                    return this.columnprecio;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn recargoColumn {
+                get {
+                    return this.columnrecargo;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn tituloColumn {
+                get {
+                    return this.columntitulo;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn formatoColumn {
+                get {
+                    return this.columnformato;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn idClienteColumn {
+                get {
+                    return this.columnidCliente;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            [global::System.ComponentModel.Browsable(false)]
+            public int Count {
+                get {
+                    return this.Rows.Count;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public AlquilerPorDevolverRow this[int index] {
+                get {
+                    return ((AlquilerPorDevolverRow)(this.Rows[index]));
+                }
+            }
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public event AlquilerPorDevolverRowChangeEventHandler AlquilerPorDevolverRowChanging;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public event AlquilerPorDevolverRowChangeEventHandler AlquilerPorDevolverRowChanged;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public event AlquilerPorDevolverRowChangeEventHandler AlquilerPorDevolverRowDeleting;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public event AlquilerPorDevolverRowChangeEventHandler AlquilerPorDevolverRowDeleted;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void AddAlquilerPorDevolverRow(AlquilerPorDevolverRow row) {
+                this.Rows.Add(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public AlquilerPorDevolverRow AddAlquilerPorDevolverRow(string nombreCompleto, System.DateTime fecha, System.DateTime fecha_devolucion, string tipoAlquiler, int duracion, float precio, float recargo, string titulo, string formato, int idCliente) {
+                AlquilerPorDevolverRow rowAlquilerPorDevolverRow = ((AlquilerPorDevolverRow)(this.NewRow()));
+                object[] columnValuesArray = new object[] {
+                        nombreCompleto,
+                        fecha,
+                        fecha_devolucion,
+                        tipoAlquiler,
+                        duracion,
+                        precio,
+                        recargo,
+                        titulo,
+                        formato,
+                        idCliente};
+                rowAlquilerPorDevolverRow.ItemArray = columnValuesArray;
+                this.Rows.Add(rowAlquilerPorDevolverRow);
+                return rowAlquilerPorDevolverRow;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public AlquilerPorDevolverRow FindByidCliente(int idCliente) {
+                return ((AlquilerPorDevolverRow)(this.Rows.Find(new object[] {
+                            idCliente})));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public override global::System.Data.DataTable Clone() {
+                AlquilerPorDevolverDataTable cln = ((AlquilerPorDevolverDataTable)(base.Clone()));
+                cln.InitVars();
+                return cln;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected override global::System.Data.DataTable CreateInstance() {
+                return new AlquilerPorDevolverDataTable();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            internal void InitVars() {
+                this.columnnombreCompleto = base.Columns["nombreCompleto"];
+                this.columnfecha = base.Columns["fecha"];
+                this.columnfecha_devolucion = base.Columns["fecha_devolucion"];
+                this.columntipoAlquiler = base.Columns["tipoAlquiler"];
+                this.columnduracion = base.Columns["duracion"];
+                this.columnprecio = base.Columns["precio"];
+                this.columnrecargo = base.Columns["recargo"];
+                this.columntitulo = base.Columns["titulo"];
+                this.columnformato = base.Columns["formato"];
+                this.columnidCliente = base.Columns["idCliente"];
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            private void InitClass() {
+                this.columnnombreCompleto = new global::System.Data.DataColumn("nombreCompleto", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnnombreCompleto);
+                this.columnfecha = new global::System.Data.DataColumn("fecha", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnfecha);
+                this.columnfecha_devolucion = new global::System.Data.DataColumn("fecha_devolucion", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnfecha_devolucion);
+                this.columntipoAlquiler = new global::System.Data.DataColumn("tipoAlquiler", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columntipoAlquiler);
+                this.columnduracion = new global::System.Data.DataColumn("duracion", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnduracion);
+                this.columnprecio = new global::System.Data.DataColumn("precio", typeof(float), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnprecio);
+                this.columnrecargo = new global::System.Data.DataColumn("recargo", typeof(float), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnrecargo);
+                this.columntitulo = new global::System.Data.DataColumn("titulo", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columntitulo);
+                this.columnformato = new global::System.Data.DataColumn("formato", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnformato);
+                this.columnidCliente = new global::System.Data.DataColumn("idCliente", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnidCliente);
+                this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
+                                this.columnidCliente}, true));
+                this.columnnombreCompleto.MaxLength = 62;
+                this.columntipoAlquiler.MaxLength = 28;
+                this.columnduracion.AllowDBNull = false;
+                this.columnprecio.AllowDBNull = false;
+                this.columnrecargo.AllowDBNull = false;
+                this.columntitulo.MaxLength = 30;
+                this.columnformato.MaxLength = 20;
+                this.columnidCliente.AllowDBNull = false;
+                this.columnidCliente.Unique = true;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public AlquilerPorDevolverRow NewAlquilerPorDevolverRow() {
+                return ((AlquilerPorDevolverRow)(this.NewRow()));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
+                return new AlquilerPorDevolverRow(builder);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected override global::System.Type GetRowType() {
+                return typeof(AlquilerPorDevolverRow);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanged(e);
+                if ((this.AlquilerPorDevolverRowChanged != null)) {
+                    this.AlquilerPorDevolverRowChanged(this, new AlquilerPorDevolverRowChangeEvent(((AlquilerPorDevolverRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanging(e);
+                if ((this.AlquilerPorDevolverRowChanging != null)) {
+                    this.AlquilerPorDevolverRowChanging(this, new AlquilerPorDevolverRowChangeEvent(((AlquilerPorDevolverRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleted(e);
+                if ((this.AlquilerPorDevolverRowDeleted != null)) {
+                    this.AlquilerPorDevolverRowDeleted(this, new AlquilerPorDevolverRowChangeEvent(((AlquilerPorDevolverRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleting(e);
+                if ((this.AlquilerPorDevolverRowDeleting != null)) {
+                    this.AlquilerPorDevolverRowDeleting(this, new AlquilerPorDevolverRowChangeEvent(((AlquilerPorDevolverRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void RemoveAlquilerPorDevolverRow(AlquilerPorDevolverRow row) {
+                this.Rows.Remove(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
+                global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
+                global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
+                DSAlquiler ds = new DSAlquiler();
+                global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
+                any1.Namespace = "http://www.w3.org/2001/XMLSchema";
+                any1.MinOccurs = new decimal(0);
+                any1.MaxOccurs = decimal.MaxValue;
+                any1.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any1);
+                global::System.Xml.Schema.XmlSchemaAny any2 = new global::System.Xml.Schema.XmlSchemaAny();
+                any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1";
+                any2.MinOccurs = new decimal(1);
+                any2.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any2);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute1 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute1.Name = "namespace";
+                attribute1.FixedValue = ds.Namespace;
+                type.Attributes.Add(attribute1);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute2.Name = "tableTypeName";
+                attribute2.FixedValue = "AlquilerPorDevolverDataTable";
                 type.Attributes.Add(attribute2);
                 type.Particle = sequence;
                 global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
@@ -783,6 +1234,17 @@ namespace videoclub_project.Informes {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public int idCliente {
+                get {
+                    return ((int)(this[this.tableAlquiler.idClienteColumn]));
+                }
+                set {
+                    this[this.tableAlquiler.idClienteColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public bool IsnombreCompletoNull() {
                 return this.IsNull(this.tableAlquiler.nombreCompletoColumn);
             }
@@ -855,6 +1317,236 @@ namespace videoclub_project.Informes {
         }
         
         /// <summary>
+        ///Represents strongly named DataRow class.
+        ///</summary>
+        public partial class AlquilerPorDevolverRow : global::System.Data.DataRow {
+            
+            private AlquilerPorDevolverDataTable tableAlquilerPorDevolver;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            internal AlquilerPorDevolverRow(global::System.Data.DataRowBuilder rb) : 
+                    base(rb) {
+                this.tableAlquilerPorDevolver = ((AlquilerPorDevolverDataTable)(this.Table));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string nombreCompleto {
+                get {
+                    try {
+                        return ((string)(this[this.tableAlquilerPorDevolver.nombreCompletoColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'nombreCompleto\' de la tabla \'AlquilerPorDevolver\' es DBNu" +
+                                "ll.", e);
+                    }
+                }
+                set {
+                    this[this.tableAlquilerPorDevolver.nombreCompletoColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public System.DateTime fecha {
+                get {
+                    try {
+                        return ((global::System.DateTime)(this[this.tableAlquilerPorDevolver.fechaColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'fecha\' de la tabla \'AlquilerPorDevolver\' es DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableAlquilerPorDevolver.fechaColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public System.DateTime fecha_devolucion {
+                get {
+                    try {
+                        return ((global::System.DateTime)(this[this.tableAlquilerPorDevolver.fecha_devolucionColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'fecha_devolucion\' de la tabla \'AlquilerPorDevolver\' es DB" +
+                                "Null.", e);
+                    }
+                }
+                set {
+                    this[this.tableAlquilerPorDevolver.fecha_devolucionColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string tipoAlquiler {
+                get {
+                    try {
+                        return ((string)(this[this.tableAlquilerPorDevolver.tipoAlquilerColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'tipoAlquiler\' de la tabla \'AlquilerPorDevolver\' es DBNull" +
+                                ".", e);
+                    }
+                }
+                set {
+                    this[this.tableAlquilerPorDevolver.tipoAlquilerColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public int duracion {
+                get {
+                    return ((int)(this[this.tableAlquilerPorDevolver.duracionColumn]));
+                }
+                set {
+                    this[this.tableAlquilerPorDevolver.duracionColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public float precio {
+                get {
+                    return ((float)(this[this.tableAlquilerPorDevolver.precioColumn]));
+                }
+                set {
+                    this[this.tableAlquilerPorDevolver.precioColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public float recargo {
+                get {
+                    return ((float)(this[this.tableAlquilerPorDevolver.recargoColumn]));
+                }
+                set {
+                    this[this.tableAlquilerPorDevolver.recargoColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string titulo {
+                get {
+                    try {
+                        return ((string)(this[this.tableAlquilerPorDevolver.tituloColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'titulo\' de la tabla \'AlquilerPorDevolver\' es DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableAlquilerPorDevolver.tituloColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string formato {
+                get {
+                    try {
+                        return ((string)(this[this.tableAlquilerPorDevolver.formatoColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("El valor de la columna \'formato\' de la tabla \'AlquilerPorDevolver\' es DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableAlquilerPorDevolver.formatoColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public int idCliente {
+                get {
+                    return ((int)(this[this.tableAlquilerPorDevolver.idClienteColumn]));
+                }
+                set {
+                    this[this.tableAlquilerPorDevolver.idClienteColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsnombreCompletoNull() {
+                return this.IsNull(this.tableAlquilerPorDevolver.nombreCompletoColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetnombreCompletoNull() {
+                this[this.tableAlquilerPorDevolver.nombreCompletoColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsfechaNull() {
+                return this.IsNull(this.tableAlquilerPorDevolver.fechaColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetfechaNull() {
+                this[this.tableAlquilerPorDevolver.fechaColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool Isfecha_devolucionNull() {
+                return this.IsNull(this.tableAlquilerPorDevolver.fecha_devolucionColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void Setfecha_devolucionNull() {
+                this[this.tableAlquilerPorDevolver.fecha_devolucionColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IstipoAlquilerNull() {
+                return this.IsNull(this.tableAlquilerPorDevolver.tipoAlquilerColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SettipoAlquilerNull() {
+                this[this.tableAlquilerPorDevolver.tipoAlquilerColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IstituloNull() {
+                return this.IsNull(this.tableAlquilerPorDevolver.tituloColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SettituloNull() {
+                this[this.tableAlquilerPorDevolver.tituloColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsformatoNull() {
+                return this.IsNull(this.tableAlquilerPorDevolver.formatoColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetformatoNull() {
+                this[this.tableAlquilerPorDevolver.formatoColumn] = global::System.Convert.DBNull;
+            }
+        }
+        
+        /// <summary>
         ///Row event argument class
         ///</summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
@@ -874,6 +1566,40 @@ namespace videoclub_project.Informes {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public AlquilerRow Row {
+                get {
+                    return this.eventRow;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataRowAction Action {
+                get {
+                    return this.eventAction;
+                }
+            }
+        }
+        
+        /// <summary>
+        ///Row event argument class
+        ///</summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        public class AlquilerPorDevolverRowChangeEvent : global::System.EventArgs {
+            
+            private AlquilerPorDevolverRow eventRow;
+            
+            private global::System.Data.DataRowAction eventAction;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public AlquilerPorDevolverRowChangeEvent(AlquilerPorDevolverRow row, global::System.Data.DataRowAction action) {
+                this.eventRow = row;
+                this.eventAction = action;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public AlquilerPorDevolverRow Row {
                 get {
                     return this.eventRow;
                 }
@@ -1022,6 +1748,7 @@ namespace videoclub_project.Informes.DSAlquilerTableAdapters {
             tableMapping.ColumnMappings.Add("recargo", "recargo");
             tableMapping.ColumnMappings.Add("titulo", "titulo");
             tableMapping.ColumnMappings.Add("formato", "formato");
+            tableMapping.ColumnMappings.Add("idCliente", "idCliente");
             this._adapter.TableMappings.Add(tableMapping);
         }
         
@@ -1038,7 +1765,7 @@ namespace videoclub_project.Informes.DSAlquilerTableAdapters {
             this._commandCollection = new global::MySql.Data.MySqlClient.MySqlCommand[1];
             this._commandCollection[0] = new global::MySql.Data.MySqlClient.MySqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = @"select CONCAT(usu.nombre, ' ', usu.apellido1, ' ', ifnull(usu.apellido2, '')) AS nombreCompleto, alq.fecha, alq.fecha_devolucion, tipo.nombre AS tipoAlquiler, tipo.duracion, tipo.precio, tipo.recargo, prod.titulo, ifnull(plataformas.plataforma, formatos.formato) AS formato from alquileres alq
+            this._commandCollection[0].CommandText = @"select CONCAT(usu.nombre, ' ', usu.apellido1, ' ', ifnull(usu.apellido2, '')) AS nombreCompleto, alq.fecha, alq.fecha_devolucion, tipo.nombre AS tipoAlquiler, tipo.duracion, tipo.precio, tipo.recargo, prod.titulo, ifnull(plataformas.plataforma, formatos.formato) AS formato, cli.idCliente from alquileres alq
  inner join tipo_alquiler tipo on alq.id_tipo_alquiler=tipo.idTipo_alquiler
  inner join cliente cli on alq.id_cliente=cli.idCliente
  inner join usuarios usu on usu.idUsuarios=cli.idCliente
@@ -1074,6 +1801,196 @@ namespace videoclub_project.Informes.DSAlquilerTableAdapters {
         public virtual DSAlquiler.AlquilerDataTable GetData() {
             this.Adapter.SelectCommand = this.CommandCollection[0];
             DSAlquiler.AlquilerDataTable dataTable = new DSAlquiler.AlquilerDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
+        }
+    }
+    
+    /// <summary>
+    ///Represents the connection and commands used to retrieve and save data.
+    ///</summary>
+    [global::System.ComponentModel.DesignerCategoryAttribute("code")]
+    [global::System.ComponentModel.ToolboxItem(true)]
+    [global::System.ComponentModel.DataObjectAttribute(true)]
+    [global::System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner" +
+        ", Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a")]
+    [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+    public partial class AlquilerPorDevolverTableAdapter : global::System.ComponentModel.Component {
+        
+        private global::MySql.Data.MySqlClient.MySqlDataAdapter _adapter;
+        
+        private global::MySql.Data.MySqlClient.MySqlConnection _connection;
+        
+        private global::MySql.Data.MySqlClient.MySqlTransaction _transaction;
+        
+        private global::MySql.Data.MySqlClient.MySqlCommand[] _commandCollection;
+        
+        private bool _clearBeforeFill;
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        public AlquilerPorDevolverTableAdapter() {
+            this.ClearBeforeFill = true;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        protected internal global::MySql.Data.MySqlClient.MySqlDataAdapter Adapter {
+            get {
+                if ((this._adapter == null)) {
+                    this.InitAdapter();
+                }
+                return this._adapter;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        internal global::MySql.Data.MySqlClient.MySqlConnection Connection {
+            get {
+                if ((this._connection == null)) {
+                    this.InitConnection();
+                }
+                return this._connection;
+            }
+            set {
+                this._connection = value;
+                if ((this.Adapter.InsertCommand != null)) {
+                    this.Adapter.InsertCommand.Connection = value;
+                }
+                if ((this.Adapter.DeleteCommand != null)) {
+                    this.Adapter.DeleteCommand.Connection = value;
+                }
+                if ((this.Adapter.UpdateCommand != null)) {
+                    this.Adapter.UpdateCommand.Connection = value;
+                }
+                for (int i = 0; (i < this.CommandCollection.Length); i = (i + 1)) {
+                    if ((this.CommandCollection[i] != null)) {
+                        ((global::MySql.Data.MySqlClient.MySqlCommand)(this.CommandCollection[i])).Connection = value;
+                    }
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        internal global::MySql.Data.MySqlClient.MySqlTransaction Transaction {
+            get {
+                return this._transaction;
+            }
+            set {
+                this._transaction = value;
+                for (int i = 0; (i < this.CommandCollection.Length); i = (i + 1)) {
+                    this.CommandCollection[i].Transaction = this._transaction;
+                }
+                if (((this.Adapter != null) 
+                            && (this.Adapter.DeleteCommand != null))) {
+                    this.Adapter.DeleteCommand.Transaction = this._transaction;
+                }
+                if (((this.Adapter != null) 
+                            && (this.Adapter.InsertCommand != null))) {
+                    this.Adapter.InsertCommand.Transaction = this._transaction;
+                }
+                if (((this.Adapter != null) 
+                            && (this.Adapter.UpdateCommand != null))) {
+                    this.Adapter.UpdateCommand.Transaction = this._transaction;
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        protected global::MySql.Data.MySqlClient.MySqlCommand[] CommandCollection {
+            get {
+                if ((this._commandCollection == null)) {
+                    this.InitCommandCollection();
+                }
+                return this._commandCollection;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        public bool ClearBeforeFill {
+            get {
+                return this._clearBeforeFill;
+            }
+            set {
+                this._clearBeforeFill = value;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        private void InitAdapter() {
+            this._adapter = new global::MySql.Data.MySqlClient.MySqlDataAdapter();
+            global::System.Data.Common.DataTableMapping tableMapping = new global::System.Data.Common.DataTableMapping();
+            tableMapping.SourceTable = "Table";
+            tableMapping.DataSetTable = "AlquilerPorDevolver";
+            tableMapping.ColumnMappings.Add("nombreCompleto", "nombreCompleto");
+            tableMapping.ColumnMappings.Add("fecha", "fecha");
+            tableMapping.ColumnMappings.Add("fecha_devolucion", "fecha_devolucion");
+            tableMapping.ColumnMappings.Add("tipoAlquiler", "tipoAlquiler");
+            tableMapping.ColumnMappings.Add("duracion", "duracion");
+            tableMapping.ColumnMappings.Add("precio", "precio");
+            tableMapping.ColumnMappings.Add("recargo", "recargo");
+            tableMapping.ColumnMappings.Add("titulo", "titulo");
+            tableMapping.ColumnMappings.Add("formato", "formato");
+            tableMapping.ColumnMappings.Add("idCliente", "idCliente");
+            this._adapter.TableMappings.Add(tableMapping);
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        private void InitConnection() {
+            this._connection = new global::MySql.Data.MySqlClient.MySqlConnection();
+            this._connection.ConnectionString = global::videoclub_project.Properties.Settings.Default.videoclubConnectionString;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        private void InitCommandCollection() {
+            this._commandCollection = new global::MySql.Data.MySqlClient.MySqlCommand[1];
+            this._commandCollection[0] = new global::MySql.Data.MySqlClient.MySqlCommand();
+            this._commandCollection[0].Connection = this.Connection;
+            this._commandCollection[0].CommandText = @"select CONCAT(usu.nombre, ' ', usu.apellido1, ' ', ifnull(usu.apellido2, '')) AS nombreCompleto, alq.fecha, alq.fecha_devolucion, tipo.nombre AS tipoAlquiler, tipo.duracion, tipo.precio, tipo.recargo, prod.titulo, ifnull(plataformas.plataforma, formatos.formato) AS formato, cli.idCliente 
+ from alquileres alq
+ inner join tipo_alquiler tipo on alq.id_tipo_alquiler=tipo.idTipo_alquiler
+ inner join cliente cli on alq.id_cliente=cli.idCliente
+ inner join usuarios usu on usu.idUsuarios=cli.idCliente
+ inner join productos_alquiler prodAlq on alq.idAlquileres=prodAlq.id_alquiler
+ inner join item on prodAlq.id_producto=item.idItem
+ left join plataformas_videojuegos plat on item.idItem = plat.id
+ left join plataformas on plataformas.idPlataformas=plat.id_plataforma
+ left join formatos_peliculas form on item.idItem = form.id
+ left join formatos on formatos.idFormatos=form.id_formato
+ left join videojuegos vid on plat.id_videojuego=vid.idVideojuegos
+ left join peliculas peli on form.id_pelicula=peli.idPeliculas
+ left join productos prod on prod.idProductos=vid.idVideojuegos or prod.idProductos=peli.idPeliculas
+ where alq.fecha_devolucion is null";
+            this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, true)]
+        public virtual int Fill(DSAlquiler.AlquilerPorDevolverDataTable dataTable) {
+            this.Adapter.SelectCommand = this.CommandCollection[0];
+            if ((this.ClearBeforeFill == true)) {
+                dataTable.Clear();
+            }
+            int returnValue = this.Adapter.Fill(dataTable);
+            return returnValue;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
+        public virtual DSAlquiler.AlquilerPorDevolverDataTable GetData() {
+            this.Adapter.SelectCommand = this.CommandCollection[0];
+            DSAlquiler.AlquilerPorDevolverDataTable dataTable = new DSAlquiler.AlquilerPorDevolverDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
         }

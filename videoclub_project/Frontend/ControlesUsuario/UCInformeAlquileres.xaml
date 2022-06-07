@@ -14,7 +14,7 @@
         </Grid>
 
         <Grid>
-            <sap:CrystalReportsViewer x:Name="crvInformeUsuarios"/>
+            <sap:CrystalReportsViewer x:Name="crvInformeAlquileres"/>
         </Grid>
     </DockPanel>
 </UserControl>

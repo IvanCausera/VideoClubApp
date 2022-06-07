@@ -9,10 +9,10 @@
         <Tables>
           <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="AlquilerTableAdapter" GeneratorDataComponentClassName="AlquilerTableAdapter" Name="Alquiler" UserDataComponentName="AlquilerTableAdapter">
             <MainSource>
-              <DbSource ConnectionRef="videoclubConnectionString (Settings)" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+              <DbSource ConnectionRef="videoclubConnectionString (Settings)" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
                 <SelectCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
-                    <CommandText>select CONCAT(usu.nombre, ' ', usu.apellido1, ' ', ifnull(usu.apellido2, '')) AS nombreCompleto, alq.fecha, alq.fecha_devolucion, tipo.nombre AS tipoAlquiler, tipo.duracion, tipo.precio, tipo.recargo, prod.titulo, ifnull(plataformas.plataforma, formatos.formato) AS formato from alquileres alq
+                    <CommandText>select CONCAT(usu.nombre, ' ', usu.apellido1, ' ', ifnull(usu.apellido2, '')) AS nombreCompleto, alq.fecha, alq.fecha_devolucion, tipo.nombre AS tipoAlquiler, tipo.duracion, tipo.precio, tipo.recargo, prod.titulo, ifnull(plataformas.plataforma, formatos.formato) AS formato, cli.idCliente from alquileres alq
  inner join tipo_alquiler tipo on alq.id_tipo_alquiler=tipo.idTipo_alquiler
  inner join cliente cli on alq.id_cliente=cli.idCliente
  inner join usuarios usu on usu.idUsuarios=cli.idCliente
@@ -40,6 +40,46 @@
               <Mapping SourceColumn="recargo" DataSetColumn="recargo" />
               <Mapping SourceColumn="titulo" DataSetColumn="titulo" />
               <Mapping SourceColumn="formato" DataSetColumn="formato" />
+              <Mapping SourceColumn="idCliente" DataSetColumn="idCliente" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="AlquilerPorDevolverTableAdapter" GeneratorDataComponentClassName="AlquilerPorDevolverTableAdapter" Name="AlquilerPorDevolver" UserDataComponentName="AlquilerPorDevolverTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="videoclubConnectionString (Settings)" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>select CONCAT(usu.nombre, ' ', usu.apellido1, ' ', ifnull(usu.apellido2, '')) AS nombreCompleto, alq.fecha, alq.fecha_devolucion, tipo.nombre AS tipoAlquiler, tipo.duracion, tipo.precio, tipo.recargo, prod.titulo, ifnull(plataformas.plataforma, formatos.formato) AS formato, cli.idCliente 
+ from alquileres alq
+ inner join tipo_alquiler tipo on alq.id_tipo_alquiler=tipo.idTipo_alquiler
+ inner join cliente cli on alq.id_cliente=cli.idCliente
+ inner join usuarios usu on usu.idUsuarios=cli.idCliente
+ inner join productos_alquiler prodAlq on alq.idAlquileres=prodAlq.id_alquiler
+ inner join item on prodAlq.id_producto=item.idItem
+ left join plataformas_videojuegos plat on item.idItem = plat.id
+ left join plataformas on plataformas.idPlataformas=plat.id_plataforma
+ left join formatos_peliculas form on item.idItem = form.id
+ left join formatos on formatos.idFormatos=form.id_formato
+ left join videojuegos vid on plat.id_videojuego=vid.idVideojuegos
+ left join peliculas peli on form.id_pelicula=peli.idPeliculas
+ left join productos prod on prod.idProductos=vid.idVideojuegos or prod.idProductos=peli.idPeliculas
+ where alq.fecha_devolucion is null</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="nombreCompleto" DataSetColumn="nombreCompleto" />
+              <Mapping SourceColumn="fecha" DataSetColumn="fecha" />
+              <Mapping SourceColumn="fecha_devolucion" DataSetColumn="fecha_devolucion" />
+              <Mapping SourceColumn="tipoAlquiler" DataSetColumn="tipoAlquiler" />
+              <Mapping SourceColumn="duracion" DataSetColumn="duracion" />
+              <Mapping SourceColumn="precio" DataSetColumn="precio" />
+              <Mapping SourceColumn="recargo" DataSetColumn="recargo" />
+              <Mapping SourceColumn="titulo" DataSetColumn="titulo" />
+              <Mapping SourceColumn="formato" DataSetColumn="formato" />
+              <Mapping SourceColumn="idCliente" DataSetColumn="idCliente" />
             </Mappings>
             <Sources />
           </TableAdapter>
@@ -87,10 +127,59 @@
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
+              <xs:element name="idCliente" msprop:Generator_ColumnVarNameInTable="columnidCliente" msprop:Generator_ColumnPropNameInRow="idCliente" msprop:Generator_ColumnPropNameInTable="idClienteColumn" msprop:Generator_UserColumnName="idCliente" type="xs:int" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="AlquilerPorDevolver" msprop:Generator_TableClassName="AlquilerPorDevolverDataTable" msprop:Generator_TableVarName="tableAlquilerPorDevolver" msprop:Generator_TablePropName="AlquilerPorDevolver" msprop:Generator_RowDeletingName="AlquilerPorDevolverRowDeleting" msprop:Generator_RowChangingName="AlquilerPorDevolverRowChanging" msprop:Generator_RowEvHandlerName="AlquilerPorDevolverRowChangeEventHandler" msprop:Generator_RowDeletedName="AlquilerPorDevolverRowDeleted" msprop:Generator_UserTableName="AlquilerPorDevolver" msprop:Generator_RowChangedName="AlquilerPorDevolverRowChanged" msprop:Generator_RowEvArgName="AlquilerPorDevolverRowChangeEvent" msprop:Generator_RowClassName="AlquilerPorDevolverRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="nombreCompleto" msprop:Generator_ColumnVarNameInTable="columnnombreCompleto" msprop:Generator_ColumnPropNameInRow="nombreCompleto" msprop:Generator_ColumnPropNameInTable="nombreCompletoColumn" msprop:Generator_UserColumnName="nombreCompleto" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="62" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="fecha" msprop:Generator_ColumnVarNameInTable="columnfecha" msprop:Generator_ColumnPropNameInRow="fecha" msprop:Generator_ColumnPropNameInTable="fechaColumn" msprop:Generator_UserColumnName="fecha" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="fecha_devolucion" msprop:Generator_ColumnVarNameInTable="columnfecha_devolucion" msprop:Generator_ColumnPropNameInRow="fecha_devolucion" msprop:Generator_ColumnPropNameInTable="fecha_devolucionColumn" msprop:Generator_UserColumnName="fecha_devolucion" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="tipoAlquiler" msprop:Generator_ColumnVarNameInTable="columntipoAlquiler" msprop:Generator_ColumnPropNameInRow="tipoAlquiler" msprop:Generator_ColumnPropNameInTable="tipoAlquilerColumn" msprop:Generator_UserColumnName="tipoAlquiler" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="28" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="duracion" msprop:Generator_ColumnVarNameInTable="columnduracion" msprop:Generator_ColumnPropNameInRow="duracion" msprop:Generator_ColumnPropNameInTable="duracionColumn" msprop:Generator_UserColumnName="duracion" type="xs:int" />
+              <xs:element name="precio" msprop:Generator_ColumnVarNameInTable="columnprecio" msprop:Generator_ColumnPropNameInRow="precio" msprop:Generator_ColumnPropNameInTable="precioColumn" msprop:Generator_UserColumnName="precio" type="xs:float" />
+              <xs:element name="recargo" msprop:Generator_ColumnVarNameInTable="columnrecargo" msprop:Generator_ColumnPropNameInRow="recargo" msprop:Generator_ColumnPropNameInTable="recargoColumn" msprop:Generator_UserColumnName="recargo" type="xs:float" />
+              <xs:element name="titulo" msprop:Generator_ColumnVarNameInTable="columntitulo" msprop:Generator_ColumnPropNameInRow="titulo" msprop:Generator_ColumnPropNameInTable="tituloColumn" msprop:Generator_UserColumnName="titulo" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="30" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="formato" msprop:Generator_ColumnVarNameInTable="columnformato" msprop:Generator_ColumnPropNameInRow="formato" msprop:Generator_ColumnPropNameInTable="formatoColumn" msprop:Generator_UserColumnName="formato" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="20" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="idCliente" msprop:Generator_ColumnVarNameInTable="columnidCliente" msprop:Generator_ColumnPropNameInRow="idCliente" msprop:Generator_ColumnPropNameInTable="idClienteColumn" msprop:Generator_UserColumnName="idCliente" type="xs:int" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
       </xs:choice>
     </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:Alquiler" />
+      <xs:field xpath="mstns:idCliente" />
+    </xs:unique>
+    <xs:unique name="AlquilerPorDevolver_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:AlquilerPorDevolver" />
+      <xs:field xpath="mstns:idCliente" />
+    </xs:unique>
   </xs:element>
 </xs:schema>
