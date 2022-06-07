@@ -61,7 +61,7 @@
                          Grid.Row="1"
                          Grid.ColumnSpan="3"
                          ItemsSource="{Binding listClientes}"
-                         SelectedItem="{Binding alqSelected.cliente}"/>
+                         SelectedItem="{Binding alqSelected.cliente, NotifyOnValidationError=True,ValidatesOnDataErrors=True}"/>
                 
                 <!--Fecha Alquiler-->
                 <DatePicker x:Name="dateAlquiler" Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
@@ -98,7 +98,7 @@
                          Grid.Row="3"
                          Grid.ColumnSpan="3"
                          ItemsSource="{Binding listTipoAlquiler}"
-                         SelectedItem="{Binding alqSelected.tipo_alquiler}"/>
+                         SelectedItem="{Binding alqSelected.tipo_alquiler, NotifyOnValidationError=True,ValidatesOnDataErrors=True}"/>
             </Grid>
 
             <!--Datos Usuario-->

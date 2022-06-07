@@ -7,7 +7,7 @@
         xmlns:mat="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:local="clr-namespace:videoclub_project.Frontend.Dialogos"
         mc:Ignorable="d"
-        Title="Insertar Usuario" SizeToContent="Height" Width="800">
+        Title="Insertar Usuario" SizeToContent="Height" Width="850">
     <DockPanel>
         <Grid DockPanel.Dock="Top">
             <Grid.RowDefinitions>
@@ -176,19 +176,19 @@
                          Grid.Row="3"
                          DisplayMemberPath="rol" SelectionChanged="comboRol_SelectionChanged"
                          ItemsSource="{Binding listRoles}"
-                         SelectedItem="{Binding usuSelected.roles}"/>
+                         SelectedItem="{Binding usuSelected.roles, NotifyOnValidationError=True,ValidatesOnDataErrors=True}"/>
 
                 <!--Empleados/Administrador-->
                 <!--Salario-->
                 <TextBox x:Name="txtSalario" Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                         mat:HintAssist.Hint="Salario*" FontWeight="Bold"
+                         mat:HintAssist.Hint="Salario"
                          Margin="10"
                          MinWidth="100" MaxWidth="1000"
                          Grid.Row="3" Grid.Column="1"
                          Text="{Binding emplSelected.salario, NotifyOnValidationError=True,ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
                 <!--Cuanta Banco-->
                 <TextBox x:Name="txtBanco" Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                         mat:HintAssist.Hint="Cuenta Banco*" MaxLength="24" FontWeight="Bold"
+                         mat:HintAssist.Hint="Cuenta Banco" MaxLength="24"
                          Margin="10"
                          MinWidth="100" MaxWidth="1000"
                          Grid.Row="3" Grid.Column="2"
@@ -197,7 +197,7 @@
                 <!--Clientes-->
                 <!--Nuemro Tarjeta-->
                 <TextBox x:Name="txtNTarjeta" Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                         mat:HintAssist.Hint="Número de Tarjeta*" MaxLength="25" FontWeight="Bold"
+                         mat:HintAssist.Hint="Número de Tarjeta" MaxLength="25"
                          Margin="10"
                          MinWidth="100" MaxWidth="1000"
                          Grid.Row="3" Grid.Column="1"

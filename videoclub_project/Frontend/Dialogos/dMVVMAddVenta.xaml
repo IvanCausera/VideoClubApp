@@ -58,7 +58,7 @@
                          MinWidth="100" MaxWidth="1000"
                          Grid.Row="1"
                          ItemsSource="{Binding listClientes}"
-                         SelectedItem="{Binding ventaSelected.cliente}"/>
+                         SelectedItem="{Binding ventaSelected.cliente, NotifyOnValidationError=True,ValidatesOnDataErrors=True}"/>
 
                 <!--Fecha Venta-->
                 <DatePicker x:Name="dateVenta" Style="{StaticResource MaterialDesignFloatingHintDatePicker}"

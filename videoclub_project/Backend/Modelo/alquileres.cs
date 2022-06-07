@@ -11,9 +11,10 @@ namespace videoclub_project.Backend.Modelo
 {
     using System;
     using System.Collections.Generic;
-    
-    public partial class alquileres
-    {
+    using System.ComponentModel.DataAnnotations;
+    using videoclub_project.MVVM;
+
+    public partial class alquileres : PropertyChangedDataError {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public alquileres()
         {
@@ -22,6 +23,8 @@ namespace videoclub_project.Backend.Modelo
     
         public int idAlquileres { get; set; }
         public int id_cliente { get; set; }
+
+        [Required(ErrorMessage = "Fecha obligatorio")]
         public Nullable<System.DateTime> fecha { get; set; }
         public Nullable<System.DateTime> fecha_devolucion { get; set; }
         public int id_tipo_alquiler { get; set; }
@@ -29,7 +32,11 @@ namespace videoclub_project.Backend.Modelo
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<productos_alquiler> productos_alquiler { get; set; }
+
+        [Required(ErrorMessage = "Cliente obligatorio")]
         public virtual cliente cliente { get; set; }
+
+        [Required(ErrorMessage = "Tipo Alquiler obligatorio")]
         public virtual tipo_alquiler tipo_alquiler { get; set; }
 
         public override string ToString() {

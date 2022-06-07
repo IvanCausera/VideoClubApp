@@ -11,9 +11,9 @@ namespace videoclub_project.Backend.Modelo
 {
     using System;
     using System.Collections.Generic;
-    
-    public partial class videojuegos
-    {
+    using videoclub_project.MVVM;
+
+    public partial class videojuegos : PropertyChangedDataError {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public videojuegos()
         {

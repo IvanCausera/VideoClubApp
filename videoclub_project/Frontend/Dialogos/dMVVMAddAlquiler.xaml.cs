@@ -99,9 +99,17 @@ namespace videoclub_project.Frontend.Dialogos {
 
             uProductosAlquiler = new UCProductosAlquiler(mAlquiler);
             gridItems.Children.Add(uProductosAlquiler);
+
+            this.AddHandler(Validation.ErrorEvent, new RoutedEventHandler(mAlquiler.OnErrorEvent));
+            mAlquiler.btnGuardar = btnGuardar;
         }
 
         private void btnGuardar_Click(object sender, RoutedEventArgs e) {
+            if (!mAlquiler.IsValid(this)) {
+                msgThrow("ERROR!!! Hay campos obligatorios sin completar", false, false);
+                return;
+            }
+            return;
             bool result;
             if (editar) {
                 result = mAlquiler.editar();

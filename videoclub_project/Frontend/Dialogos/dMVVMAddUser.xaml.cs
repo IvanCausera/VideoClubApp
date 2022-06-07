@@ -69,6 +69,9 @@ namespace videoclub_project.Frontend.Dialogos {
             txtSalario.Visibility = Visibility.Hidden;
             txtBanco.Visibility = Visibility.Hidden;
             txtNTarjeta.Visibility = Visibility.Hidden;
+
+            this.AddHandler(Validation.ErrorEvent, new RoutedEventHandler(mUser.OnErrorEvent));
+            mUser.btnGuardar = btnGuardar;
         }
 
         private void comboRol_SelectionChanged(object sender, SelectionChangedEventArgs e) {
@@ -88,27 +91,33 @@ namespace videoclub_project.Frontend.Dialogos {
         }
 
         private void btnGuardar_Click(object sender, RoutedEventArgs e) {
+            if (!mUser.IsValid(this)) {
+                msgThrow("ERROR!!! Hay campos obligatorios sin completar", false, false);
+                return;
+            }
+
             if (!setPassword()) {
                 msgThrow("ERROR!!! La contraseña tiene que contener: Nº, letra, alfanumérico", false, false);
+                return;
+            }
+
+            // -----------------
+            setDireccion();
+            bool result;
+            if (empleado) {
+                mUser.cliSelected = null;
+            } else mUser.emplSelected = null;
+
+            if (editar) {
+                result = mUser.editar();
             } else {
-                // -----------------
-                setDireccion();
-                bool result;
-                if (empleado) {
-                    mUser.cliSelected = null;
-                } else mUser.emplSelected = null;
+                result = mUser.guardar();
+            }
 
-                if (editar) {
-                    result = mUser.editar();
-                } else {
-                    result = mUser.guardar();
-                }
-
-                if (result) {
-                    msgThrow("TODO CORRECTO!!! Objeto guardado correctamente", true, true);
-                } else {
-                    msgThrow("ERROR!!! No se puede guardar el objeto", true, false);
-                }
+            if (result) {
+                msgThrow("TODO CORRECTO!!! Objeto guardado correctamente", true, true);
+            } else {
+                msgThrow("ERROR!!! No se puede guardar el objeto", true, false);
             }
         }
 

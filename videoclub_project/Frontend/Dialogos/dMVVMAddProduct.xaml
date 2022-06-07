@@ -142,7 +142,7 @@
                          Grid.Row="4" Grid.Column="2"
                          DisplayMemberPath="genero"
                          ItemsSource="{Binding listGeneros}"
-                         SelectedItem="{Binding prodSelected.generos}"/>
+                         SelectedItem="{Binding prodSelected.generos, NotifyOnValidationError=True,ValidatesOnDataErrors=True}"/>
 
                 <!--Idioma-->
                 <ComboBox x:Name="comboIdioma" Style="{StaticResource MaterialDesignFloatingHintComboBox}"
@@ -153,7 +153,7 @@
                          Grid.Row="5" Grid.Column="1"
                          DisplayMemberPath="idioma"
                          ItemsSource="{Binding listIdiomas}"
-                         SelectedItem="{Binding prodSelected.idiomas}"/>
+                         SelectedItem="{Binding prodSelected.idiomas, NotifyOnValidationError=True,ValidatesOnDataErrors=True}"/>
 
                 <!--Idioma-->
                 <ComboBox x:Name="comboIdiomaDoblado" Style="{StaticResource MaterialDesignFloatingHintComboBox}"
@@ -164,7 +164,7 @@
                          Grid.Row="5" Grid.Column="2"
                           DisplayMemberPath="idioma"
                          ItemsSource="{Binding listIdiomas}"
-                         SelectedItem="{Binding prodSelected.idiomas1}"/>
+                         SelectedItem="{Binding prodSelected.idiomas1, NotifyOnValidationError=True,ValidatesOnDataErrors=True}"/>
 
             </Grid>
             
@@ -202,7 +202,7 @@
                 
                 <!--Director-->
                 <TextBox x:Name="txtDirector" Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                         mat:HintAssist.Hint="Director*" FontWeight="Bold" MaxLength="30"
+                         mat:HintAssist.Hint="Director" MaxLength="30"
                          Margin="10"
                          MinWidth="100" MaxWidth="1000"
                          Height="38"
@@ -212,7 +212,7 @@
                 
                 <!--Pais-->
                 <TextBox x:Name="txtPais" Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                         mat:HintAssist.Hint="Pais*" FontWeight="Bold" MaxLength="30"
+                         mat:HintAssist.Hint="Pais" MaxLength="30"
                          Margin="10"
                          MinWidth="100" MaxWidth="1000"
                          Height="38"
@@ -304,6 +304,18 @@
                          Height="38"
                          Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2"
                          Text="{Binding prodSelected.videojuegos.desarrolladora, NotifyOnValidationError=True,ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
+
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="txtMultijugador"
+                           Margin="40,0,0,0" FontSize="15"
+                           Text="Multijugador: "
+                           Grid.Row="2" Grid.Column="0"/>
+                
+                <CheckBox x:Name="chkMultijugador" Style="{StaticResource MaterialDesignSwitchToggleButton}"
+                          mat:HintAssist.Hint="Multijugador"
+                          Margin="0,5,75,0"
+                          Grid.Row="2" Grid.Column="1"
+                          Checked="chkMultijugador_Checked"
+                          Unchecked="chkMultijugador_Unchecked"/>
 
                 <Grid x:Name="gridLeft"
                       Grid.Row="4" Grid.Column="0"

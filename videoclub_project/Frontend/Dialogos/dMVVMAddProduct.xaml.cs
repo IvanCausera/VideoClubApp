@@ -71,6 +71,7 @@ namespace videoclub_project.Frontend.Dialogos {
                 changeLayout(PELICULA);
             } else {
                 changeLayout(VIDEOJUEGO);
+                if (mProduct.prodSelected.videojuegos.multijugador == 1) chkMultijugador.IsChecked = true;
             }
 
             if (ver) {
@@ -97,6 +98,9 @@ namespace videoclub_project.Frontend.Dialogos {
 
             showVideojuegos(false);
             showPelicula(true);
+
+            this.AddHandler(Validation.ErrorEvent, new RoutedEventHandler(mProduct.OnErrorEvent));
+            mProduct.btnGuardar = btnGuardar;
         }
 
         private void btnPortada_Click(object sender, RoutedEventArgs e) {
@@ -113,6 +117,11 @@ namespace videoclub_project.Frontend.Dialogos {
         }
 
         private void btnGuardar_Click(object sender, RoutedEventArgs e) {
+            if (!mProduct.IsValid(this)) {
+                msgThrow("ERROR!!! Hay campos obligatorios sin completar", false, false);
+                return;
+            }
+
             if (portada != null) {
                 string portadaNombre = txtTitulo.Text + ".png";
                 saveImage(portada, "../../Recursos/img/productos/" + portadaNombre);
@@ -231,10 +240,14 @@ namespace videoclub_project.Frontend.Dialogos {
                 txtDistribuidora.Visibility = Visibility.Visible;
                 txtDesarrolladora.Visibility = Visibility.Visible;
                 comboPlataforma.Visibility = Visibility.Visible;
+                chkMultijugador.Visibility = Visibility.Visible;
+                txtMultijugador.Visibility = Visibility.Visible;
             } else {
                 txtDistribuidora.Visibility = Visibility.Hidden;
                 txtDesarrolladora.Visibility = Visibility.Hidden;
                 comboPlataforma.Visibility = Visibility.Hidden;
+                chkMultijugador.Visibility = Visibility.Hidden;
+                txtMultijugador.Visibility = Visibility.Hidden;
             }
         }
         
@@ -274,6 +287,14 @@ namespace videoclub_project.Frontend.Dialogos {
             if (close) {
                 DialogResult = result;
             }
+        }
+
+        private void chkMultijugador_Checked(object sender, RoutedEventArgs e) {
+            mProduct.prodSelected.videojuegos.multijugador = 1;
+        }
+
+        private void chkMultijugador_Unchecked(object sender, RoutedEventArgs e) {
+            mProduct.prodSelected.videojuegos.multijugador = 0;
         }
     }
 }

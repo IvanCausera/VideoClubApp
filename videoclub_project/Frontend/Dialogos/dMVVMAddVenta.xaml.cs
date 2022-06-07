@@ -100,6 +100,9 @@ namespace videoclub_project.Frontend.Dialogos {
 
             uVentasProductos = new UCVentasProductos(mVenta);
             gridItems.Children.Add(uVentasProductos);
+
+            this.AddHandler(Validation.ErrorEvent, new RoutedEventHandler(mVenta.OnErrorEvent));
+            mVenta.btnGuardar = btnGuardar;
         }
 
         private void btnAddPelicula_Click(object sender, RoutedEventArgs e) {
@@ -126,7 +129,12 @@ namespace videoclub_project.Frontend.Dialogos {
             }
         }
 
-        private async void btnGuardar_Click(object sender, RoutedEventArgs e) {
+        private void btnGuardar_Click(object sender, RoutedEventArgs e) {
+            if (!mVenta.IsValid(this)) {
+                msgThrow("ERROR!!! Hay campos obligatorios sin completar", false, false);
+                return;
+            }
+
             bool result;
             if (editar) {
                 result = mVenta.editar();
