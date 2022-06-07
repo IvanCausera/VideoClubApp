@@ -91,6 +91,7 @@ namespace videoclub_project.Frontend.ControlesUsuario {
         private void btnClearFilter_Click(object sender, RoutedEventArgs e) {
             mAlquiler.borrarCriterios();
 
+            chkPorDevolver.IsChecked = false;
             comboFiltroArticulo.SelectedIndex = -1;
             comboFiltroCliente.SelectedIndex = -1;
             comboFiltroArticulo.Text = "Seleciona un Articulo";
@@ -102,6 +103,16 @@ namespace videoclub_project.Frontend.ControlesUsuario {
         private void filtrar() {
             mAlquiler.addCriterios();
             mAlquiler.listAlquileres.Filter = predAlquiler;
+        }
+
+        private void chkPorDevolver_Checked(object sender, RoutedEventArgs e) {
+            mAlquiler.chkFiltroPorDevolver = true;
+            filtrar();
+        }
+
+        private void chkPorDevolver_Unchecked(object sender, RoutedEventArgs e) {
+            mAlquiler.chkFiltroPorDevolver = false;
+            filtrar();
         }
     }
 }

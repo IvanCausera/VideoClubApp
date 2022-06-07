@@ -53,10 +53,10 @@
                       Grid.Column="5"/>
             <Button x:Name="btnClearFilter" Click="btnClearFilter_Click"
                     Background="Transparent" BorderBrush="Transparent"
-                    Grid.Column="6" HorizontalAlignment="Left">
-                <mat:PackIcon Kind="FilterOff" Height="20" Width="20"/>
+                    Grid.Column="6" HorizontalAlignment="Right">
+                <mat:PackIcon Kind="FilterOff" Height="20" Width="20" Foreground="Orange"/>
             </Button>
-            <Separator Grid.Row="1" Grid.ColumnSpan="6"/>
+            <Separator Grid.Row="1" Grid.ColumnSpan="7"/>
         </Grid>
         <!--Lista-->
         <Grid>

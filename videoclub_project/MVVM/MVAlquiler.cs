@@ -17,6 +17,7 @@ namespace videoclub_project.MVVM {
 
         private cliente clienteSel;
         private item itemSel;
+        private bool chkPorDevolver;
 
         private ServicioAlquiler servAql;
 
@@ -26,6 +27,7 @@ namespace videoclub_project.MVVM {
         private List<Predicate<alquileres>> criterios;
         private Predicate<alquileres> criterioCliente;
         private Predicate<alquileres> criterioItem;
+        private Predicate<alquileres> criterioPorDevolver;
 
         // Constructor ***********************************************************************************************
         public MVAlquiler(videoclubEntities vidEnt) {
@@ -58,6 +60,7 @@ namespace videoclub_project.MVVM {
             criterios = new List<Predicate<alquileres>>();
             criterioCliente = new Predicate<alquileres>(a => a.id_cliente == clienteSelected.idCliente);
             criterioItem = new Predicate<alquileres>(v => eachItem(v.productos_alquiler));
+            criterioPorDevolver = new Predicate<alquileres>(v => v.fecha_devolucion == null);
         }
 
         private bool eachItem(IEnumerable<productos_alquiler> p) {
@@ -119,6 +122,11 @@ namespace videoclub_project.MVVM {
             set { itemSel = value; NotifyPropertyChanged(nameof(itemSel)); }
         }
 
+        public bool chkFiltroPorDevolver {
+            get { return chkPorDevolver; }
+            set { chkPorDevolver = value; NotifyPropertyChanged(nameof(chkFiltroPorDevolver)); }
+        }
+
         // Methods ***************************************************************************************************
 
         public bool deleteProductoAlquiler() {
@@ -169,11 +177,16 @@ namespace videoclub_project.MVVM {
             if (clienteSelected != null) {
                 criterios.Add(criterioCliente);
             }
+            if (chkFiltroPorDevolver) {
+                criterios.Add(criterioPorDevolver);
+            }
         }
 
         public void borrarCriterios() {
             itemSelected = null;
             clienteSelected = null;
+            chkFiltroPorDevolver = false;
+
             criterios.Clear();
         }
     }

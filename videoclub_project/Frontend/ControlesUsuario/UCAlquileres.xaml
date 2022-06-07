@@ -13,6 +13,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
@@ -22,34 +23,47 @@
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <TextBlock Text="Cliente: " x:Name="txtFiltroCliente"
-                       VerticalAlignment="Center" Margin="15, 0, 0, 0"
-                       Grid.Column="1"/>
-            <ComboBox x:Name="comboFiltroCliente" Margin="10, 0, 0, 0"
-                      VerticalAlignment="center" 
-                      IsEditable="True" Text="Seleciona un Cliente"
-                      ItemsSource="{Binding listClientes}"
-                      SelectedItem="{Binding clienteSelected}"
-                      SelectionChanged="comboFiltroCliente_SelectionChanged"
-                      Grid.Column="2"/>
-
             <TextBlock Text="Articulo: "
                        VerticalAlignment="Center" Margin="15, 0, 0, 0"
-                       Grid.Column="3"/>
+                       Grid.Column="0"/>
             <ComboBox x:Name="comboFiltroArticulo" Margin="10, 0, 0, 0"
                       VerticalAlignment="center" 
                       IsEditable="True" Text="Seleciona un Articulo"
                       ItemsSource="{Binding listItems}"
                       SelectedItem="{Binding itemSelected}"
                       SelectionChanged="comboFiltroArticulo_SelectionChanged"
-                      Grid.Column="4"/>
+                      Grid.Column="1"/>
+            
+            <TextBlock Text="Cliente: " x:Name="txtFiltroCliente"
+                       VerticalAlignment="Center" Margin="15, 0, 0, 0"
+                       Grid.Column="2"/>
+            <ComboBox x:Name="comboFiltroCliente" Margin="10, 0, 0, 0"
+                      VerticalAlignment="center" 
+                      IsEditable="True" Text="Seleciona un Cliente"
+                      ItemsSource="{Binding listClientes}"
+                      SelectedItem="{Binding clienteSelected}"
+                      SelectionChanged="comboFiltroCliente_SelectionChanged"
+                      Grid.Column="3"/>
+
 
             <Button x:Name="btnClearFilter" Click="btnClearFilter_Click"
                     Background="Transparent" BorderBrush="Transparent"
-                    Grid.Column="5" HorizontalAlignment="Left">
-                <mat:PackIcon Kind="FilterOff" Height="20" Width="20"/>
+                    Grid.Column="5" Grid.Row="1" HorizontalAlignment="Right">
+                <mat:PackIcon Kind="FilterOff" Height="20" Width="20" Foreground="Orange"/>
             </Button>
-            <Separator Grid.Row="1" Grid.ColumnSpan="6"/>
+    
+            <TextBlock Text="Por Devolver: "
+                       VerticalAlignment="Center" Margin="15, 0, 0, 0"
+                       Grid.Column="0" Grid.Row="1"/>
+
+            <CheckBox x:Name="chkPorDevolver" Style="{StaticResource MaterialDesignSwitchToggleButton}"
+                          mat:HintAssist.Hint="Multijugador"
+                          Margin="0,5,75,0"
+                          Grid.Column="1" Grid.Row="1"
+                          Checked="chkPorDevolver_Checked"
+                          Unchecked="chkPorDevolver_Unchecked"/>
+
+            <Separator Grid.Row="2" Grid.ColumnSpan="6"/>
         </Grid>
         <!--Lista-->
         <Grid>

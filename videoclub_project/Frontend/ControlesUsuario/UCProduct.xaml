@@ -121,7 +121,7 @@
 
                 <Button x:Name="btnClearFilter" Click="btnClearFilter_Click"
                     Background="Transparent" BorderBrush="Transparent"
-                    Grid.Column="8" HorizontalAlignment="Right">
+                    Grid.Column="8" Grid.Row="3" HorizontalAlignment="Right">
                     <mat:PackIcon Kind="FilterOff" Height="20" Width="20" Foreground="Orange"/>
                 </Button>
                 

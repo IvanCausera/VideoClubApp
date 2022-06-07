@@ -62,9 +62,9 @@ namespace videoclub_project.Frontend.ControlesUsuario {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture) {
             DateTime fecha = ((DateTime)values[0]).AddDays((int)values[1]);
 
-            int days = (fecha - DateTime.Now).Days;
+            int days = (fecha - DateTime.Now.Date).Days;
 
-            if (days > 0) {
+            if (days >= 0) {
                 return days + " Días";
             } else
                 return "Plazo atrasado";
@@ -80,7 +80,7 @@ namespace videoclub_project.Frontend.ControlesUsuario {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture) {
             DateTime fecha = ((DateTime)values[0]).AddDays((int)values[1]);
 
-            int days = (DateTime.Now - fecha).Days;
+            int days = (DateTime.Now.Date - fecha).Days;
             double recargo = 0;
             if (days > 0) {
                 recargo = days * ((float)values[2]);

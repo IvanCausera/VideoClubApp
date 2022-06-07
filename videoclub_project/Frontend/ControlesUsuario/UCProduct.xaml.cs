@@ -176,6 +176,7 @@ namespace videoclub_project.Frontend.ControlesUsuario {
         private void btnClearFilter_Click(object sender, RoutedEventArgs e) {
             mProduct.borrarCriterios();
 
+            chkMultijugador.IsChecked = false;
             comboFiltroGenero.SelectedIndex = -1;
             comboFiltroGenero.Text = "Seleciona un Genero";
 
