@@ -7,7 +7,7 @@
         xmlns:mat="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:local="clr-namespace:videoclub_project.Frontend.Dialogos"
         mc:Ignorable="d"
-        Title="Insertar Usuario" SizeToContent="Height" Width="850">
+        Title="Insertar Usuario" SizeToContent="Height" Width="1200">
     <DockPanel>
         <Grid DockPanel.Dock="Top">
             <Grid.RowDefinitions>
@@ -55,14 +55,14 @@
                 <Separator Grid.ColumnSpan="3" Grid.Row="0" Margin="0, 50, 0, 0"/>
                 <!--Nombre-->
                 <TextBox x:Name="txtNombre" Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                         mat:HintAssist.Hint="Nombre*" MaxLength="35" FontWeight="Bold"
+                         mat:HintAssist.Hint="Nombre*" MaxLength="20" FontWeight="Bold"
                          Margin="10"
                          MinWidth="100" MaxWidth="1000"
                          Grid.Row="1"
                          Text="{Binding usuSelected.nombre, NotifyOnValidationError=True,ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
                 <!--Apellido 1-->
                 <TextBox x:Name="txtApellido1" Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                         mat:HintAssist.Hint="Primer Apellido*" MaxLength="35" FontWeight="Bold"
+                         mat:HintAssist.Hint="Primer Apellido*" MaxLength="20" FontWeight="Bold"
                          Margin="10"
                          MinWidth="100" MaxWidth="1000"
                          Grid.Row="1"
@@ -70,7 +70,7 @@
                          Text="{Binding usuSelected.apellido1, NotifyOnValidationError=True,ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
                 <!--Apellido 2-->
                 <TextBox x:Name="txtApellido2" Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                         mat:HintAssist.Hint="Segundo Apellido" MaxLength="35"
+                         mat:HintAssist.Hint="Segundo Apellido" MaxLength="20"
                          Margin="10"
                          MinWidth="100" MaxWidth="1000"
                          Grid.Row="1"
@@ -104,13 +104,13 @@
 
                 <!--Domicilio-->
                 <TextBox x:Name="txtDomicilio" Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                         mat:HintAssist.Hint="Domicilio" MaxLength="31"
+                         mat:HintAssist.Hint="Domicilio" MaxLength="28"
                          Margin="10"
                          MinWidth="100" MaxWidth="1000"
                          Grid.Row="4"/>
                 <!--Poblacion-->
                 <TextBox x:Name="txtPoblacion" Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                         mat:HintAssist.Hint="Poblacion" MaxLength="20"
+                         mat:HintAssist.Hint="Poblacion" MaxLength="18"
                          Margin="10"
                          MinWidth="100" MaxWidth="1000"
                          Grid.Row="4"

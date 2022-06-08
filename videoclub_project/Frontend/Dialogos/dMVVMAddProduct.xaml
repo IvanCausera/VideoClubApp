@@ -108,7 +108,7 @@
                 <!--Duracion
                 ============================ Peliculas =======================-->
                 <TextBox x:Name="txtDuracion" Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                         mat:HintAssist.Hint="Duración (minutos)*" FontWeight="Bold" MaxLength="30"
+                         mat:HintAssist.Hint="Duración (minutos)*" FontWeight="Bold" MaxLength="11"
                          Margin="10"
                          MinWidth="100" MaxWidth="1000"
                          Height="38"
@@ -117,7 +117,7 @@
 
                 <!--Nota-->
                 <TextBox x:Name="txtNota" Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                         mat:HintAssist.Hint="Puntuación" MaxLength="30"
+                         mat:HintAssist.Hint="Puntuación" MaxLength="11"
                          Margin="10"
                          MinWidth="100" MaxWidth="1000"
                          Height="38"
@@ -126,7 +126,7 @@
 
                 <!--Edad Nota-->
                 <TextBox x:Name="txtEdadNota" Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                         mat:HintAssist.Hint="Clasificación Edad" MaxLength="30"
+                         mat:HintAssist.Hint="Clasificación Edad" MaxLength="10"
                          Margin="10"
                          MinWidth="100" MaxWidth="1000"
                          Height="38"
@@ -202,7 +202,7 @@
                 
                 <!--Director-->
                 <TextBox x:Name="txtDirector" Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                         mat:HintAssist.Hint="Director" MaxLength="30"
+                         mat:HintAssist.Hint="Director" MaxLength="20"
                          Margin="10"
                          MinWidth="100" MaxWidth="1000"
                          Height="38"
@@ -212,7 +212,7 @@
                 
                 <!--Pais-->
                 <TextBox x:Name="txtPais" Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                         mat:HintAssist.Hint="Pais" MaxLength="30"
+                         mat:HintAssist.Hint="Pais" MaxLength="40"
                          Margin="10"
                          MinWidth="100" MaxWidth="1000"
                          Height="38"

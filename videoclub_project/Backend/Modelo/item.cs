@@ -33,6 +33,10 @@ namespace videoclub_project.Backend.Modelo
         public override string ToString() {
             string str;
 
+            if (formatos_peliculas == null && plataformas_videojuegos == null) {
+                return "Articulo no disponible";
+            }
+
             if (formatos_peliculas != null) {
                 str = formatos_peliculas.ToString();
             } else {
@@ -44,6 +48,10 @@ namespace videoclub_project.Backend.Modelo
 
         public string ToStringTitulo() {
             string str;
+
+            if (formatos_peliculas == null && plataformas_videojuegos == null) {
+                return "Articulo no disponible";
+            }
 
             if (formatos_peliculas != null) {
                 str = formatos_peliculas.ToStringTitulo();

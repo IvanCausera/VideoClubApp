@@ -130,6 +130,27 @@ namespace videoclub_project.Frontend.Dialogos {
         }
 
         private void btnGuardar_Click(object sender, RoutedEventArgs e) {
+            foreach(ventas_productos venProd in mVenta.ventaSelected.ventas_productos) {
+                if (venProd.item.plataformas_videojuegos != null) {
+                    if (venProd.item.plataformas_videojuegos.stock <= 0) {
+                        msgThrow("ERROR!! Se está intentando comprar un artículo sin stock", false, false);
+                        return;
+                    }
+                    break;
+                }
+
+                if (venProd.item.formatos_peliculas != null) {
+                    if (venProd.item.formatos_peliculas.stock <= 0) {
+                        msgThrow("ERROR!! Se está intentando comprar un artículo sin stock", false, false);
+                        return;
+                    }
+                    break;
+                }
+
+                msgThrow("ERROR!! Se está intentando comprar un artículo que no existe", false, false);
+                return;
+            }
+
             if (!mVenta.IsValid(this)) {
                 msgThrow("ERROR!!! Hay campos obligatorios sin completar", false, false);
                 return;

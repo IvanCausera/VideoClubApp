@@ -105,6 +105,27 @@ namespace videoclub_project.Frontend.Dialogos {
         }
 
         private void btnGuardar_Click(object sender, RoutedEventArgs e) {
+            foreach (productos_alquiler alqProd in mAlquiler.alqSelected.productos_alquiler) {
+                if (alqProd.item.plataformas_videojuegos != null) {
+                    if (alqProd.item.plataformas_videojuegos.stock <= 0) {
+                        msgThrow("ERROR!! Se está intentando comprar un artículo sin stock", false, false);
+                        return;
+                    }
+                    break;
+                }
+
+                if (alqProd.item.formatos_peliculas != null) {
+                    if (alqProd.item.formatos_peliculas.stock <= 0) {
+                        msgThrow("ERROR!! Se está intentando comprar un artículo sin stock", false, false);
+                        return;
+                    }
+                    break;
+                }
+
+                msgThrow("ERROR!! Se está intentando comprar un artículo que no existe", false, false);
+                return;
+            }
+
             if (!mAlquiler.IsValid(this)) {
                 msgThrow("ERROR!!! Hay campos obligatorios sin completar", false, false);
                 return;

@@ -56,7 +56,7 @@ namespace videoclub_project.Frontend.Dialogos {
                         this.Close();
                     } else {
                         await this.ShowMessageAsync("USUARIO INCORRECTOS",
-                                   "El usuario no es un empleado o administrador");
+                                   "El usuario o contraseña no es correcto");
                     }
                 } else {
                     if (usuServ.usuLogin.cliente != null) {
@@ -66,7 +66,7 @@ namespace videoclub_project.Frontend.Dialogos {
                         this.Close();
                     } else {
                         await this.ShowMessageAsync("USUARIO INCORRECTOS",
-                                   "El usuario no es un cliente");
+                                   "El usuario o contraseña no es correcto");
                     }
                 }
             } else {

@@ -84,7 +84,7 @@
           </Key>
           <Property Name="idPeliculas" Type="int" Nullable="false" />
           <Property Name="titulo_original" Type="varchar" MaxLength="30" />
-          <Property Name="pais" Type="varchar" MaxLength="10" />
+          <Property Name="pais" Type="varchar" MaxLength="40" />
           <Property Name="duracion" Type="int" Nullable="false" />
           <Property Name="sinopsis" Type="mediumtext" />
           <Property Name="director" Type="varchar" MaxLength="20" />
@@ -855,7 +855,7 @@
           </Key>
           <Property Name="idPeliculas" Type="Int32" Nullable="false" />
           <Property Name="titulo_original" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="pais" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="pais" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
           <Property Name="duracion" Type="Int32" Nullable="false" />
           <Property Name="sinopsis" Type="String" MaxLength="16777215" FixedLength="false" Unicode="false" />
           <Property Name="director" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />

@@ -19,5 +19,9 @@ namespace videoclub_project.Backend.Servicios {
         public IEnumerable<item> getAllNotNull() {
             return context.Set<item>().Where(i => i.plataformas_videojuegos != null || i.formatos_peliculas != null).ToList();
         }
+
+        public IEnumerable<item> getAllNull() {
+            return context.Set<item>().Where(i => i.plataformas_videojuegos == null && i.formatos_peliculas == null && i.productos_alquiler.Count == 0 && i.ventas_productos.Count == 0).ToList();
+        }
     }
 }
