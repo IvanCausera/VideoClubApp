@@ -11,7 +11,7 @@
         <!--Articulos-->
         <DockPanel DockPanel.Dock="Bottom">
             <Grid DockPanel.Dock="Top">
-                <TextBlock Text="Articulos" FontSize="20" HorizontalAlignment="Left" Margin="5"/>
+                <TextBlock Text="Artículos" FontSize="20" HorizontalAlignment="Left" Margin="5"/>
             </Grid>
             <Grid>
                 <DataGrid x:Name="dgArticulos" AutoGenerateColumns="False" CanUserAddRows="False" ColumnWidth="*" IsReadOnly="True">
@@ -220,7 +220,7 @@
                                     Binding="{Binding titulo}"/>
 
                         <DataGridTextColumn Header="Fecha"
-                                    Binding="{Binding fecha}"/>
+                                    Binding="{Binding fecha, StringFormat=\{0:dd/MM/yyyy\}}"/>
 
                         <DataGridTextColumn Header="Nota"
                                     Binding="{Binding nota}"/>

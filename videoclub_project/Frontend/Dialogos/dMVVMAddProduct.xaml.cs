@@ -233,6 +233,7 @@ namespace videoclub_project.Frontend.Dialogos {
 
                 gridRight.Children.Clear();
 
+                gridLeft.SetValue(Grid.ColumnSpanProperty, 4);
                 uPlataformas = new UCPlataformas(mProduct);
                 gridLeft.Children.Clear();
                 gridLeft.Children.Add(uPlataformas);
@@ -243,6 +244,7 @@ namespace videoclub_project.Frontend.Dialogos {
                 chkMultijugador.Visibility = Visibility.Visible;
                 txtMultijugador.Visibility = Visibility.Visible;
             } else {
+                gridLeft.SetValue(Grid.ColumnSpanProperty, 2);
                 txtDistribuidora.Visibility = Visibility.Hidden;
                 txtDesarrolladora.Visibility = Visibility.Hidden;
                 comboPlataforma.Visibility = Visibility.Hidden;

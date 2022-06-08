@@ -152,11 +152,22 @@ namespace videoclub_project.MVVM {
             if(!delete(alqSelected)) return false;
 
             listAlquileres.Remove(alqSelected);
-
+                
             return true;
         }
 
         public bool editar() {
+            return update(alqSelected);
+        }
+
+        public bool devolver() {
+            foreach (productos_alquiler alqProduct in alqSelected.productos_alquiler) {
+                if (alqProduct.item.formatos_peliculas != null) {
+                    alqProduct.item.formatos_peliculas.stock += 1;
+                } else {
+                    alqProduct.item.plataformas_videojuegos.stock += 1;
+                }
+            }
             return update(alqSelected);
         }
 

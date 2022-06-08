@@ -46,7 +46,7 @@ namespace videoclub_project.Frontend.ControlesUsuario {
         private void menuDevolver_Click(object sender, RoutedEventArgs e) {
             mAlquiler.alqSelected = (alquileres)dgAlquileres.SelectedItem;
             mAlquiler.alqSelected.fecha_devolucion = DateTime.Now;
-            if (mAlquiler.editar()) {
+            if (mAlquiler.devolver()) {
                 mAlquiler.listAlquileres.Remove(mAlquiler.alqSelected);
                 if (mAlquiler.listAlquileres.Count == 0) {
                     dockAlquileres.Visibility = Visibility.Collapsed;
