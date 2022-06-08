@@ -558,7 +558,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Resource Include="Recursos\img\productos\Dune.png" />
     <Resource Include="Recursos\img\productos\¡Olvídate de mí!.png" />
     <Resource Include="Recursos\img\productos\Los siete samuráis.png" />
     <Resource Include="Recursos\img\noImage.png">
