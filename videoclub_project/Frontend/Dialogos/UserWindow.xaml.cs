@@ -21,12 +21,14 @@ namespace videoclub_project.Frontend.Dialogos {
     /// </summary>
     public partial class UserWindow : MetroWindow {
         private videoclubEntities vidEnt;
-        private usuarios usuLogin;
+        private usuarios user;
 
         public UserWindow(videoclubEntities vidEnt, usuarios usuLogin) {
             InitializeComponent();
             this.vidEnt = vidEnt;
-            this.usuLogin = usuLogin;
+
+            this.user = usuLogin;
+
             if (usuLogin == null) {
                 tbUserLogin.Text = "sin registrar";
                 menuAlquiler.IsEnabled = false;
@@ -34,26 +36,44 @@ namespace videoclub_project.Frontend.Dialogos {
 
                 menuPedidos.IsEnabled = false;
                 menuPedidos.IsVisible = false;
-            } else tbUserLogin.Text = "Usuario: " + usuLogin.ToString();
+
+                UCClientHome uc = new UCClientHome();
+                mainGrid.Children.Clear();
+                mainGrid.Children.Add(uc);
+            } else {
+                tbUserLogin.Text = "Usuario: " + usuLogin.ToString();
+
+                UCClientHome uc = new UCClientHome(vidEnt, usuLogin);
+                mainGrid.Children.Clear();
+                mainGrid.Children.Add(uc);
+            }
+
+            
         }
 
         private void hamMenuPrincipal_ItemClick(object sender, ItemClickEventArgs args) {
             if (hamMenuPrincipal.SelectedItem == menuHome) {
-                
+                UCClientHome uc;
+
+                if (user == null) uc = new UCClientHome();
+                else uc = new UCClientHome(vidEnt, user);
+
+                mainGrid.Children.Clear();
+                mainGrid.Children.Add(uc);
             } else if (hamMenuPrincipal.SelectedItem == menuPelicula) {
-                UCProduct uc = new UCProduct(vidEnt);
+                UCProduct uc = new UCProduct(vidEnt, productos.PELICULA);
                 mainGrid.Children.Clear();
                 mainGrid.Children.Add(uc);
             } else if (hamMenuPrincipal.SelectedItem == menuVideojuego) {
-                UCProduct uc = new UCProduct(vidEnt);
+                UCProduct uc = new UCProduct(vidEnt, productos.JUEGO);
                 mainGrid.Children.Clear();
                 mainGrid.Children.Add(uc);
             } else if (hamMenuPrincipal.SelectedItem == menuAlquiler) {
-                UCAlquileres uc = new UCAlquileres(vidEnt);
+                UCAlquileres uc = new UCAlquileres(vidEnt, user.cliente);
                 mainGrid.Children.Clear();
                 mainGrid.Children.Add(uc);
             } else if (hamMenuPrincipal.SelectedItem == menuPedidos) {
-                UCVentas uc = new UCVentas(vidEnt);
+                UCVentas uc = new UCVentas(vidEnt, user.cliente);
                 mainGrid.Children.Clear();
                 mainGrid.Children.Add(uc);
             }

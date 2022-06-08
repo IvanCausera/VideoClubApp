@@ -25,7 +25,11 @@ namespace videoclub_project.Backend.Modelo
         public virtual videojuegos videojuegos { get; set; }
 
         public override string ToString() {
-            return videojuegos.productos.titulo + " " + plataformas.plataforma + " [" + stock + ", " + precio + "€]";
+            return videojuegos.productos.titulo + " | " + plataformas.plataforma + " [" + stock + ", " + precio + "€]";
+        }
+
+        public string ToStringTitulo() {
+            return videojuegos.productos.titulo;
         }
     }
 }

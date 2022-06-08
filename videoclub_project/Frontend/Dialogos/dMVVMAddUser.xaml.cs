@@ -54,6 +54,11 @@ namespace videoclub_project.Frontend.Dialogos {
             txtDomicilio.Text = dir.Substring(0, dir.IndexOf("-"));
             txtPoblacion.Text = dir.Substring(dir.IndexOf("-") + 1, (dir.LastIndexOf("-") - (dir.IndexOf("-") + 1)));
             txtCP.Text = dir.Substring(dir.LastIndexOf("-") + 1);
+
+            if (user.cliente != null) {
+                mUser.cliSelected = user.cliente;
+            } else mUser.emplSelected = user.empleado;
+
         }
 
         private void inicializa() {
@@ -64,6 +69,9 @@ namespace videoclub_project.Frontend.Dialogos {
             txtSalario.Visibility = Visibility.Hidden;
             txtBanco.Visibility = Visibility.Hidden;
             txtNTarjeta.Visibility = Visibility.Hidden;
+
+            this.AddHandler(Validation.ErrorEvent, new RoutedEventHandler(mUser.OnErrorEvent));
+            mUser.btnGuardar = btnGuardar;
         }
 
         private void comboRol_SelectionChanged(object sender, SelectionChangedEventArgs e) {
@@ -82,32 +90,34 @@ namespace videoclub_project.Frontend.Dialogos {
             }
         }
 
-        private async void btnGuardar_Click(object sender, RoutedEventArgs e) {
+        private void btnGuardar_Click(object sender, RoutedEventArgs e) {
+            if (!mUser.IsValid(this)) {
+                msgThrow("ERROR!!! Hay campos obligatorios sin completar", false, false);
+                return;
+            }
+
             if (!setPassword()) {
-                await this.ShowMessageAsync("GESTIÓN MODELO ARTÍCULO",
-                           "ERROR!!! La contraseña tiene que contener: Nº, letra, alfanumérico");
+                msgThrow("ERROR!!! La contraseña tiene que contener: Nº, letra, alfanumérico", false, false);
+                return;
+            }
+
+            // -----------------
+            setDireccion();
+            bool result;
+            if (empleado) {
+                mUser.cliSelected = null;
+            } else mUser.emplSelected = null;
+
+            if (editar) {
+                result = mUser.editar();
             } else {
-                // -----------------
-                setDireccion();
-                bool result;
-                if (empleado) {
-                    mUser.cliSelected = null;
-                } else mUser.emplSelected = null;
+                result = mUser.guardar();
+            }
 
-                if (editar) {
-                    result = mUser.editar();
-                } else {
-                    result = mUser.guardar();
-                }
-
-                if (result) {
-                    await this.ShowMessageAsync("GESTIÓN USUARIOS",
-                                       "TODO CORRECTO!!! Objeto guardado correctamente");
-                    DialogResult = true;
-                } else {
-                    await this.ShowMessageAsync("GESTIÓN USUARIOS",
-                                       "ERROR!!! No se puede guardar el objeto");
-                }
+            if (result) {
+                msgThrow("TODO CORRECTO!!! Objeto guardado correctamente", true, true);
+            } else {
+                msgThrow("ERROR!!! No se puede guardar el objeto", true, false);
             }
         }
 
@@ -125,5 +135,14 @@ namespace videoclub_project.Frontend.Dialogos {
 
             return result;
         }
+
+        private async void msgThrow(string msg, bool close, bool result) {
+            await this.ShowMessageAsync("GESTIÓN USUARIOS",
+                                   msg);
+            if (close) {
+                DialogResult = result;
+            }
+        }
+
     }
 }

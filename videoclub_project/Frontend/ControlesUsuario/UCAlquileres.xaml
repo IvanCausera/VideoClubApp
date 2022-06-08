@@ -10,7 +10,60 @@
     <DockPanel>
         <!--Filtros-->
         <Grid DockPanel.Dock="Top">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="Articulo: "
+                       VerticalAlignment="Center" Margin="15, 0, 0, 0"
+                       Grid.Column="0"/>
+            <ComboBox x:Name="comboFiltroArticulo" Margin="10, 0, 0, 0"
+                      VerticalAlignment="center" 
+                      IsEditable="True" Text="Seleciona un Articulo"
+                      ItemsSource="{Binding listItems}"
+                      SelectedItem="{Binding itemSelected}"
+                      SelectionChanged="comboFiltroArticulo_SelectionChanged"
+                      Grid.Column="1"/>
+            
+            <TextBlock Text="Cliente: " x:Name="txtFiltroCliente"
+                       VerticalAlignment="Center" Margin="15, 0, 0, 0"
+                       Grid.Column="2"/>
+            <ComboBox x:Name="comboFiltroCliente" Margin="10, 0, 0, 0"
+                      VerticalAlignment="center" 
+                      IsEditable="True" Text="Seleciona un Cliente"
+                      ItemsSource="{Binding listClientes}"
+                      SelectedItem="{Binding clienteSelected}"
+                      SelectionChanged="comboFiltroCliente_SelectionChanged"
+                      Grid.Column="3"/>
 
+
+            <Button x:Name="btnClearFilter" Click="btnClearFilter_Click"
+                    Background="Transparent" BorderBrush="Transparent"
+                    Grid.Column="5" Grid.Row="1" HorizontalAlignment="Right">
+                <mat:PackIcon Kind="FilterOff" Height="20" Width="20" Foreground="Orange"/>
+            </Button>
+    
+            <TextBlock Text="Por Devolver: "
+                       VerticalAlignment="Center" Margin="15, 0, 0, 0"
+                       Grid.Column="0" Grid.Row="1"/>
+
+            <CheckBox x:Name="chkPorDevolver" Style="{StaticResource MaterialDesignSwitchToggleButton}"
+                          mat:HintAssist.Hint="Multijugador"
+                          Margin="0,5,75,0"
+                          Grid.Column="1" Grid.Row="1"
+                          Checked="chkPorDevolver_Checked"
+                          Unchecked="chkPorDevolver_Unchecked"/>
+
+            <Separator Grid.Row="2" Grid.ColumnSpan="6"/>
         </Grid>
         <!--Lista-->
         <Grid>
@@ -31,6 +84,8 @@
                     <DataGridTextColumn Header="Tipo"
                                     Binding="{Binding tipo_alquiler}"/>
 
+                    <DataGridTextColumn Header="Articulos"
+                                    Binding="{Binding Path=.}"/>
                 </DataGrid.Columns>
 
                 <!-- Menu -->
@@ -49,6 +104,14 @@
                                 <StackPanel Orientation="Horizontal">
                                     <mat:PackIcon Kind="Delete" Margin="0,0,10,0"/>
                                     <TextBlock Text="Borrar"/>
+                                </StackPanel>
+                            </MenuItem.Header>
+                        </MenuItem>
+                        <MenuItem x:Name="menuVer" Click="menuVer_Click">
+                            <MenuItem.Header>
+                                <StackPanel Orientation="Horizontal">
+                                    <mat:PackIcon Kind="Eye" Margin="0,0,10,0"/>
+                                    <TextBlock Text="Ver"/>
                                 </StackPanel>
                             </MenuItem.Header>
                         </MenuItem>

@@ -15,6 +15,11 @@ namespace videoclub_project.Backend.Modelo
     public partial class roles
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+
+        public const int ADMINISTRADOR = 1;
+        public const int EMPLEADO = 2;
+        public const int CLIENTE = 3;
+
         public roles()
         {
             this.permisos_roles = new HashSet<permisos_roles>();
@@ -23,7 +28,7 @@ namespace videoclub_project.Backend.Modelo
     
         public int idRoles { get; set; }
         public string rol { get; set; }
-    
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<permisos_roles> permisos_roles { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

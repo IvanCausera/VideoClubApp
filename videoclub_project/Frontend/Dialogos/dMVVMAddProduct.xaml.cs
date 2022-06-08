@@ -48,38 +48,64 @@ namespace videoclub_project.Frontend.Dialogos {
 
             inicializa();
 
-            this.editar = true;
+            this.editar = false;
         }
 
-        public dMVVMAddProduct(videoclubEntities vidEnt, productos product) {
+        public dMVVMAddProduct(videoclubEntities vidEnt, productos product, bool ver = false) {
             InitializeComponent();
 
             this.vidEnt = vidEnt;
 
             inicializa();
 
-            this.editar = false;
+            this.editar = true;
             btnGuardar.Content = "Editar";
             mProduct.prodSelected = product;
+
+            if (!string.IsNullOrEmpty(product.portada)) {
+                /*
+                portada = new BitmapImage(new Uri("/Recursos/img/productos/" + product.portada, UriKind.Relative));
+                imgPortada.Source = portada;
+                */
+                string dir = System.AppDomain.CurrentDomain.BaseDirectory;
+                portada = new BitmapImage(new Uri(dir + "../../Recursos/img/productos/" + product.portada, UriKind.RelativeOrAbsolute));
+                imgPortada.Source = portada;
+            }
 
             if (mProduct.prodSelected.videojuegos == null) {
                 changeLayout(PELICULA);
             } else {
                 changeLayout(VIDEOJUEGO);
+                if (mProduct.prodSelected.videojuegos.multijugador == 1) chkMultijugador.IsChecked = true;
             }
 
-            btnTipoProducto.IsEnabled = false;
+            if (ver) {
+                gridGeneral.IsEnabled = false;
+                gridInfoEspecifica.IsEnabled = false;
+
+                gridAddActor.Visibility = Visibility.Collapsed;
+                gridAddFormato.Visibility = Visibility.Collapsed;
+                gridTitulo.Visibility = Visibility.Collapsed;
+                btnCancelar.Visibility = Visibility.Collapsed;
+                btnGuardar.Visibility = Visibility.Collapsed;
+                btnTipoProducto.Visibility = Visibility.Collapsed;
+            } else {
+                btnTipoProducto.IsEnabled = false;
+            }
         }
 
         private void inicializa() {
             mProduct = new MVProduct(vidEnt);
             DataContext = mProduct;
 
-            mProduct.prodSelected.videojuegos = new videojuegos();
-            mProduct.prodSelected.peliculas = new peliculas();
+            mProduct.prodSelected.videojuegos = new videojuegos { productos = mProduct.prodSelected };
+            mProduct.prodSelected.peliculas = new peliculas { productos = mProduct.prodSelected };
 
             showVideojuegos(false);
             showPelicula(true);
+
+            this.AddHandler(Validation.ErrorEvent, new RoutedEventHandler(mProduct.OnErrorEvent));
+            mProduct.btnGuardar = btnGuardar;
         }
 
         private void btnPortada_Click(object sender, RoutedEventArgs e) {
@@ -95,14 +121,23 @@ namespace videoclub_project.Frontend.Dialogos {
                 
         }
 
-        private async void btnGuardar_Click(object sender, RoutedEventArgs e) {
-            string portadaNombre = txtTitulo.Text + ".png";
-            saveImage(portada, "../../Recursos/img/productos/" + portadaNombre);
+        private void btnGuardar_Click(object sender, RoutedEventArgs e) {
+            if (!mProduct.IsValid(this)) {
+                msgThrow("ERROR!!! Hay campos obligatorios sin completar", false, false);
+                return;
+            }
 
-            mProduct.prodSelected.portada = portadaNombre;
+            if (portada != null) {
+                string portadaNombre = txtTitulo.Text + ".png";
+                saveImage(portada, "../../Recursos/img/productos/" + portadaNombre);
+                mProduct.prodSelected.portada = portadaNombre;
+            }
 
-            if (actualLayout == PELICULA) mProduct.prodSelected.videojuegos = null;
-            else mProduct.prodSelected.peliculas = null;
+            if (actualLayout == PELICULA) {
+                mProduct.prodSelected.videojuegos = null;
+            } else {
+                mProduct.prodSelected.peliculas = null;
+            }
 
             bool result;
             if (editar) {
@@ -112,13 +147,9 @@ namespace videoclub_project.Frontend.Dialogos {
             }
 
             if (result) {
-                await this.ShowMessageAsync("GESTIÓN USUARIOS",
-                                   "TODO CORRECTO!!! Objeto guardado correctamente");
-                DialogResult = true;
+                msgThrow("TODO CORRECTO!!! Objeto guardado correctamente", true, true);
             } else {
-                await this.ShowMessageAsync("GESTIÓN USUARIOS",
-                                   "ERROR!!! No se puede guardar el objeto");
-                DialogResult = false;
+                msgThrow("ERROR!!! No se puede guardar el objeto", true, false);
             }
         }
 
@@ -132,7 +163,10 @@ namespace videoclub_project.Frontend.Dialogos {
         }
 
         private void btnAddActor_Click(object sender, RoutedEventArgs e) {
-            uActors.addActor(new actores_peliculas { nombre = txtActor.Text });
+            uActors.addActor(new actores_peliculas { 
+                nombre = txtActor.Text, 
+                peliculas = mProduct.prodSelected.peliculas 
+            });
         }
 
         private void btnAddFormato_Click(object sender, RoutedEventArgs e) {
@@ -141,17 +175,20 @@ namespace videoclub_project.Frontend.Dialogos {
                     uFormatos.addFormato(new formatos_peliculas {
                         formatos = (formatos)comboFormato.SelectedItem,
                         stock = int.Parse(txtStock.Text),
-                        precio = float.Parse(txtPrecio.Text)
+                        precio = float.Parse(txtPrecio.Text),
+                        peliculas = mProduct.prodSelected.peliculas
                     });
                 } else {
                     uPlataformas.addPlataforma(new plataformas_videojuegos {
                         plataformas = (plataformas)comboPlataforma.SelectedItem,
                         stock = int.Parse(txtStock.Text),
-                        precio = float.Parse(txtPrecio.Text)
+                        precio = float.Parse(txtPrecio.Text),
+                        videojuegos = mProduct.prodSelected.videojuegos
                     });
                 }
             } catch (Exception) {
-                //TODO excepcion
+                if (actualLayout == PELICULA) msgThrow("ERROR!! No es posible añadir la pelicula", false, false);
+                else msgThrow("ERROR!! No es posible añadir el videojuego", false, false);
             }
         }
 
@@ -201,6 +238,7 @@ namespace videoclub_project.Frontend.Dialogos {
 
                 gridRight.Children.Clear();
 
+                gridLeft.SetValue(Grid.ColumnSpanProperty, 4);
                 uPlataformas = new UCPlataformas(mProduct);
                 gridLeft.Children.Clear();
                 gridLeft.Children.Add(uPlataformas);
@@ -208,10 +246,15 @@ namespace videoclub_project.Frontend.Dialogos {
                 txtDistribuidora.Visibility = Visibility.Visible;
                 txtDesarrolladora.Visibility = Visibility.Visible;
                 comboPlataforma.Visibility = Visibility.Visible;
+                chkMultijugador.Visibility = Visibility.Visible;
+                txtMultijugador.Visibility = Visibility.Visible;
             } else {
+                gridLeft.SetValue(Grid.ColumnSpanProperty, 2);
                 txtDistribuidora.Visibility = Visibility.Hidden;
                 txtDesarrolladora.Visibility = Visibility.Hidden;
                 comboPlataforma.Visibility = Visibility.Hidden;
+                chkMultijugador.Visibility = Visibility.Hidden;
+                txtMultijugador.Visibility = Visibility.Hidden;
             }
         }
         
@@ -243,6 +286,22 @@ namespace videoclub_project.Frontend.Dialogos {
                 btnTipoProducto.Content = "Películas";
                 lableInfo.Text = "INFORMACIÓN PELÍCULA";
             }
+        }
+
+        private async void msgThrow(string msg, bool close, bool result) {
+            await this.ShowMessageAsync("GESTIÓN USUARIOS",
+                                   msg);
+            if (close) {
+                DialogResult = result;
+            }
+        }
+
+        private void chkMultijugador_Checked(object sender, RoutedEventArgs e) {
+            mProduct.prodSelected.videojuegos.multijugador = 1;
+        }
+
+        private void chkMultijugador_Unchecked(object sender, RoutedEventArgs e) {
+            mProduct.prodSelected.videojuegos.multijugador = 0;
         }
     }
 }

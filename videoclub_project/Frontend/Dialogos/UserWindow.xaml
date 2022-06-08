@@ -7,7 +7,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:videoclub_project.Frontend.Dialogos"
         mc:Ignorable="d"
-        Title="VideoClub" Height="450" Width="800">
+        Title="VideoClub" Height="650" Width="1000">
     <mah:MetroWindow.RightWindowCommands>
         <mah:WindowCommands>
             <StackPanel Orientation="Horizontal">
@@ -99,7 +99,7 @@
                         </mah:HamburgerMenuImageItem>
                         <mah:HamburgerMenuImageItem Label="Películas" ToolTip="Películas" x:Name="menuPelicula">
                             <mah:HamburgerMenuImageItem.Thumbnail>
-                                <BitmapImage UriSource="Iconos/filmstrip.png"/>
+                                <BitmapImage UriSource="Iconos/movie-open.png"/>
                             </mah:HamburgerMenuImageItem.Thumbnail>
                         </mah:HamburgerMenuImageItem>
                         <mah:HamburgerMenuImageItem Label="Videojuegos" ToolTip="Videojuegos" x:Name="menuVideojuego">
@@ -109,7 +109,7 @@
                         </mah:HamburgerMenuImageItem>
                         <mah:HamburgerMenuImageItem Label="Alquiler" ToolTip="Alquiler" x:Name="menuAlquiler">
                             <mah:HamburgerMenuImageItem.Thumbnail>
-                                <BitmapImage UriSource="Iconos/handshake.png"/>
+                                <BitmapImage UriSource="Iconos/archive-outline.png"/>
                             </mah:HamburgerMenuImageItem.Thumbnail>
                         </mah:HamburgerMenuImageItem>
                         <mah:HamburgerMenuImageItem Label="Pedidos" ToolTip="Pedidos" x:Name="menuPedidos">
@@ -119,13 +119,13 @@
                         </mah:HamburgerMenuImageItem>
                     </mah:HamburgerMenuItemCollection>
                 </mah:HamburgerMenu.ItemsSource>
-                <!-- Sección de opciones -->
+                <!-- Sección de opciones
                 <mah:HamburgerMenu.OptionsItemsSource>
                     <mah:HamburgerMenuItemCollection>
                         <mah:HamburgerMenuIconItem Icon="{mat:PackIcon Kind=Help}" Label="Ayuda" x:Name="menuAyuda"/>
                     </mah:HamburgerMenuItemCollection>
                 </mah:HamburgerMenu.OptionsItemsSource>
-
+                -->
                 <mah:HamburgerMenu.Content>
                     <Grid x:Name="mainGrid"/>
                 </mah:HamburgerMenu.Content>

@@ -20,5 +20,9 @@ namespace videoclub_project.Backend.Modelo
     
         public virtual alquileres alquileres { get; set; }
         public virtual item item { get; set; }
+
+        public override string ToString() {
+            return item.ToStringTitulo();
+        }
     }
 }

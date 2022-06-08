@@ -33,39 +33,6 @@
     </mah:MetroWindow.RightWindowCommands>
     <DockPanel>
         <fluent:Ribbon DockPanel.Dock="Top">
-            <!--Ribbon Item Administracion-->
-            <fluent:RibbonTabItem Header="ADMINISTRACIÓN">
-                <!--Group Gestion Usuarios-->
-                <fluent:RibbonGroupBox Header="Gestión Usuarios">
-                    <fluent:Button Header="Nuevo" x:Name="rbtnAddUsuario" Click="rbtnAddUsuario_Click">
-                        <fluent:Button.LargeIcon>
-                            <mat:PackIcon Kind="UserPlus" Height="30" Width="30" Foreground="#34495e"/>
-                        </fluent:Button.LargeIcon>
-                    </fluent:Button>
-
-                    <fluent:Button Header="Listado" x:Name="rbtnListaUsuario"
-                                   Click="rbtnListaUsuario_Click">
-                        <fluent:Button.LargeIcon>
-                            <mat:PackIcon Kind="UserMultiple" Height="30" Width="30" Foreground="Gray"/>
-                        </fluent:Button.LargeIcon>
-                    </fluent:Button>
-
-                    <fluent:Button Header="Arbol Roles" x:Name="rbtnArbolUsuario">
-                        <fluent:Button.LargeIcon>
-                            <mat:PackIcon Kind="Group" Height="30" Width="30" Foreground="Gray"/>
-                        </fluent:Button.LargeIcon>
-                    </fluent:Button>
-                </fluent:RibbonGroupBox>
-                <!--Group Informes-->
-                <fluent:RibbonGroupBox Header="Informes">
-                    <fluent:Button Header="Usuarios">
-                        <fluent:Button.LargeIcon>
-                            <mat:PackIcon Kind="FileChart" Height="30" Width="30" Foreground="Gray"/>
-                        </fluent:Button.LargeIcon>
-                    </fluent:Button>
-                </fluent:RibbonGroupBox>
-            </fluent:RibbonTabItem>
-
             <!--Ribbon Item Productos-->
             <fluent:RibbonTabItem Header="PRODUCTOS">
                 <!--Group Gestion Productos-->
@@ -76,22 +43,24 @@
                         </fluent:Button.LargeIcon>
                     </fluent:Button>
 
-                    <fluent:Button Header="Listado" x:Name="rbtnListaProductos"
-                                   Click="rbtnListaProductos_Click">
+                    <fluent:Button Header="Listado Juegos" x:Name="rbtnListaProductosJuegos"
+                                   Click="rbtnListaProductosJuegos_Click">
                         <fluent:Button.LargeIcon>
-                            <mat:PackIcon Kind="Cards" Height="30" Width="30" Foreground="Gray"/>
+                            <mat:PackIcon Kind="Games" Height="30" Width="30" Foreground="Gray"/>
                         </fluent:Button.LargeIcon>
                     </fluent:Button>
-
-                    <fluent:Button Header="Arbol Productos" x:Name="rbtnArbolProductos">
+                    
+                    <fluent:Button Header="Listado Películas" x:Name="rbtnListaProductosPeliculas"
+                                   Click="rbtnListaProductosPeliculas_Click">
                         <fluent:Button.LargeIcon>
-                            <mat:PackIcon Kind="Group" Height="30" Width="30" Foreground="Gray"/>
+                            <mat:PackIcon Kind="Movie" Height="30" Width="30" Foreground="Gray"/>
                         </fluent:Button.LargeIcon>
                     </fluent:Button>
                 </fluent:RibbonGroupBox>
                 <!--Group Informes-->
                 <fluent:RibbonGroupBox Header="Informes">
-                    <fluent:Button Header="Productos">
+                    <fluent:Button Header="Productos" x:Name="rbtnInformeProductos"
+                                   Click="rbtnInformeProductos_Click">
                         <fluent:Button.LargeIcon>
                             <mat:PackIcon Kind="FileChart" Height="30" Width="30" Foreground="Gray"/>
                         </fluent:Button.LargeIcon>
@@ -137,29 +106,81 @@
 
                 <!--Group Informes-->
                 <fluent:RibbonGroupBox Header="Informes">
-                    <fluent:Button Header="Ventas">
+                    <fluent:Button Header="Ventas" x:Name="rbtnInformeVentas"
+                                   Click="rbtnInformeVentas_Click">
                         <fluent:Button.LargeIcon>
                             <mat:PackIcon Kind="FileChart" Height="30" Width="30" Foreground="Gray"/>
                         </fluent:Button.LargeIcon>
                     </fluent:Button>
-                    
-                    <fluent:Button Header="Alquileres">
-                        <fluent:Button.LargeIcon>
-                            <mat:PackIcon Kind="FileChart" Height="30" Width="30" Foreground="Gray"/>
-                        </fluent:Button.LargeIcon>
-                    </fluent:Button>
-                </fluent:RibbonGroupBox>
 
-                <!--Group STOCK-->
-                <fluent:RibbonGroupBox Header="STOCK">
-                    <fluent:Button>
+                    <fluent:Button Header="Alquileres" x:Name="rbtnInformeAlquileres"
+                                   Click="rbtnInformeAlquileres_Click">
                         <fluent:Button.LargeIcon>
-                            <mat:PackIcon Kind="Stocking" Height="35" Width="35"/>
+                            <mat:PackIcon Kind="FileChart" Height="30" Width="30" Foreground="Gray"/>
+                        </fluent:Button.LargeIcon>
+                    </fluent:Button>
+
+                    <fluent:Button Header="Alquileres Por Cliente" x:Name="rbtnInformeAlquileresPorUsuario"
+                                   Click="rbtnInformeAlquileresPorUsuario_Click">
+                        <fluent:Button.LargeIcon>
+                            <mat:PackIcon Kind="FileChart" Height="30" Width="30" Foreground="Gray"/>
+                        </fluent:Button.LargeIcon>
+                    </fluent:Button>
+
+                    <fluent:Button Header="Alquileres Por Devolver" x:Name="rbtnInformeAlquileresPorDevolver"
+                                   Click="rbtnInformeAlquileresPorDevolver_Click">
+                        <fluent:Button.LargeIcon>
+                            <mat:PackIcon Kind="FileChart" Height="30" Width="30" Foreground="Gray"/>
                         </fluent:Button.LargeIcon>
                     </fluent:Button>
                 </fluent:RibbonGroupBox>
             </fluent:RibbonTabItem>
 
+            <!--Ribbon Item Administracion-->
+            <fluent:RibbonTabItem Header="ADMINISTRACIÓN" x:Name="rtabAdministracion">
+                <!--Group Gestion Usuarios-->
+                <fluent:RibbonGroupBox Header="Gestión Usuarios">
+                    <fluent:Button Header="Nuevo" x:Name="rbtnAddUsuario" Click="rbtnAddUsuario_Click">
+                        <fluent:Button.LargeIcon>
+                            <mat:PackIcon Kind="UserPlus" Height="30" Width="30" Foreground="#34495e"/>
+                        </fluent:Button.LargeIcon>
+                    </fluent:Button>
+
+                    <fluent:Button Header="Listado" x:Name="rbtnListaUsuario"
+                                   Click="rbtnListaUsuario_Click">
+                        <fluent:Button.LargeIcon>
+                            <mat:PackIcon Kind="UserMultiple" Height="30" Width="30" Foreground="Gray"/>
+                        </fluent:Button.LargeIcon>
+                    </fluent:Button>
+                </fluent:RibbonGroupBox>
+
+                <!--Group Tipo Alquileres-->
+                <fluent:RibbonGroupBox Header="Tipo Alquiler">
+                    <fluent:Button Header="Nuevo" x:Name="rbtnAddTipoAlquiler"
+                                   Click="rbtnAddTipoAlquiler_Click">
+                        <fluent:Button.LargeIcon>
+                            <mat:PackIcon Kind="ArchiveAdd" Height="30" Width="30" Foreground="Gray"/>
+                        </fluent:Button.LargeIcon>
+                    </fluent:Button>
+
+                    <fluent:Button Header="Listado" x:Name="rbtnListaTipoAlquiler"
+                                   Click="rbtnListaTipoAlquiler_Click">
+                        <fluent:Button.LargeIcon>
+                            <mat:PackIcon Kind="ArchiveAlert" Height="30" Width="30" Foreground="Gray"/>
+                        </fluent:Button.LargeIcon>
+                    </fluent:Button>
+                </fluent:RibbonGroupBox>
+
+                <!--Group Informes-->
+                <fluent:RibbonGroupBox Header="Informes">
+                    <fluent:Button Header="Usuarios" x:Name="rbtnInformeUsuario"
+                                   Click="rbtnInformeUsuario_Click">
+                        <fluent:Button.LargeIcon>
+                            <mat:PackIcon Kind="FileChart" Height="30" Width="30" Foreground="Gray"/>
+                        </fluent:Button.LargeIcon>
+                    </fluent:Button>
+                </fluent:RibbonGroupBox>
+            </fluent:RibbonTabItem>
         </fluent:Ribbon>
         <Grid x:Name="mainGrid">
             

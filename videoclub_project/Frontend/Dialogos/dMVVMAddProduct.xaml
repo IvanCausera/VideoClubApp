@@ -7,9 +7,9 @@
         xmlns:mat="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:local="clr-namespace:videoclub_project.Frontend.Dialogos"
         mc:Ignorable="d"
-        Title="Insertar Producto" SizeToContent="Height" Width="800">
+        Title="Insertar Producto" SizeToContent="Height" Width="1100">
     <DockPanel>
-        <Grid DockPanel.Dock="Top">
+        <Grid DockPanel.Dock="Top" x:Name="gridTitulo">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
@@ -21,7 +21,7 @@
             </Border>
             <TextBlock Text="Los campos con * son obligatorios" VerticalAlignment="Top"
                        Margin="10,5,0,0" FontSize="10" FontWeight="Bold"
-                       Grid.Row="1"/>
+                       Grid.Row="1" x:Name="txtCampos"/>
         </Grid>
         <Grid>
             <Grid.RowDefinitions>
@@ -30,14 +30,19 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
             
             <!--Selecionar tipo producto -->
             <Button x:Name="btnTipoProducto" Style="{StaticResource MaterialDesignRaisedButton}"
                     HorizontalAlignment="Center" Content="Películas"
+                    Grid.ColumnSpan="2"
                     Click="btnTipoProducto_Click"/>
 
             <!--Informacion general-->
-            <Grid Grid.Row="1" Margin="14">
+            <Grid Grid.Row="1" Margin="14" x:Name="gridGeneral">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="40*" MinWidth="100" MaxWidth="1000"/>
                     <ColumnDefinition Width="30*" MinWidth="100" MaxWidth="1000"/>
@@ -103,7 +108,7 @@
                 <!--Duracion
                 ============================ Peliculas =======================-->
                 <TextBox x:Name="txtDuracion" Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                         mat:HintAssist.Hint="Duración (minutos)*" FontWeight="Bold" MaxLength="30"
+                         mat:HintAssist.Hint="Duración (minutos)*" FontWeight="Bold" MaxLength="11"
                          Margin="10"
                          MinWidth="100" MaxWidth="1000"
                          Height="38"
@@ -112,7 +117,7 @@
 
                 <!--Nota-->
                 <TextBox x:Name="txtNota" Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                         mat:HintAssist.Hint="Puntuación" MaxLength="30"
+                         mat:HintAssist.Hint="Puntuación" MaxLength="11"
                          Margin="10"
                          MinWidth="100" MaxWidth="1000"
                          Height="38"
@@ -121,7 +126,7 @@
 
                 <!--Edad Nota-->
                 <TextBox x:Name="txtEdadNota" Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                         mat:HintAssist.Hint="Clasificación Edad" MaxLength="30"
+                         mat:HintAssist.Hint="Clasificación Edad" MaxLength="10"
                          Margin="10"
                          MinWidth="100" MaxWidth="1000"
                          Height="38"
@@ -137,7 +142,7 @@
                          Grid.Row="4" Grid.Column="2"
                          DisplayMemberPath="genero"
                          ItemsSource="{Binding listGeneros}"
-                         SelectedItem="{Binding prodSelected.generos}"/>
+                         SelectedItem="{Binding prodSelected.generos, NotifyOnValidationError=True,ValidatesOnDataErrors=True}"/>
 
                 <!--Idioma-->
                 <ComboBox x:Name="comboIdioma" Style="{StaticResource MaterialDesignFloatingHintComboBox}"
@@ -148,7 +153,7 @@
                          Grid.Row="5" Grid.Column="1"
                          DisplayMemberPath="idioma"
                          ItemsSource="{Binding listIdiomas}"
-                         SelectedItem="{Binding prodSelected.idiomas}"/>
+                         SelectedItem="{Binding prodSelected.idiomas, NotifyOnValidationError=True,ValidatesOnDataErrors=True}"/>
 
                 <!--Idioma-->
                 <ComboBox x:Name="comboIdiomaDoblado" Style="{StaticResource MaterialDesignFloatingHintComboBox}"
@@ -159,12 +164,12 @@
                          Grid.Row="5" Grid.Column="2"
                           DisplayMemberPath="idioma"
                          ItemsSource="{Binding listIdiomas}"
-                         SelectedItem="{Binding prodSelected.idiomas1}"/>
+                         SelectedItem="{Binding prodSelected.idiomas1, NotifyOnValidationError=True,ValidatesOnDataErrors=True}"/>
 
             </Grid>
             
             <!--Informacion especifica-->
-            <Grid Grid.Row="2" Margin="14">
+            <Grid Grid.Row="1" Grid.Column="1" Margin="14" x:Name="gridInfoEspecifica">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition MinWidth="100" MaxWidth="1000"/>
                     <ColumnDefinition MinWidth="100" MaxWidth="1000"/>
@@ -192,32 +197,31 @@
                          Margin="10"
                          MinWidth="100" MaxWidth="1000"
                          MaxHeight="100"
-                         Grid.Row="1" Grid.Column="0"
-                         Grid.ColumnSpan="4"
+                         Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4"
                          Text="{Binding prodSelected.peliculas.sinopsis, NotifyOnValidationError=True,ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
                 
                 <!--Director-->
                 <TextBox x:Name="txtDirector" Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                         mat:HintAssist.Hint="Director*" FontWeight="Bold" MaxLength="30"
+                         mat:HintAssist.Hint="Director" MaxLength="20"
                          Margin="10"
                          MinWidth="100" MaxWidth="1000"
                          Height="38"
-                         Grid.Row="2" Grid.Column="0"
+                         Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
                          Text="{Binding prodSelected.peliculas.director, NotifyOnValidationError=True,ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
 
                 
                 <!--Pais-->
                 <TextBox x:Name="txtPais" Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                         mat:HintAssist.Hint="Pais*" FontWeight="Bold" MaxLength="30"
+                         mat:HintAssist.Hint="Pais" MaxLength="40"
                          Margin="10"
                          MinWidth="100" MaxWidth="1000"
                          Height="38"
-                         Grid.Row="2" Grid.Column="1"
+                         Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2"
                          Text="{Binding prodSelected.peliculas.pais, NotifyOnValidationError=True,ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
 
                 <!--Formato/Plataforma-->
                 <Grid Grid.Row="3" Grid.Column="0"
-                            Grid.ColumnSpan="2">
+                            Grid.ColumnSpan="2" x:Name="gridAddFormato">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="*"/>
@@ -264,7 +268,7 @@
                 
                 <!--Actor-->
                 <Grid Grid.Row="3" Grid.Column="2"
-                            Grid.ColumnSpan="2">
+                            Grid.ColumnSpan="2" x:Name="gridAddActor">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="*"/>
@@ -289,7 +293,7 @@
                          Margin="10"
                          MinWidth="100" MaxWidth="1000"
                          Height="38"
-                         Grid.Row="1" Grid.Column="0"
+                         Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
                          Text="{Binding prodSelected.videojuegos.distribuidora, NotifyOnValidationError=True,ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
                 
                 <!--Desarrolladora-->
@@ -298,8 +302,20 @@
                          Margin="10"
                          MinWidth="100" MaxWidth="1000"
                          Height="38"
-                         Grid.Row="1" Grid.Column="1"
+                         Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2"
                          Text="{Binding prodSelected.videojuegos.desarrolladora, NotifyOnValidationError=True,ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
+
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="txtMultijugador"
+                           Margin="40,0,0,0" FontSize="15"
+                           Text="Multijugador: "
+                           Grid.Row="2" Grid.Column="0"/>
+                
+                <CheckBox x:Name="chkMultijugador" Style="{StaticResource MaterialDesignCheckBox}"
+                          mat:HintAssist.Hint="Multijugador"
+                          Margin="0,5,75,0"
+                          Grid.Row="2" Grid.Column="1"
+                          Checked="chkMultijugador_Checked"
+                          Unchecked="chkMultijugador_Unchecked"/>
 
                 <Grid x:Name="gridLeft"
                       Grid.Row="4" Grid.Column="0"
@@ -319,12 +335,12 @@
             <Button x:Name="btnCancelar" Style="{StaticResource MaterialDesignOutlinedButton}"
                     HorizontalAlignment="Right" Content="Cancelar"
                     Margin="15, 35, 185, 15" IsCancel="True"
-                    Grid.Row="3"/>
+                    Grid.Row="3" Grid.Column="1"/>
             <Button x:Name="btnGuardar" Style="{StaticResource MaterialDesignRaisedButton}"
                     HorizontalAlignment="Right" Content="Guardar"
                     Click="btnGuardar_Click"
                     Margin="15, 35, 15, 15"
-                    Grid.Row="3"/>
+                    Grid.Row="3" Grid.Column="1"/>
 
         </Grid>
     </DockPanel>

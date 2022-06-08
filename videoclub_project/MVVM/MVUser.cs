@@ -9,6 +9,9 @@ using videoclub_project.Backend.Servicios;
 
 namespace videoclub_project.MVVM {
     public class MVUser: MVBaseCRUD<usuarios> {
+
+        public static usuarios loginUsuer;
+
         // Variables privadas ***************************************************************************************
         private videoclubEntities vidEnt;
 
@@ -17,9 +20,18 @@ namespace videoclub_project.MVVM {
         private empleado emplSel;
         private usuarios usuSel;
 
+        private string txtNombre;
+        private string txtUser;
+
         private ServicioUsuario servUsu;
 
         private ListCollectionView listView;
+
+        // Definicion criterios filtro *************************************
+        private List<Predicate<usuarios>> criterios;
+        private Predicate<usuarios> criterioNombre;
+        private Predicate<usuarios> criterioUsuario;
+        private Predicate<usuarios> criterioRol;
 
         // Constructor ***************************************************************************************
         public MVUser(videoclubEntities vidEnt) {
@@ -33,7 +45,16 @@ namespace videoclub_project.MVVM {
 
             listView = new ListCollectionView(servUsu.getAll().ToList());
 
+            inicializa();
         }
+
+        private void inicializa() {
+            criterios = new List<Predicate<usuarios>>();
+            criterioNombre = new Predicate<usuarios>(u => u.nombre.ToUpper().StartsWith(txtFiltroNombre.ToUpper()) || u.apellido1.ToUpper().StartsWith(txtFiltroNombre.ToUpper()));
+            criterioUsuario = new Predicate<usuarios>(u => u.user.ToUpper().StartsWith(txtFiltroUsuario.ToUpper()));
+            criterioRol = new Predicate<usuarios>(u => u.id_rol == rolSelected.idRoles);
+        }
+
         // Getters and Setters ***************************************************************************************
         public List<roles> listRoles {
             get { return new ServicioGenerico<roles>(vidEnt).getAll().ToList();}
@@ -63,6 +84,16 @@ namespace videoclub_project.MVVM {
             set { emplSel = value; NotifyPropertyChanged(nameof(emplSelected)); }
         }
 
+        public string txtFiltroNombre {
+            get { return txtNombre; }
+            set { txtNombre = value; NotifyPropertyChanged(nameof(txtFiltroNombre)); }
+        }
+
+        public string txtFiltroUsuario {
+            get { return txtUser; }
+            set { txtUser = value; NotifyPropertyChanged(nameof(txtFiltroUsuario)); }
+        }
+
         // Metodos ***************************************************************************************
 
         public bool guardar() {
@@ -82,7 +113,11 @@ namespace videoclub_project.MVVM {
         }
 
         public bool borrar() {
-            return delete(usuSelected);
+            if (!delete(usuSelected)) return false;
+
+            listUsuarios.Remove(usuSelected);
+
+            return true;
         }
 
         public bool editar() {
@@ -114,6 +149,38 @@ namespace videoclub_project.MVVM {
             if (pass.IndexOfAny(special) == -1) return false;
             else
                 return true;
+        }
+
+        public bool filtroCriterios(object obj) {
+            if (obj == null) return false;
+            bool correct = true;
+
+            usuarios user = (usuarios)obj;
+            if (criterios.Count() != 0) {
+                correct = criterios.TrueForAll(x => x(user));
+            }
+
+            return correct;
+        }
+
+        public void addCriterios() {
+            criterios.Clear();
+            if (!string.IsNullOrEmpty(txtFiltroNombre)) {
+                criterios.Add(criterioNombre);
+            }
+            if (!string.IsNullOrEmpty(txtFiltroUsuario)) {
+                criterios.Add(criterioUsuario);
+            }
+            if (rolSelected != null) {
+                criterios.Add(criterioRol);
+            }
+        }
+
+        public void borrarCriterios() {
+            txtFiltroNombre = null;
+            txtFiltroUsuario = null;
+            rolSelected = null;
+            criterios.Clear();
         }
     }
 }

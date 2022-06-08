@@ -7,7 +7,7 @@
         xmlns:mat="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:local="clr-namespace:videoclub_project.Frontend.Dialogos"
         mc:Ignorable="d"
-        Title="Insertar Usuario" SizeToContent="Height" Width="800">
+        Title="Insertar Usuario" SizeToContent="Height" Width="1200">
     <DockPanel>
         <Grid DockPanel.Dock="Top">
             <Grid.RowDefinitions>
@@ -29,6 +29,10 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
 
             <!--Datos Personales-->
             <Grid Grid.Row="0" Margin="14">
@@ -51,14 +55,14 @@
                 <Separator Grid.ColumnSpan="3" Grid.Row="0" Margin="0, 50, 0, 0"/>
                 <!--Nombre-->
                 <TextBox x:Name="txtNombre" Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                         mat:HintAssist.Hint="Nombre*" MaxLength="35" FontWeight="Bold"
+                         mat:HintAssist.Hint="Nombre*" MaxLength="20" FontWeight="Bold"
                          Margin="10"
                          MinWidth="100" MaxWidth="1000"
                          Grid.Row="1"
                          Text="{Binding usuSelected.nombre, NotifyOnValidationError=True,ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
                 <!--Apellido 1-->
                 <TextBox x:Name="txtApellido1" Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                         mat:HintAssist.Hint="Primer Apellido*" MaxLength="35" FontWeight="Bold"
+                         mat:HintAssist.Hint="Primer Apellido*" MaxLength="20" FontWeight="Bold"
                          Margin="10"
                          MinWidth="100" MaxWidth="1000"
                          Grid.Row="1"
@@ -66,7 +70,7 @@
                          Text="{Binding usuSelected.apellido1, NotifyOnValidationError=True,ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
                 <!--Apellido 2-->
                 <TextBox x:Name="txtApellido2" Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                         mat:HintAssist.Hint="Segundo Apellido" MaxLength="35"
+                         mat:HintAssist.Hint="Segundo Apellido" MaxLength="20"
                          Margin="10"
                          MinWidth="100" MaxWidth="1000"
                          Grid.Row="1"
@@ -100,13 +104,13 @@
 
                 <!--Domicilio-->
                 <TextBox x:Name="txtDomicilio" Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                         mat:HintAssist.Hint="Domicilio" MaxLength="31"
+                         mat:HintAssist.Hint="Domicilio" MaxLength="28"
                          Margin="10"
                          MinWidth="100" MaxWidth="1000"
                          Grid.Row="4"/>
                 <!--Poblacion-->
                 <TextBox x:Name="txtPoblacion" Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                         mat:HintAssist.Hint="Poblacion" MaxLength="20"
+                         mat:HintAssist.Hint="Poblacion" MaxLength="18"
                          Margin="10"
                          MinWidth="100" MaxWidth="1000"
                          Grid.Row="4"
@@ -122,7 +126,7 @@
             </Grid>
 
             <!--Datos Usuario-->
-            <Grid Grid.Row="1" Margin="14">
+            <Grid Grid.Row="0" Grid.Column="1" Margin="14">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition MinWidth="100" MaxWidth="1000"/>
                     <ColumnDefinition MinWidth="100" MaxWidth="1000"/>
@@ -153,7 +157,7 @@
                          mat:HintAssist.Hint="Password*" MaxLength="50" FontWeight="Bold"
                          Margin="10"
                          MinWidth="100" MaxWidth="1000"
-                         Grid.Row="1"
+                         Grid.Row="1" Grid.ColumnSpan="2"
                          Grid.Column="1"/>
 
                 <!--Mail-->
@@ -161,7 +165,7 @@
                          mat:HintAssist.Hint="Correo Electrónico" MaxLength="40"
                          Margin="10"
                          MinWidth="100" MaxWidth="1000"
-                         Grid.Row="2"
+                         Grid.Row="2" Grid.ColumnSpan="2"
                          Text="{Binding usuSelected.mail, NotifyOnValidationError=True,ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
 
                 <!--Rol-->
@@ -172,19 +176,19 @@
                          Grid.Row="3"
                          DisplayMemberPath="rol" SelectionChanged="comboRol_SelectionChanged"
                          ItemsSource="{Binding listRoles}"
-                         SelectedItem="{Binding usuSelected.roles}"/>
+                         SelectedItem="{Binding usuSelected.roles, NotifyOnValidationError=True,ValidatesOnDataErrors=True}"/>
 
                 <!--Empleados/Administrador-->
                 <!--Salario-->
                 <TextBox x:Name="txtSalario" Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                         mat:HintAssist.Hint="Salario*" FontWeight="Bold"
+                         mat:HintAssist.Hint="Salario"
                          Margin="10"
                          MinWidth="100" MaxWidth="1000"
                          Grid.Row="3" Grid.Column="1"
                          Text="{Binding emplSelected.salario, NotifyOnValidationError=True,ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"/>
                 <!--Cuanta Banco-->
                 <TextBox x:Name="txtBanco" Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                         mat:HintAssist.Hint="Cuenta Banco*" MaxLength="24" FontWeight="Bold"
+                         mat:HintAssist.Hint="Cuenta Banco" MaxLength="24"
                          Margin="10"
                          MinWidth="100" MaxWidth="1000"
                          Grid.Row="3" Grid.Column="2"
@@ -193,7 +197,7 @@
                 <!--Clientes-->
                 <!--Nuemro Tarjeta-->
                 <TextBox x:Name="txtNTarjeta" Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                         mat:HintAssist.Hint="Número de Tarjeta*" MaxLength="25" FontWeight="Bold"
+                         mat:HintAssist.Hint="Número de Tarjeta" MaxLength="25"
                          Margin="10"
                          MinWidth="100" MaxWidth="1000"
                          Grid.Row="3" Grid.Column="1"
@@ -205,12 +209,12 @@
             <Button x:Name="btnCancelar" Style="{StaticResource MaterialDesignOutlinedButton}"
                     HorizontalAlignment="Right" Content="Cancelar"
                     Margin="15, 35, 185, 15" IsCancel="True"
-                    Grid.Row="2"/>
+                    Grid.Row="2" Grid.Column="1"/>
             <Button x:Name="btnGuardar" Style="{StaticResource MaterialDesignRaisedButton}"
                     HorizontalAlignment="Right" Content="Guardar"
                     Click="btnGuardar_Click"
                     Margin="15, 35, 15, 15" IsDefault="True"
-                    Grid.Row="2"/>
+                    Grid.Row="2" Grid.Column="1"/>
         </Grid>
     </DockPanel>
 </mah:MetroWindow>

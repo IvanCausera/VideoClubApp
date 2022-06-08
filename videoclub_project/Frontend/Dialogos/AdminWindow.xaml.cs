@@ -28,6 +28,16 @@ namespace videoclub_project.Frontend.Dialogos {
             this.vidEnt = vidEnt;
             this.usuLogin = usuLogin;
             tbUserLogin.Text = usuLogin.ToString();
+
+            if (usuLogin.id_rol != roles.ADMINISTRADOR) {
+                rtabAdministracion.Visibility = Visibility.Collapsed;
+            }
+
+        }
+
+        private void Salir_Click(object sender, RoutedEventArgs e) {
+            new Login().Show();
+            this.Close();
         }
 
         private void rbtnAddUsuario_Click(object sender, RoutedEventArgs e) {
@@ -42,12 +52,6 @@ namespace videoclub_project.Frontend.Dialogos {
 
         private void rbtnListaUsuario_Click(object sender, RoutedEventArgs e) {
             UCUsers uc = new UCUsers(vidEnt);
-            mainGrid.Children.Clear();
-            mainGrid.Children.Add(uc);
-        }
-
-        private void rbtnListaProductos_Click(object sender, RoutedEventArgs e) {
-            UCProduct uc = new UCProduct(vidEnt);
             mainGrid.Children.Clear();
             mainGrid.Children.Add(uc);
         }
@@ -74,9 +78,63 @@ namespace videoclub_project.Frontend.Dialogos {
             mainGrid.Children.Add(uc);
         }
 
-        private void Salir_Click(object sender, RoutedEventArgs e) {
-            new Login().Show();
-            this.Close();
+        private void rbtnInformeUsuario_Click(object sender, RoutedEventArgs e) {
+            UCInformeUsuarios uc = new UCInformeUsuarios(vidEnt);
+            mainGrid.Children.Clear();
+            mainGrid.Children.Add(uc);
+        }
+
+        private void rbtnInformeVentas_Click(object sender, RoutedEventArgs e) {
+            UCInformeVentas uc = new UCInformeVentas(vidEnt);
+            mainGrid.Children.Clear();
+            mainGrid.Children.Add(uc);
+        }
+
+        private void rbtnInformeAlquileres_Click(object sender, RoutedEventArgs e) {
+            UCInformeAlquileres uc = new UCInformeAlquileres(vidEnt);
+            mainGrid.Children.Clear();
+            mainGrid.Children.Add(uc);
+        }
+
+        private void rbtnInformeProductos_Click(object sender, RoutedEventArgs e) {
+            UCInformeProductos uc = new UCInformeProductos(vidEnt);
+            mainGrid.Children.Clear();
+            mainGrid.Children.Add(uc);
+        }
+
+        private void rbtnAddTipoAlquiler_Click(object sender, RoutedEventArgs e) {
+            DMVVMTipoAlquiler diag = new DMVVMTipoAlquiler(vidEnt);
+            diag.ShowDialog();
+        }
+
+        private void rbtnListaTipoAlquiler_Click(object sender, RoutedEventArgs e) {
+            UCTipoAlquiler uc = new UCTipoAlquiler(vidEnt);
+            mainGrid.Children.Clear();
+            mainGrid.Children.Add(uc);
+        }
+
+        private void rbtnListaProductosJuegos_Click(object sender, RoutedEventArgs e) {
+            UCProduct uc = new UCProduct(vidEnt, productos.JUEGO);
+            mainGrid.Children.Clear();
+            mainGrid.Children.Add(uc);
+        }
+
+        private void rbtnListaProductosPeliculas_Click(object sender, RoutedEventArgs e) {
+            UCProduct uc = new UCProduct(vidEnt, productos.PELICULA);
+            mainGrid.Children.Clear();
+            mainGrid.Children.Add(uc);
+        }
+
+        private void rbtnInformeAlquileresPorUsuario_Click(object sender, RoutedEventArgs e) {
+            UCInformeAlquileresPorCliente uc = new UCInformeAlquileresPorCliente();
+            mainGrid.Children.Clear();
+            mainGrid.Children.Add(uc);
+        }
+
+        private void rbtnInformeAlquileresPorDevolver_Click(object sender, RoutedEventArgs e) {
+            UCInformeAlquileresPorDevolver uc = new UCInformeAlquileresPorDevolver();
+            mainGrid.Children.Clear();
+            mainGrid.Children.Add(uc);
         }
     }
 }

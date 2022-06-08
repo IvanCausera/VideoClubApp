@@ -40,7 +40,37 @@ namespace videoclub_project.Frontend.Dialogos {
             this.editar = false;
         }
 
-        public dMVVMAddVenta(videoclubEntities vidEnt, ventas venta) {
+        public dMVVMAddVenta(videoclubEntities vidEnt, usuarios user, item item = null) {
+            InitializeComponent();
+
+            this.vidEnt = vidEnt;
+
+            inicializa();
+
+            if (user.cliente != null) {
+                mVenta.ventaSelected.cliente = user.cliente;
+                comboCliente.IsEnabled = false;
+                dateReserva.Visibility = Visibility.Collapsed;
+                dateVenta.IsEnabled = false;
+                btnGuardar.Content = "Comprar";
+            }
+
+            if (item != null) {
+                mVenta.ventaSelected.ventas_productos.Add(new ventas_productos {
+                    ventas = mVenta.ventaSelected,
+                    item = item
+                });
+                uVentasProductos.update();
+                gridAddJuego.Visibility = Visibility.Collapsed;
+                gridAddPelicula.Visibility = Visibility.Collapsed;
+            }
+
+            mVenta.ventaSelected.fecha = DateTime.Now;
+
+            this.editar = false;
+        }
+
+        public dMVVMAddVenta(videoclubEntities vidEnt, ventas venta, bool ver = false) {
             InitializeComponent();
 
             this.vidEnt = vidEnt;
@@ -50,6 +80,18 @@ namespace videoclub_project.Frontend.Dialogos {
             this.editar = true;
             btnGuardar.Content = "Editar";
             mVenta.ventaSelected = venta;
+
+            if (ver) {
+                gridVenta.IsEnabled = false;
+                gridProductos.IsEnabled = false;
+
+                gridAddJuego.Visibility = Visibility.Collapsed;
+                gridAddPelicula.Visibility = Visibility.Collapsed;
+                gridTitulo.Visibility = Visibility.Collapsed;
+
+                btnCancelar.Visibility = Visibility.Collapsed;
+                btnGuardar.Visibility = Visibility.Collapsed;
+            }
         }
 
         private void inicializa() {
@@ -58,25 +100,62 @@ namespace videoclub_project.Frontend.Dialogos {
 
             uVentasProductos = new UCVentasProductos(mVenta);
             gridItems.Children.Add(uVentasProductos);
+
+            this.AddHandler(Validation.ErrorEvent, new RoutedEventHandler(mVenta.OnErrorEvent));
+            mVenta.btnGuardar = btnGuardar;
         }
 
         private void btnAddPelicula_Click(object sender, RoutedEventArgs e) {
-            mVenta.ventaSelected.ventas_productos.Add(new ventas_productos {
-                ventas = mVenta.ventaSelected,
-                item = ((formatos_peliculas)comboPelicula.SelectedItem).item
-            });
-            uVentasProductos.update();
+            try {
+                mVenta.ventaSelected.ventas_productos.Add(new ventas_productos {
+                    ventas = mVenta.ventaSelected,
+                    item = ((formatos_peliculas)comboPelicula.SelectedItem).item
+                });
+                uVentasProductos.update();
+            } catch (Exception) {
+                msgThrow("ERROR!! No es posible añadir la pelicula", false, false);
+            }
         }
 
         private void btnAddVideojuego_Click(object sender, RoutedEventArgs e) {
-            mVenta.ventaSelected.ventas_productos.Add(new ventas_productos {
-                ventas = mVenta.ventaSelected,
-                item = ((plataformas_videojuegos)comboVideojuego.SelectedItem).item
-            });
-            uVentasProductos.update();
+            try {
+                mVenta.ventaSelected.ventas_productos.Add(new ventas_productos {
+                    ventas = mVenta.ventaSelected,
+                    item = ((plataformas_videojuegos)comboVideojuego.SelectedItem).item
+                });
+                uVentasProductos.update();
+            } catch (Exception) {
+                msgThrow("ERROR!! No es posible añadir el videojuego", false, false);
+            }
         }
 
-        private async void btnGuardar_Click(object sender, RoutedEventArgs e) {
+        private void btnGuardar_Click(object sender, RoutedEventArgs e) {
+            foreach(ventas_productos venProd in mVenta.ventaSelected.ventas_productos) {
+                if (venProd.item.plataformas_videojuegos != null) {
+                    if (venProd.item.plataformas_videojuegos.stock <= 0) {
+                        msgThrow("ERROR!! Se está intentando comprar un artículo sin stock", false, false);
+                        return;
+                    }
+                    break;
+                }
+
+                if (venProd.item.formatos_peliculas != null) {
+                    if (venProd.item.formatos_peliculas.stock <= 0) {
+                        msgThrow("ERROR!! Se está intentando comprar un artículo sin stock", false, false);
+                        return;
+                    }
+                    break;
+                }
+
+                msgThrow("ERROR!! Se está intentando comprar un artículo que no existe", false, false);
+                return;
+            }
+
+            if (!mVenta.IsValid(this)) {
+                msgThrow("ERROR!!! Hay campos obligatorios sin completar", false, false);
+                return;
+            }
+
             bool result;
             if (editar) {
                 result = mVenta.editar();
@@ -85,13 +164,17 @@ namespace videoclub_project.Frontend.Dialogos {
             }
 
             if (result) {
-                await this.ShowMessageAsync("GESTIÓN VENTAS",
-                                   "TODO CORRECTO!!! Objeto guardado correctamente");
-                DialogResult = true;
+                msgThrow("TODO CORRECTO!!! Objeto guardado correctamente", true, true);
             } else {
-                await this.ShowMessageAsync("GESTIÓN VENTAS",
-                                   "ERROR!!! No se puede guardar el objeto");
-                DialogResult = false;
+                msgThrow("ERROR!!! No se puede guardar el objeto", true, false);
+            }
+        }
+
+        private async void msgThrow(string msg, bool close, bool result) {
+            await this.ShowMessageAsync("GESTIÓN VENTAS",
+                                   msg);
+            if (close) {
+                DialogResult = result;
             }
         }
     }

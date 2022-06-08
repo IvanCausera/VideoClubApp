@@ -14,7 +14,19 @@ namespace videoclub_project.Backend.Servicios {
 
         public ServicioProducto(DbContext context) : base(context) {
             this.context = context;
-        } 
+        }
+
+        public IEnumerable<productos> getAllVideojuegos() {
+            return context.Set<productos>().Where(u => u.videojuegos != null && u.peliculas == null).ToList();
+        }
+
+        public IEnumerable<productos> getAllPeliculas() {
+            return context.Set<productos>().Where(u => u.videojuegos == null && u.peliculas != null).ToList();
+        }
+
+        public productos getProduct(int id) {
+            return context.Set<productos>().Where(u => u.idProductos == id).FirstOrDefault();
+        }
 
         public List<actores_peliculas> getActores(int idPelicula) {
             return context.Set<actores_peliculas>().Where(u => u.id_pelicula == idPelicula).ToList();
@@ -22,6 +34,16 @@ namespace videoclub_project.Backend.Servicios {
 
         public List<formatos_peliculas> getFormatos(int idPelicula) {
             return context.Set<formatos_peliculas>().Where(x => x.id_pelicula == idPelicula).ToList();
+        }
+
+        public DateTime getFirstDate() {
+            productos prod = context.Set<productos>().OrderBy(p => p.fecha).FirstOrDefault();
+            return (DateTime)prod.fecha;
+        }
+
+        public DateTime getLastDate() {
+            productos prod = context.Set<productos>().OrderByDescending(p => p.fecha).FirstOrDefault();
+            return (DateTime)prod.fecha;
         }
     }
 }

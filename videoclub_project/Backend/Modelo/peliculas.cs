@@ -11,9 +11,10 @@ namespace videoclub_project.Backend.Modelo
 {
     using System;
     using System.Collections.Generic;
-    
-    public partial class peliculas
-    {
+    using System.ComponentModel.DataAnnotations;
+    using videoclub_project.MVVM;
+
+    public partial class peliculas : PropertyChangedDataError {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public peliculas()
         {
@@ -23,9 +24,13 @@ namespace videoclub_project.Backend.Modelo
     
         public int idPeliculas { get; set; }
         public string titulo_original { get; set; }
+
         public string pais { get; set; }
+
+        [Required(ErrorMessage = "Campo Duracion obligatorio")]
         public int duracion { get; set; }
         public string sinopsis { get; set; }
+
         public string director { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

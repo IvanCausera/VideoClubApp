@@ -25,14 +25,40 @@ namespace videoclub_project.Frontend.ControlesUsuario {
         private videoclubEntities vidEnt;
         private MVAlquiler mAlquiler;
 
+        private Predicate<object> predAlquiler;
+
         public UCAlquileres(videoclubEntities vidEnt) {
             InitializeComponent();
 
             this.vidEnt = vidEnt;
             mAlquiler = new MVAlquiler(vidEnt);
-            DataContext = mAlquiler;
+            inicializa();
+        }
+
+        public UCAlquileres(videoclubEntities vidEnt, cliente client) {
+            InitializeComponent();
+
+            this.vidEnt = vidEnt;
+            mAlquiler = new MVAlquiler(vidEnt, client);
+
+            txtFiltroCliente.Visibility = Visibility.Collapsed;
+            comboFiltroCliente.Visibility = Visibility.Collapsed;
+
+            inicializa();
 
         }
+
+        private void inicializa() {
+            DataContext = mAlquiler;
+            
+            if (MVUser.loginUsuer.id_rol != roles.EMPLEADO && MVUser.loginUsuer.id_rol != roles.ADMINISTRADOR) {
+                menuBorrar.Visibility = Visibility.Collapsed;
+                menuEditar.Visibility = Visibility.Collapsed;
+            }
+
+            predAlquiler = new Predicate<object>(mAlquiler.filtroCriterios);
+        }
+
 
         private void menuEditar_Click(object sender, RoutedEventArgs e) {
             dMVVMAddAlquiler diag = new dMVVMAddAlquiler(vidEnt, (alquileres)dgAlquiler.SelectedItem);
@@ -47,6 +73,46 @@ namespace videoclub_project.Frontend.ControlesUsuario {
             if (mAlquiler.borrar()) {
                 dgAlquiler.Items.Refresh();
             }
+        }
+
+        private void menuVer_Click(object sender, RoutedEventArgs e) {
+            dMVVMAddAlquiler diag = new dMVVMAddAlquiler(vidEnt, (alquileres)dgAlquiler.SelectedItem, true);
+            diag.ShowDialog();
+        }
+
+        private void comboFiltroCliente_SelectionChanged(object sender, SelectionChangedEventArgs e) {
+            filtrar();
+        }
+
+        private void comboFiltroArticulo_SelectionChanged(object sender, SelectionChangedEventArgs e) {
+            filtrar();
+        }
+
+        private void btnClearFilter_Click(object sender, RoutedEventArgs e) {
+            mAlquiler.borrarCriterios();
+
+            chkPorDevolver.IsChecked = false;
+            comboFiltroArticulo.SelectedIndex = -1;
+            comboFiltroCliente.SelectedIndex = -1;
+            comboFiltroArticulo.Text = "Seleciona un Articulo";
+            comboFiltroCliente.Text = "Seleciona un Cliente";
+
+            mAlquiler.listAlquileres.Filter = predAlquiler;
+        }
+
+        private void filtrar() {
+            mAlquiler.addCriterios();
+            mAlquiler.listAlquileres.Filter = predAlquiler;
+        }
+
+        private void chkPorDevolver_Checked(object sender, RoutedEventArgs e) {
+            mAlquiler.chkFiltroPorDevolver = true;
+            filtrar();
+        }
+
+        private void chkPorDevolver_Unchecked(object sender, RoutedEventArgs e) {
+            mAlquiler.chkFiltroPorDevolver = false;
+            filtrar();
         }
     }
 }

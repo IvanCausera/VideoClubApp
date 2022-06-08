@@ -39,7 +39,38 @@ namespace videoclub_project.Frontend.Dialogos {
             this.editar = false;
         }
 
-        public dMVVMAddAlquiler(videoclubEntities vidEnt, alquileres alq) {
+        public dMVVMAddAlquiler(videoclubEntities vidEnt, usuarios user, item item = null) {
+            InitializeComponent();
+
+            this.vidEnt = vidEnt;
+
+            inicializa();
+
+            if (user.cliente != null) {
+                mAlquiler.alqSelected.cliente = user.cliente;
+                comboCliente.IsEnabled = false;
+                dateReserva.Visibility = Visibility.Collapsed;
+                dateDevolucion.Visibility = Visibility.Collapsed;
+                dateAlquiler.IsEnabled = false;
+                btnGuardar.Content = "Alquilar";
+            }
+
+            if (item != null) {
+                mAlquiler.alqSelected.productos_alquiler.Add(new productos_alquiler {
+                    alquileres = mAlquiler.alqSelected,
+                    item = item
+                });
+                uProductosAlquiler.update();
+                gridAddJuego.Visibility = Visibility.Collapsed;
+                gridAddPelicula.Visibility = Visibility.Collapsed;
+            }
+
+            mAlquiler.alqSelected.fecha = DateTime.Now;
+
+            this.editar = false;
+        }
+
+        public dMVVMAddAlquiler(videoclubEntities vidEnt, alquileres alq, bool ver = false) {
             InitializeComponent();
 
             this.vidEnt = vidEnt;
@@ -49,6 +80,17 @@ namespace videoclub_project.Frontend.Dialogos {
             this.editar = true;
             btnGuardar.Content = "Editar";
             mAlquiler.alqSelected = alq;
+
+            if (ver) {
+                gridAlquiler.IsEnabled = false;
+                gridProductos.IsEnabled = false;
+
+                gridTitulo.Visibility = Visibility.Collapsed;
+                gridAddPelicula.Visibility = Visibility.Collapsed;
+                gridAddJuego.Visibility = Visibility.Collapsed;
+                btnCancelar.Visibility = Visibility.Collapsed;
+                btnGuardar.Visibility = Visibility.Collapsed;
+            }
         }
 
         private void inicializa() {
@@ -57,9 +99,38 @@ namespace videoclub_project.Frontend.Dialogos {
 
             uProductosAlquiler = new UCProductosAlquiler(mAlquiler);
             gridItems.Children.Add(uProductosAlquiler);
+
+            this.AddHandler(Validation.ErrorEvent, new RoutedEventHandler(mAlquiler.OnErrorEvent));
+            mAlquiler.btnGuardar = btnGuardar;
         }
 
-        private async void btnGuardar_Click(object sender, RoutedEventArgs e) {
+        private void btnGuardar_Click(object sender, RoutedEventArgs e) {
+            foreach (productos_alquiler alqProd in mAlquiler.alqSelected.productos_alquiler) {
+                if (alqProd.item.plataformas_videojuegos != null) {
+                    if (alqProd.item.plataformas_videojuegos.stock <= 0) {
+                        msgThrow("ERROR!! Se está intentando comprar un artículo sin stock", false, false);
+                        return;
+                    }
+                    break;
+                }
+
+                if (alqProd.item.formatos_peliculas != null) {
+                    if (alqProd.item.formatos_peliculas.stock <= 0) {
+                        msgThrow("ERROR!! Se está intentando comprar un artículo sin stock", false, false);
+                        return;
+                    }
+                    break;
+                }
+
+                msgThrow("ERROR!! Se está intentando comprar un artículo que no existe", false, false);
+                return;
+            }
+
+            if (!mAlquiler.IsValid(this)) {
+                msgThrow("ERROR!!! Hay campos obligatorios sin completar", false, false);
+                return;
+            }
+
             bool result;
             if (editar) {
                 result = mAlquiler.editar();
@@ -68,30 +139,42 @@ namespace videoclub_project.Frontend.Dialogos {
             }
 
             if (result) {
-                await this.ShowMessageAsync("GESTIÓN ALQUILER",
-                                   "TODO CORRECTO!!! Objeto guardado correctamente");
-                DialogResult = true;
+                msgThrow("TODO CORRECTO!!! Objeto guardado correctamente", true, true);
             } else {
-                await this.ShowMessageAsync("GESTIÓN ALQUILER",
-                                   "ERROR!!! No se puede guardar el objeto");
-                DialogResult = false;
+                msgThrow("ERROR!!! No se puede guardar el objeto", true, false);
             }
         }
 
         private void btnAddPelicula_Click(object sender, RoutedEventArgs e) {
-            mAlquiler.alqSelected.productos_alquiler.Add(new productos_alquiler {
-                alquileres = mAlquiler.alqSelected,
-                item = ((formatos_peliculas)comboPelicula.SelectedItem).item
-            });
-            uProductosAlquiler.update();
+            try {
+                mAlquiler.alqSelected.productos_alquiler.Add(new productos_alquiler {
+                    alquileres = mAlquiler.alqSelected,
+                    item = ((formatos_peliculas)comboPelicula.SelectedItem).item
+                });
+                uProductosAlquiler.update();
+            } catch (Exception) {
+                msgThrow("ERROR!! No se puede cargar la pelicula", false, false);
+            }
         }
 
         private void btnAddVideojuego_Click(object sender, RoutedEventArgs e) {
-            mAlquiler.alqSelected.productos_alquiler.Add(new productos_alquiler {
-                alquileres = mAlquiler.alqSelected,
-                item = ((plataformas_videojuegos)comboVideojuego.SelectedItem).item
-            });
-            uProductosAlquiler.update();
+            try {
+                mAlquiler.alqSelected.productos_alquiler.Add(new productos_alquiler {
+                    alquileres = mAlquiler.alqSelected,
+                    item = ((plataformas_videojuegos)comboVideojuego.SelectedItem).item
+                });
+                uProductosAlquiler.update();
+            } catch (Exception) {
+                msgThrow("ERROR!! No se puede cargar el videojuego", false, false);
+            }
+        }
+
+        private async void msgThrow(string msg, bool close, bool result) {
+            await this.ShowMessageAsync("GESTIÓN ALQUILER",
+                                   msg);
+            if (close) {
+                DialogResult = result;
+            }
         }
     }
 }

@@ -9,7 +9,7 @@
         mc:Ignorable="d"
         Title="Insertar Venta" SizeToContent="Height" Width="800">
     <DockPanel>
-        <Grid DockPanel.Dock="Top">
+        <Grid DockPanel.Dock="Top" x:Name="gridTitulo">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
@@ -30,9 +30,13 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
 
-            <!--Datos Personales-->
-            <Grid Grid.Row="0" Margin="14">
+            <!--Informacion Venta-->
+            <Grid Grid.Row="0" Margin="14" x:Name="gridVenta">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition MinWidth="100" MaxWidth="1000"/>
                     <ColumnDefinition MinWidth="100" MaxWidth="1000"/>
@@ -54,10 +58,10 @@
                          MinWidth="100" MaxWidth="1000"
                          Grid.Row="1"
                          ItemsSource="{Binding listClientes}"
-                         SelectedItem="{Binding ventaSelected.cliente}"/>
+                         SelectedItem="{Binding ventaSelected.cliente, NotifyOnValidationError=True,ValidatesOnDataErrors=True}"/>
 
                 <!--Fecha Venta-->
-                <DatePicker x:Name="dateAlquiler" Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
+                <DatePicker x:Name="dateVenta" Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
                             mat:HintAssist.Hint="Fecha Venta*" FontWeight="Bold"
                             Margin="10"
                             MinWidth="15" MaxWidth="150"
@@ -76,7 +80,7 @@
             </Grid>
 
             <!--Datos Usuario-->
-            <Grid Grid.Row="1" Margin="14">
+            <Grid Grid.Row="0" Grid.Column="1" Margin="14" x:Name="gridProductos">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition MinWidth="100" MaxWidth="1000"/>
                     <ColumnDefinition MinWidth="100" MaxWidth="1000"/>
@@ -93,7 +97,7 @@
                 <Separator Grid.ColumnSpan="3" Grid.Row="0" Margin="0, 50, 0, 0"/>
 
                 <!--Pelicula-->
-                <Grid Grid.Row="1">
+                <Grid Grid.Row="1" x:Name="gridAddPelicula">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="*"/>
@@ -112,7 +116,7 @@
                 </Grid>
 
                 <!--Videojuego-->
-                <Grid Grid.Row="1" Grid.Column="1">
+                <Grid Grid.Row="1" Grid.Column="1" x:Name="gridAddJuego">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="*"/>
@@ -141,12 +145,12 @@
             <Button x:Name="btnCancelar" Style="{StaticResource MaterialDesignOutlinedButton}"
                     HorizontalAlignment="Right" Content="Cancelar"
                     Margin="15, 35, 185, 15" IsCancel="True"
-                    Grid.Row="2"/>
+                    Grid.Row="2" Grid.Column="1"/>
             <Button x:Name="btnGuardar" Style="{StaticResource MaterialDesignRaisedButton}"
                     HorizontalAlignment="Right" Content="Guardar"
                     Click="btnGuardar_Click"
                     Margin="15, 35, 15, 15" IsDefault="True"
-                    Grid.Row="2"/>
+                    Grid.Row="2" Grid.Column="1"/>
         </Grid>
 
     </DockPanel>
