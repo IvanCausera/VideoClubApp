@@ -130,7 +130,10 @@ namespace videoclub_project.MVVM {
         // Methods ***************************************************************************************************
 
         public bool deleteProductoAlquiler() {
-            return alqSelected.productos_alquiler.Remove(prodAlqSelected);
+            alqSelected.productos_alquiler.Remove(prodAlqSelected);
+            if (!new MVBaseCRUD<productos_alquiler>(new ServicioGenerico<productos_alquiler>(vidEnt)).delete(prodAlqSelected)) return false;
+
+            return true;
         }
 
         public bool guardar() {

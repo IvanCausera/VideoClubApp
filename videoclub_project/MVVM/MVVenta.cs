@@ -112,7 +112,10 @@ namespace videoclub_project.MVVM {
         // Methods ***************************************************************************************************
 
         public bool delteVentaProduct() {
-            return ventaSelected.ventas_productos.Remove(ventProdSelected);
+            ventaSelected.ventas_productos.Remove(ventProdSelected);
+            if (!new MVBaseCRUD<ventas_productos>(new ServicioGenerico<ventas_productos>(vidEnt)).delete(ventProdSelected)) return false;
+
+            return true;
         }
 
         public bool guardar() {

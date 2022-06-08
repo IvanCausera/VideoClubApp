@@ -24,6 +24,10 @@ namespace videoclub_project.Backend.Servicios {
             return context.Set<productos>().Where(u => u.videojuegos == null && u.peliculas != null).ToList();
         }
 
+        public productos getProduct(int id) {
+            return context.Set<productos>().Where(u => u.idProductos == id).FirstOrDefault();
+        }
+
         public List<actores_peliculas> getActores(int idPelicula) {
             return context.Set<actores_peliculas>().Where(u => u.id_pelicula == idPelicula).ToList();
         }

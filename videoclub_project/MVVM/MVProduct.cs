@@ -197,15 +197,24 @@ namespace videoclub_project.MVVM {
         // Methods ***************************************************************************************************
 
         public bool deleteActor() {
-            return prodSel.peliculas.actores_peliculas.Remove(actorSelected);
+            prodSel.peliculas.actores_peliculas.Remove(actorSelected);
+            if (!new MVBaseCRUD<actores_peliculas>(new ServicioGenerico<actores_peliculas>(vidEnt)).delete(actorSelected)) return false;
+
+            return true;
         }
 
         public bool deleteFormato() {
-            return prodSel.peliculas.formatos_peliculas.Remove(formatoSelected);
+            prodSel.peliculas.formatos_peliculas.Remove(formatoSelected);
+            if (!new MVBaseCRUD<formatos_peliculas>(new ServicioGenerico<formatos_peliculas>(vidEnt)).delete(formatoSelected)) return false;
+
+            return true;
         }
 
         public bool deletePlataforma() {
-            return prodSel.videojuegos.plataformas_videojuegos.Remove(plataformaSelected);
+            prodSel.videojuegos.plataformas_videojuegos.Remove(plataformaSelected);
+            if (!new MVBaseCRUD<plataformas_videojuegos>(new ServicioGenerico<plataformas_videojuegos>(vidEnt)).delete(plataformaSelected)) return false;
+
+            return true;
         }
 
         public bool guardar() {
@@ -221,7 +230,7 @@ namespace videoclub_project.MVVM {
 
                         foreach (plataformas_videojuegos platGame in gamePlataforms) {
                             item gameItem = new item ();
-                            if (!new MVBaseCRUD<item>(new ServicioGenerico<item>(vidEnt)).add(gameItem)) return false; // item not inserted
+                            if (!new MVBaseCRUD<item>(new ServicioItem(vidEnt)).add(gameItem)) return false; // item not inserted
                             platGame.id_videojuego = game.idVideojuegos;
                             platGame.id = gameItem.idItem;
                             platGame.item = gameItem;
@@ -245,7 +254,7 @@ namespace videoclub_project.MVVM {
                     if (new MVBaseCRUD<peliculas>(new ServicioGenerico<peliculas>(vidEnt)).add(movie)) {
                         foreach (formatos_peliculas movieFormat in movieFormats) {
                             item movieItem = new item();
-                            if (!new MVBaseCRUD<item>(new ServicioGenerico<item>(vidEnt)).add(movieItem)) return false; // item not inserted
+                            if (!new MVBaseCRUD<item>(new ServicioItem(vidEnt)).add(movieItem)) return false; // item not inserted
                             movieFormat.id_pelicula = movie.idPeliculas;
                             movieFormat.id = movieItem.idItem;
                             movieFormat.item = movieItem;
@@ -271,6 +280,28 @@ namespace videoclub_project.MVVM {
         }
 
         public bool editar() {
+            if (prodSelected.peliculas != null) {
+
+                foreach (formatos_peliculas format in prodSelected.peliculas.formatos_peliculas) {
+                    if (format.item == null) {
+                        item movieItem = new item();
+                        if (!new MVBaseCRUD<item>(new ServicioItem(vidEnt)).add(movieItem)) return false; // item not inserted
+                        format.item = movieItem;
+                    }
+                }
+
+            } else {
+
+                foreach (plataformas_videojuegos plata in prodSelected.videojuegos.plataformas_videojuegos) {
+                    if (plata.item == null) {
+                        item gameItem = new item();
+                        if (!new MVBaseCRUD<item>(new ServicioItem(vidEnt)).add(gameItem)) return false; // item not inserted
+                        plata.item = gameItem;
+                    }
+                }
+                
+            }
+
             return update(prodSelected);
         }
 
