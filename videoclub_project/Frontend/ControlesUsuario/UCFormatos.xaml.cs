@@ -34,6 +34,7 @@ namespace videoclub_project.Frontend.ControlesUsuario {
         }
 
         public void addFormato(formatos_peliculas formato) {
+            if (mProduct.prodSelected.peliculas.formatos_peliculas == null) mProduct.prodSelected.peliculas.formatos_peliculas = new List<formatos_peliculas>();
             mProduct.prodSelected.peliculas.formatos_peliculas.Add(formato);
             dgFormato.Items.Refresh();
         }

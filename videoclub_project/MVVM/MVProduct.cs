@@ -282,21 +282,25 @@ namespace videoclub_project.MVVM {
         public bool editar() {
             if (prodSelected.peliculas != null) {
 
-                foreach (formatos_peliculas format in prodSelected.peliculas.formatos_peliculas) {
-                    if (format.item == null) {
-                        item movieItem = new item();
-                        if (!new MVBaseCRUD<item>(new ServicioItem(vidEnt)).add(movieItem)) return false; // item not inserted
-                        format.item = movieItem;
+                if (prodSelected.peliculas.formatos_peliculas != null) {
+                    foreach (formatos_peliculas format in prodSelected.peliculas.formatos_peliculas) {
+                        if (format.item == null) {
+                            item movieItem = new item();
+                            if (!new MVBaseCRUD<item>(new ServicioItem(vidEnt)).add(movieItem)) return false; // item not inserted
+                            format.item = movieItem;
+                        }
                     }
                 }
 
             } else {
 
-                foreach (plataformas_videojuegos plata in prodSelected.videojuegos.plataformas_videojuegos) {
-                    if (plata.item == null) {
-                        item gameItem = new item();
-                        if (!new MVBaseCRUD<item>(new ServicioItem(vidEnt)).add(gameItem)) return false; // item not inserted
-                        plata.item = gameItem;
+                if (prodSelected.videojuegos.plataformas_videojuegos != null) {
+                    foreach (plataformas_videojuegos plata in prodSelected.videojuegos.plataformas_videojuegos) {
+                        if (plata.item == null) {
+                            item gameItem = new item();
+                            if (!new MVBaseCRUD<item>(new ServicioItem(vidEnt)).add(gameItem)) return false; // item not inserted
+                            plata.item = gameItem;
+                        }
                     }
                 }
                 

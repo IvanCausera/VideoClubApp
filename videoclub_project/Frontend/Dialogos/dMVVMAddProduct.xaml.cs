@@ -60,6 +60,7 @@ namespace videoclub_project.Frontend.Dialogos {
 
             this.editar = true;
             btnGuardar.Content = "Editar";
+            btnPortada.IsEnabled = false;
             mProduct.prodSelected = product;
 
             if (!string.IsNullOrEmpty(product.portada)) {
@@ -127,10 +128,12 @@ namespace videoclub_project.Frontend.Dialogos {
                 return;
             }
 
-            if (portada != null) {
-                string portadaNombre = txtTitulo.Text + ".png";
-                saveImage(portada, "../../Recursos/img/productos/" + portadaNombre);
-                mProduct.prodSelected.portada = portadaNombre;
+            if (!editar) {
+                if (portada != null) {
+                    string portadaNombre = txtTitulo.Text + ".png";
+                    saveImage(portada, "../../Recursos/img/productos/" + portadaNombre);
+                    mProduct.prodSelected.portada = portadaNombre;
+                }
             }
 
             if (actualLayout == PELICULA) {
@@ -270,7 +273,7 @@ namespace videoclub_project.Frontend.Dialogos {
                     encoder.Save(fileStream);
                 }
             } catch (ArgumentNullException) {
-                //TODO excepcion
+                
             }
         }
 
@@ -289,7 +292,7 @@ namespace videoclub_project.Frontend.Dialogos {
         }
 
         private async void msgThrow(string msg, bool close, bool result) {
-            await this.ShowMessageAsync("GESTIÓN USUARIOS",
+            await this.ShowMessageAsync("GESTIÓN PRODUCTOS",
                                    msg);
             if (close) {
                 DialogResult = result;

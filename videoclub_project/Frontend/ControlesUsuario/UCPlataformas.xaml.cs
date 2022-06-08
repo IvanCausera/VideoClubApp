@@ -34,6 +34,7 @@ namespace videoclub_project.Frontend.ControlesUsuario {
         }
 
         public void addPlataforma(plataformas_videojuegos plataforma) {
+            if (mProduct.prodSelected.videojuegos.plataformas_videojuegos == null) mProduct.prodSelected.videojuegos.plataformas_videojuegos = new List<plataformas_videojuegos>();
             mProduct.prodSelected.videojuegos.plataformas_videojuegos.Add(plataforma);
             dgPlataforma.Items.Refresh();
         }
